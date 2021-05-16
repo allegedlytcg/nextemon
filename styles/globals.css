@@ -1,0 +1,289 @@
+html,
+body {
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+		'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+		'Helvetica Neue', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+p,
+form,
+select {
+	margin: 0;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+code {
+	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+		monospace;
+}
+
+a {
+	color: black;
+	text-decoration: none;
+}
+
+input {
+	height: 1.5rem;
+}
+
+:root {
+	--bg: lavender;
+	--text-color: #dadce1;
+	--nav-size: 60px;
+	--border: 1px solid rgb(136, 136, 136);
+	--border-radius: 8px;
+	--speed: 500ms;
+}
+
+ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.navbar {
+	height: 4rem;
+	background-color: lavender;
+	padding: 0 1rem;
+	border-bottom: 1px #6e6b6b;
+	box-shadow: 3px 3px 8px 2px #ccc;
+}
+
+/* <ul> */
+.navbar-nav {
+	max-width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: flex-end;
+}
+
+/* <li> */
+.nav-item {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Icon Button */
+.icon-button {
+	cursor: pointer;
+	--button-size: calc(var(--nav-size) * 0.5);
+	width: var(--button-size);
+	height: var(--button-size);
+	background-color: rgb(120, 122, 128);
+	border-radius: 50%;
+	padding: 5px;
+	margin: 2px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: filter 300ms;
+	color: #dadce1;
+}
+
+.icon-button:hover {
+	filter: brightness(1.2);
+}
+
+.icon-button svg {
+	fill: #dadce1;
+	width: 20px;
+	height: 20px;
+}
+
+/* Dropdown Menu */
+
+.dropdown {
+	position: absolute;
+	top: 58px;
+	right: -93px; /* bad but i think this works */
+	width: 300px;
+	transform: translateX(-45%);
+	background-color: var(--bg);
+	border: var(--border);
+	border-radius: var(--border-radius);
+	padding: 1rem;
+	overflow: hidden;
+	transition: height var(--speed) ease;
+	padding: 1rem;
+	z-index: 100;
+}
+
+.menu {
+	width: 100%;
+}
+
+.menu-item {
+	height: 50px;
+	display: flex;
+	align-items: center;
+	border-radius: var(--border-radius);
+	transition: background var(--speed);
+	padding: 0.5rem;
+}
+
+.menu-item .icon-button {
+	margin-right: 0.5rem;
+}
+
+.menu-item .icon-button:hover {
+	filter: none;
+}
+
+.menu-item:hover {
+	background-color: #525357;
+	cursor: pointer;
+}
+
+.icon-right {
+	margin-left: auto;
+}
+
+/* CSSTransition classes  */
+.menu-primary-enter {
+	position: absolute;
+	transform: translateX(-110%);
+}
+.menu-primary-enter-active {
+	transform: translateX(0%);
+	transition: all var(--speed) ease;
+}
+.menu-primary-exit {
+	position: absolute;
+}
+.menu-primary-exit-active {
+	transform: translateX(-110%);
+	transition: all var(--speed) ease;
+}
+
+.menu-secondary-enter {
+	transform: translateX(110%);
+}
+.menu-secondary-enter-active {
+	transform: translateX(0%);
+	transition: all var(--speed) ease;
+}
+
+.menu-secondary-exit-active {
+	transform: translateX(110%);
+	transition: all var(--speed) ease;
+}
+
+.dark-mode__toggle {
+	background: #4cca61;
+	border-radius: 50px;
+	border: 1px solid grey;
+	height: 20px;
+	position: relative;
+	width: 40px;
+	justify-self: flex-end;
+	justify-self: end;
+	left: 5rem;
+	cursor: pointer;
+}
+
+.toggle {
+	background: #f8f8f8;
+	border-radius: 50px;
+	height: 18px;
+	left: 1px;
+	top: 0px;
+	position: absolute;
+	transition: 2s;
+	width: 20px;
+}
+
+.toggled {
+	left: 19px;
+}
+
+.dark-mode {
+	color: #fff;
+	background-color: #313843;
+}
+.dark-mode .navbar {
+	background-color: #1f2022 !important;
+	border: none;
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2) !important;
+	color: #fff;
+}
+
+.dark-mode a {
+	color: #fff !important;
+}
+
+.dark-mode .dropdown {
+	background-color: #1f2022;
+	color: #fff;
+}
+
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: #f1f1f1;
+	border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #888;
+	border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
+
+.dark-mode ::-webkit-scrollbar-track {
+	background: #888;
+}
+
+.dark-mode ::-webkit-scrollbar-thumb {
+	background: #f1f1f1;
+}
+
+#nprogress {
+	pointer-events: none;
+}
+
+#nprogress .bar {
+	background: var(--progressBar);
+
+	position: fixed;
+	z-index: 1031;
+	top: 0;
+	left: 0;
+	background-color: blue;
+
+	width: 100%;
+	height: 2px;
+}
+
+#nprogress .peg {
+	display: block;
+	position: absolute;
+	right: 0px;
+	width: 100px;
+	height: 100%;
+	box-shadow: 0 0 10px var(--progressBar), 0 0 5px var(--progressBar);
+	opacity: 1;
+
+	-webkit-transform: rotate(3deg) translate(0px, -4px);
+	-ms-transform: rotate(3deg) translate(0px, -4px);
+	transform: rotate(3deg) translate(0px, -4px);
+}
