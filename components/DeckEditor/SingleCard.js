@@ -51,7 +51,8 @@ const SingleCard = () => {
 											clickHandler={() =>
 												editingDeckDispatch({
 													type: 'ADD_TO_EDIT',
-													currentState: editingDeckState,
+													currentState:
+														editingDeckState,
 													card,
 												})
 											}
@@ -63,7 +64,8 @@ const SingleCard = () => {
 											clickHandler={() =>
 												editingDeckDispatch({
 													type: 'REMOVE_FROM_EDIT',
-													currentState: editingDeckState,
+													currentState:
+														editingDeckState,
 													card,
 												})
 											}
@@ -76,10 +78,12 @@ const SingleCard = () => {
 							</div>
 							<div className='card-info'>
 								<div className='card-title'>
-									<h2>
+									<h2 style={{ display: 'flex' }}>
 										{card.name}{' '}
 										<span className='hp'>
-											{card.hp && card.hp} HP
+											{card.supertype === 'Pokémon' ? (
+												<h4>{card.hp} HP</h4>
+											) : null}
 										</span>
 									</h2>
 									<h3>
@@ -237,8 +241,7 @@ const SingleCard = () => {
 														<div className='primary-attack'>
 															<h4
 																style={{
-																	color:
-																		'#D84040',
+																	color: '#D84040',
 																}}
 															>
 																{attack.name}
@@ -271,8 +274,7 @@ const SingleCard = () => {
 																	Damage:{' '}
 																	<span
 																		style={{
-																			color:
-																				'#FED300',
+																			color: '#FED300',
 																			fontWeight:
 																				'bold',
 																		}}
@@ -341,6 +343,7 @@ const SingleCardStyles = styled.div`
 	}
 	.hp {
 		color: #d84040;
+		margin-left: 0.25rem;
 	}
 
 	.card-info {
