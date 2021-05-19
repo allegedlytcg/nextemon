@@ -19,26 +19,11 @@ const userRoutes = require('./routes/user');
 const deckRoutes = require('./routes/deck');
 const PokemonRoutes = require('./routes/pokemon');
 
-const corsOptions = (req, callback) => {
-	const whitelist = [
-		'http://localhost:4200',
-		'https://allegedlytcg.herokuapp.com',
-		'http://localhost:8080',
-	];
-
-	let allowCors;
-
-	const origin = req.headers.origin;
-
-	if (whitelist.indexOf(origin) !== -1) {
-		allowCors = { origin: true, methods: ['*'] };
-	}
-
-	allowCors = { origin: false };
-
-	callback(null, allowCors);
-};
-
+const whitelist = [
+	'http://localhost:4200',
+	'https://allegedlytcg.herokuapp.com',
+	'http://localhost:8080',
+];
 // connect database
 dbConnect();
 const PORT = process.env.PORT;
@@ -51,7 +36,24 @@ nextApp.prepare().then(() => {
 
 	app.use(express.json({ extended: false }));
 
-	app.use(cors(corsOptions));
+	app.use(
+		cors({
+			origin: (origin, callback) => {
+				// allow requests with no origin
+				// (like mobile apps or curl requests)
+				if (!origin) return callback(null, true);
+				if (whitelist.indexOf(origin) === -1) {
+					const msg =
+						'The CORS policy for this site does not ' +
+						'allow access from the specified Origin.';
+					return callback(new Error(msg), false);
+				}
+				return callback(null, true);
+			},
+			methods: ['GET', 'PUT', 'POST', 'DELETE'],
+		}),
+	);
+
 	app.use('/api/v1/user', userRoutes);
 	app.use('/api/v1/deck', deckRoutes);
 	app.use('/api/v1/pokemon', PokemonRoutes);
@@ -63,7 +65,7 @@ nextApp.prepare().then(() => {
 		console.log(`Express server running on http://localhost:${PORT}`);
 	});
 });
-const io = require('socket.io')(server, corsOptions);
+const io = require('socket.io')(server);
 
 let roomMap = {}; // holds All of the active rooms of the server
 io.on('connection', (socket) => {
