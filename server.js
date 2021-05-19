@@ -1,79 +1,70 @@
-const thingbeforeapp = require('express');
-const express = thingbeforeapp();
+const express = require('express');
+const app = express();
 const helmet = require('helmet');
 require('dotenv').config();
-// const cors = require("cors");
 const next = require('next');
+const cors = require('cors');
+const http = require('http');
+const server = http.createServer(app);
+
 const dev = process.env.NODE_ENV !== 'production';
 
 const nextApp = next({ dev });
 const handle = nextApp.getRequestHandler();
 // database connection file
 const dbConnect = require('./dbConnect');
+
 // route files
 const userRoutes = require('./routes/user');
 const deckRoutes = require('./routes/deck');
 const PokemonRoutes = require('./routes/pokemon');
-// const RoomChat = require('./routes/RoomChat');
-// const chatRoutes = require('./routes/chat');
-// initalize express
 
-// const socketTest = require('./routes/socketTest');
-
-// console.log(cors);
-// init middleware
-let cors = function (req, res, next) {
-	var whitelist = [
+const corsOptions = (req, callback) => {
+	const whitelist = [
 		'http://localhost:4200',
-		'http://localhost:3000',
-		'https://www.allegedlytcg.com',
-		'http://allegedlytcg.com',
-		'https://allegedlytcg.com',
-		'http://allegedlytcg.s3-website.us-east-2.amazonaws.com',
-		'https://pr-49.d36zl7upiy9z6s.amplifyapp.com',
-		'https://nextemon.vercel.app',
+		'https://allegedlytcg.herokuapp.com',
+		'http://localhost:8080',
 	];
-	let origin = req.headers.origin;
-	if (whitelist.indexOf(origin) > -1) {
-		res.setHeader('Access-Control-Allow-Origin', origin);
+
+	let allowCors;
+
+	const origin = req.headers.origin;
+
+	if (whitelist.indexOf(origin) !== -1) {
+		allowCors = { origin: true, methods: ['*'] };
 	}
-	res.setHeader('Access-Control-Allow-Credentials', true);
-	res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-	res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
-	next();
+
+	allowCors = { origin: false };
+
+	callback(null, allowCors);
 };
 
 // connect database
 dbConnect();
 const PORT = process.env.PORT;
-nextApp.prepare().then(() => {
-	express.use(cors);
 
+nextApp.prepare().then(() => {
 	// TODO:
 	// this is dicking images but we need kind of
 	// but figure out how to make this and images from pokemon api work
 	// express.use(helmet());
 
-	express.use(thingbeforeapp.json({ extended: false }));
+	app.use(express.json({ extended: false }));
 
-	express.use('/api/v1/user', userRoutes);
-	express.use('/api/v1/deck', deckRoutes);
-	express.use('/api/v1/pokemon', PokemonRoutes);
-	express.all('*', (req, res) => handle(req, res));
+	app.use(cors(corsOptions));
+	app.use('/api/v1/user', userRoutes);
+	app.use('/api/v1/deck', deckRoutes);
+	app.use('/api/v1/pokemon', PokemonRoutes);
+	app.all('*', (req, res) => handle(req, res));
+
 	server.listen(PORT, (err) => {
 		if (err) throw err;
 
 		console.log(`Express server running on http://localhost:${PORT}`);
 	});
 });
+const io = require('socket.io')(server, corsOptions);
 
-// const server = express.listen(PORT, () => {
-// 	console.log(`express listening on port ${PORT}!`);
-// });
-// const app = require('express')();
-const server = require('http').createServer(express);
-const io = require('socket.io')(server);
-// const io = require('socket.io')(server);
 let roomMap = {}; // holds All of the active rooms of the server
 io.on('connection', (socket) => {
 	console.log('made socket connection'); //each individualclient will have a socket with the server
@@ -199,5 +190,3 @@ function disconnectRoom(room, namespace = '/') {
 			);
 		});
 }
-
-// server.listen(PORT, () => console.log(`listening on ${PORT}`));
