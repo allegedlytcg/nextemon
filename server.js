@@ -24,6 +24,24 @@ const whitelist = [
 	'https://allegedlytcg.herokuapp.com',
 	'http://localhost:8080',
 ];
+
+const corsOptions = () => {
+	return {
+		origin: (origin, callback) => {
+			// allow requests with no origin
+			// (like mobile apps or curl requests)
+			if (!origin) return callback(null, true);
+			if (whitelist.indexOf(origin) === -1) {
+				const msg =
+					'The CORS policy for this site does not ' +
+					'allow access from the specified Origin.';
+				return callback(new Error(msg), false);
+			}
+			return callback(null, true);
+		},
+		methods: ['GET', 'PUT', 'POST', 'DELETE'],
+	};
+};
 // connect database
 dbConnect();
 const PORT = process.env.PORT;
@@ -36,23 +54,7 @@ nextApp.prepare().then(() => {
 
 	app.use(express.json({ extended: false }));
 
-	app.use(
-		cors({
-			origin: (origin, callback) => {
-				// allow requests with no origin
-				// (like mobile apps or curl requests)
-				if (!origin) return callback(null, true);
-				if (whitelist.indexOf(origin) === -1) {
-					const msg =
-						'The CORS policy for this site does not ' +
-						'allow access from the specified Origin.';
-					return callback(new Error(msg), false);
-				}
-				return callback(null, true);
-			},
-			methods: ['GET', 'PUT', 'POST', 'DELETE'],
-		}),
-	);
+	app.use(cors(corsOptions()));
 
 	app.use('/api/v1/user', userRoutes);
 	app.use('/api/v1/deck', deckRoutes);
@@ -65,7 +67,7 @@ nextApp.prepare().then(() => {
 		console.log(`Express server running on http://localhost:${PORT}`);
 	});
 });
-const io = require('socket.io')(server);
+const io = require('socket.io')(server, { cors: corsOptions() });
 
 let roomMap = {}; // holds All of the active rooms of the server
 io.on('connection', (socket) => {
