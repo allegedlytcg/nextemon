@@ -21,6 +21,7 @@ const PokemonRoutes = require('./routes/pokemon');
 
 const whitelist = [
 	'http://localhost:4200',
+	'http://localhost:8080',
 	'https://allegedlytcg.herokuapp.com',
 ];
 
