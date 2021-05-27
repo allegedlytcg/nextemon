@@ -48,7 +48,7 @@ const PORT = process.env.PORT;
 nextApp.prepare().then(() => {
 	app.use(helmet()); // use all helmet provided middleware
 	app.use(
-		// override this to allow our app to get images declard sources
+		// override this to allow our app to get images from declared sources
 		helmet.contentSecurityPolicy({
 			directives: {
 				...helmet.contentSecurityPolicy.getDefaultDirectives(),
