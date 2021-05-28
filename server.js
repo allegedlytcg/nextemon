@@ -154,7 +154,7 @@ io.on('connection', (socket) => {
 			console.log(exception_var);
 		  }
 		  finally {
-			console.log('horrible')
+			console.log('finished socket leave on room')
 		  }
 
 
