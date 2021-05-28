@@ -21,44 +21,50 @@ const PokemonRoutes = require('./routes/pokemon');
 
 const whitelist = [
 	'http://localhost:4200',
-	'https://allegedlytcg.herokuapp.com',
 	'http://localhost:8080',
+	'https://allegedlytcg.herokuapp.com',
 ];
 
-const corsOptions = () => {
-	return {
-		origin: (origin, callback) => {
-			// allow requests with no origin
-			// (like mobile apps or curl requests)
-			if (!origin) return callback(null, true);
-			if (whitelist.indexOf(origin) === -1) {
-				const msg =
-					'The CORS policy for this site does not ' +
-					'allow access from the specified Origin.';
-				return callback(new Error(msg), false);
-			}
-			return callback(null, true);
-		},
-		methods: ['GET', 'PUT', 'POST', 'DELETE'],
-	};
+const corsOptions = {
+	origin: (origin, callback) => {
+		// allow requests with no origin (our next app)
+		if (!origin) return callback(null, true);
+		if (whitelist.indexOf(origin) === -1) {
+			const msg = `The CORS policy for this site does not allow access from the specified ${origin}`;
+			return callback(new Error(msg), false);
+		}
+		return callback(null, true);
+	},
+	// needs to be true for angular and
+	// same-origin for next/react
+	credentials: true || 'same-origin',
+	methods: ['GET', 'PUT', 'POST', 'DELETE'],
 };
+
 // connect database
 dbConnect();
 const PORT = process.env.PORT;
 
 nextApp.prepare().then(() => {
-	// TODO:
-	// this is dicking images but we need kind of
-	// but figure out how to make this and images from pokemon api work
-	// express.use(helmet());
+	app.use(helmet()); // use all helmet provided middleware
+	app.use(
+		// override this to allow our app to get images from declared sources
+		helmet.contentSecurityPolicy({
+			directives: {
+				...helmet.contentSecurityPolicy.getDefaultDirectives(),
+				'img-src': ["'self'", 'images.pokemontcg.io', 'data:'],
+			},
+		}),
+	);
 
 	app.use(express.json({ extended: false }));
 
-	app.use(cors(corsOptions()));
+	app.use(cors(corsOptions));
 
 	app.use('/api/v1/user', userRoutes);
 	app.use('/api/v1/deck', deckRoutes);
 	app.use('/api/v1/pokemon', PokemonRoutes);
+
 	app.all('*', (req, res) => handle(req, res));
 
 	server.listen(PORT, (err) => {
@@ -67,7 +73,7 @@ nextApp.prepare().then(() => {
 		console.log(`Express server running on http://localhost:${PORT}`);
 	});
 });
-const io = require('socket.io')(server, { cors: corsOptions() });
+const io = require('socket.io')(server, { cors: corsOptions });
 
 let roomMap = {}; // holds All of the active rooms of the server
 io.on('connection', (socket) => {
