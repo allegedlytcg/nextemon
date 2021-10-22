@@ -25,15 +25,9 @@ test('should get top 6 cards of deck', () => {
 			{ name: 'omanyte' },
 		],
 		updatedDeck: [
-			{
-				name: 'slowpoke',
-			},
-			{
-				name: 'pigeot',
-			},
-			{
-				name: 'arbok',
-			},
+			{ name: 'slowpoke' },
+			{ name: 'pigeot' },
+			{ name: 'arbok' },
 		],
 	});
 });

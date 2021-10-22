@@ -1,6 +1,5 @@
 const { getAttack } = require('../common');
 
-jest.useFakeTimers('legacy');
 describe('get attack method', () => {
 	test('should perform leech seed', () => {
 		const userPokemon = {
