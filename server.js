@@ -135,8 +135,41 @@ io.on('connection', (socket) => {
 		//need their room(s)
 		//emit a message indicating that the 'other' user left
 		io.to(room).emit('gtfo', 'boot');
-		disconnectRoom(room);
+
+		console.log('room is ', room, ' and of type ', typeof(room))
+
+		try{
+		
+		}
+		catch(error){
+		
+		}
+
+		try {
+			io.socketsLeave(room);
+			console.log('no error happened!')
+		  }
+		  catch (exception_var) {
+			  console.log('here comes error')
+			console.log(exception_var);
+		  }
+		  finally {
+			console.log('finished socket leave on room')
+		  }
+
+
+		// io.of('/').in('chat').clients((error, socketIds) => {
+		// 	if (error) throw error;
+		  
+		// 	socketIds.forEach(socketId => io.sockets.sockets[socketId].leave(room));
+		  
+		//   });
 	});
+	// io.of("/").adapter.on("delete-room", (room) => {
+	
+	// 	console.log(`deleted room ${room}`);
+	// 		io.to(room).emit('gtfo', 'boot');
+	//   });
 	//TODO CHANGE THIS TO BOOKMARKED CONNECT/DISCONNECT METHO
 	//     socket.on("disconnect", (room) =>{
 
@@ -191,12 +224,3 @@ io.on('connection', (socket) => {
 	});
 });
 
-function disconnectRoom(room, namespace = '/') {
-	io.of(namespace)
-		.in(room)
-		.clients((err, clients) => {
-			clients.forEach((clientId) =>
-				io.sockets.connected[clientId].disconnect(),
-			);
-		});
-}
