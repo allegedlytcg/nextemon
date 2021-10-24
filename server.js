@@ -1,79 +1,81 @@
-const thingbeforeapp = require('express');
-const express = thingbeforeapp();
+const express = require('express');
+const app = express();
 const helmet = require('helmet');
 require('dotenv').config();
-// const cors = require("cors");
 const next = require('next');
+const cors = require('cors');
+const http = require('http');
+const server = http.createServer(app);
+
 const dev = process.env.NODE_ENV !== 'production';
 
 const nextApp = next({ dev });
 const handle = nextApp.getRequestHandler();
 // database connection file
 const dbConnect = require('./dbConnect');
+
 // route files
 const userRoutes = require('./routes/user');
 const deckRoutes = require('./routes/deck');
 const PokemonRoutes = require('./routes/pokemon');
-// const RoomChat = require('./routes/RoomChat');
-// const chatRoutes = require('./routes/chat');
-// initalize express
 
-// const socketTest = require('./routes/socketTest');
+const whitelist = [
+	'http://localhost:4200',
+	'http://localhost:8080',
+	'https://allegedlytcg.herokuapp.com',
+	'https://www.nostalgiagamestudios.com',
+];
 
-// console.log(cors);
-// init middleware
-let cors = function (req, res, next) {
-	var whitelist = [
-		'http://localhost:4200',
-		'http://localhost:3000',
-		'https://www.allegedlytcg.com',
-		'http://allegedlytcg.com',
-		'https://allegedlytcg.com',
-		'http://allegedlytcg.s3-website.us-east-2.amazonaws.com',
-		'https://pr-49.d36zl7upiy9z6s.amplifyapp.com',
-		'https://nextemon.vercel.app',
-	];
-	let origin = req.headers.origin;
-	if (whitelist.indexOf(origin) > -1) {
-		res.setHeader('Access-Control-Allow-Origin', origin);
-	}
-	res.setHeader('Access-Control-Allow-Credentials', true);
-	res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-	res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
-	next();
+const corsOptions = {
+	origin: (origin, callback) => {
+		// allow requests with no origin (our next app)
+		if (!origin) return callback(null, true);
+		if (whitelist.indexOf(origin) === -1) {
+			const msg = `The CORS policy for this site does not allow access from the specified ${origin}`;
+			return callback(new Error(msg), false);
+		}
+		return callback(null, true);
+	},
+	// needs to be true for angular and
+	// same-origin for next/react
+	credentials: true || 'same-origin',
+	methods: ['GET', 'PUT', 'POST', 'DELETE'],
 };
 
 // connect database
 dbConnect();
 const PORT = process.env.PORT;
+
 nextApp.prepare().then(() => {
-	express.use(cors);
+	app.use(helmet()); // use all helmet provided middleware
+	app.use(
+		// override this to allow our app to get images from declared sources
+		helmet.contentSecurityPolicy({
+			directives: {
+				...helmet.contentSecurityPolicy.getDefaultDirectives(),
+				'img-src': ["'self'", 'images.pokemontcg.io', 'data:'],
+			},
+		}),
+	);
 
-	// TODO:
-	// this is dicking images but we need kind of
-	// but figure out how to make this and images from pokemon api work
-	// express.use(helmet());
+	app.use(express.json({ extended: false }));
 
-	express.use(thingbeforeapp.json({ extended: false }));
+	app.use(cors(corsOptions));
 
-	express.use('/api/v1/user', userRoutes);
-	express.use('/api/v1/deck', deckRoutes);
-	express.use('/api/v1/pokemon', PokemonRoutes);
-	express.all('*', (req, res) => handle(req, res));
+	app.use('/api/v1/user', userRoutes);
+	app.use('/api/v1/deck', deckRoutes);
+	app.use('/api/v1/pokemon', PokemonRoutes);
+
+	app.all('*', (req, res) => handle(req, res));
+
 	server.listen(PORT, (err) => {
 		if (err) throw err;
 
 		console.log(`Express server running on http://localhost:${PORT}`);
 	});
 });
+const io = require('socket.io')(server, { cors: corsOptions });
 
-// const server = express.listen(PORT, () => {
-// 	console.log(`express listening on port ${PORT}!`);
-// });
-// const app = require('express')();
-const server = require('http').createServer(express);
-const io = require('socket.io')(server);
-// const io = require('socket.io')(server);
 let roomMap = {}; // holds All of the active rooms of the server
 io.on('connection', (socket) => {
 	console.log('made socket connection'); //each individualclient will have a socket with the server
@@ -134,8 +136,41 @@ io.on('connection', (socket) => {
 		//need their room(s)
 		//emit a message indicating that the 'other' user left
 		io.to(room).emit('gtfo', 'boot');
-		disconnectRoom(room);
+
+		console.log('room is ', room, ' and of type ', typeof(room))
+
+		try{
+		
+		}
+		catch(error){
+		
+		}
+
+		try {
+			io.socketsLeave(room);
+			console.log('no error happened!')
+		  }
+		  catch (exception_var) {
+			  console.log('here comes error')
+			console.log(exception_var);
+		  }
+		  finally {
+			console.log('finished socket leave on room')
+		  }
+
+
+		// io.of('/').in('chat').clients((error, socketIds) => {
+		// 	if (error) throw error;
+		  
+		// 	socketIds.forEach(socketId => io.sockets.sockets[socketId].leave(room));
+		  
+		//   });
 	});
+	// io.of("/").adapter.on("delete-room", (room) => {
+	
+	// 	console.log(`deleted room ${room}`);
+	// 		io.to(room).emit('gtfo', 'boot');
+	//   });
 	//TODO CHANGE THIS TO BOOKMARKED CONNECT/DISCONNECT METHO
 	//     socket.on("disconnect", (room) =>{
 
@@ -190,14 +225,3 @@ io.on('connection', (socket) => {
 	});
 });
 
-function disconnectRoom(room, namespace = '/') {
-	io.of(namespace)
-		.in(room)
-		.clients((err, clients) => {
-			clients.forEach((clientId) =>
-				io.sockets.connected[clientId].disconnect(),
-			);
-		});
-}
-
-// server.listen(PORT, () => console.log(`listening on ${PORT}`));
