@@ -206,19 +206,19 @@ io.on('connection', (socket) => {
 			case 'left':
 				console.log('found left request, emitting to room');
 				position.x -= 5;
-				io.to(room).emit('position', position);
+				io.to(room).emit('moveResp', position);
 				break;
 			case 'right':
 				position.x += 5;
-				io.to(room).emit('position', position);
+				io.to(room).emit('moveResp', position);
 				break;
 			case 'up':
 				position.y -= 5;
-				io.to(room).emit('position', position);
+				io.to(room).emit('moveResp', position);
 				break;
 			case 'down':
 				position.y += 5;
-				io.to(room).emit('position', position);
+				io.to(room).emit('moveResp', position);
 				break;
 		}
 	});
