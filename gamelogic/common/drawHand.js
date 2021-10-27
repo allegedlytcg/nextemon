@@ -1,10 +1,25 @@
 const lodashFilter = require('lodash/filter');
 
-export const drawHand = (deck) => {
+const drawHand = (deck) => {
 	const hand = deck.slice(0, 7);
 	const updatedDeck = lodashFilter(deck, (card) => !hand.includes(card));
-	return {
-		hand,
-		updatedDeck,
-	};
+
+	const hasBasicPokemon = hand.some(
+		(card) => card.supertype === 'Pokémon' && card.subtype === 'Basic',
+	);
+
+	if (!hasBasicPokemon) {
+		drawHand(deck);
+	} else {
+		const updatedHand = hand.map((card) => {
+			return {
+				...card,
+				isHand: true,
+			};
+		});
+
+		return [...updatedHand, ...updatedDeck];
+	}
 };
+
+module.exports = { drawHand };

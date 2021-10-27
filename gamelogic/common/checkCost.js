@@ -1,4 +1,4 @@
-export const checkCost = (attached, required) => {
+const checkCost = (attached, required) => {
 	const energies = { Colorless: 0 };
 	const req = {};
 
@@ -22,3 +22,5 @@ export const checkCost = (attached, required) => {
 		return false;
 	}
 };
+
+module.exports = { checkCost };

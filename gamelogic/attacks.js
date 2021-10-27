@@ -2,7 +2,7 @@ const { checkCost } = require('./common/checkCost');
 
 // Unless all damage from this attack is prevented,
 // you may remove 1 damage counter from Bulbasaur.
-export const leechSeed = (
+const leechSeed = (
 	userPokemon,
 	opponentPokemon,
 	chosenAttack = 'Leech Seed',
@@ -34,3 +34,5 @@ export const leechSeed = (
 	}
 	return null;
 };
+
+module.exports = { leechSeed };

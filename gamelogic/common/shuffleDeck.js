@@ -1,3 +1,7 @@
 const shuffle = require('lodash/shuffle');
 
-export const shuffleDeck = (deck) => shuffle(deck);
+const shuffleDeck = (deck) => shuffle(deck);
+
+module.exports = {
+	shuffleDeck,
+};

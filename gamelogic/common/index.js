@@ -6,7 +6,7 @@ const { getPrizeCards } = require('./getPrizeCards');
 const { shuffleDeck } = require('./shuffleDeck');
 const { drawCard } = require('./drawCard');
 
-export {
+module.exports = {
 	checkCost,
 	drawHand,
 	flipCoin,
