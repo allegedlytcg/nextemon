@@ -18,6 +18,7 @@ const dbConnect = require('./dbConnect');
 const userRoutes = require('./routes/user');
 const deckRoutes = require('./routes/deck');
 const PokemonRoutes = require('./routes/pokemon');
+const gameRoutes = require('./routes/game');
 
 const whitelist = [
 	'http://localhost:4200',
@@ -58,13 +59,14 @@ nextApp.prepare().then(() => {
 		}),
 	);
 
-	app.use(express.json({ extended: false }));
+	app.use(express.json({ limit: '50mb' }));
 
 	app.use(cors(corsOptions));
 
 	app.use('/api/v1/user', userRoutes);
 	app.use('/api/v1/deck', deckRoutes);
 	app.use('/api/v1/pokemon', PokemonRoutes);
+	app.use('/api/v1/game', gameRoutes);
 
 	app.all('*', (req, res) => handle(req, res));
 
@@ -137,37 +139,30 @@ io.on('connection', (socket) => {
 		//emit a message indicating that the 'other' user left
 		io.to(room).emit('gtfo', 'boot');
 
-		console.log('room is ', room, ' and of type ', typeof(room))
+		console.log('room is ', room, ' and of type ', typeof room);
 
-		try{
-		
-		}
-		catch(error){
-		
-		}
+		try {
+		} catch (error) {}
 
 		try {
 			io.socketsLeave(room);
-			console.log('no error happened!')
-		  }
-		  catch (exception_var) {
-			  console.log('here comes error')
+			console.log('no error happened!');
+		} catch (exception_var) {
+			console.log('here comes error');
 			console.log(exception_var);
-		  }
-		  finally {
-			console.log('finished socket leave on room')
-		  }
-
+		} finally {
+			console.log('finished socket leave on room');
+		}
 
 		// io.of('/').in('chat').clients((error, socketIds) => {
 		// 	if (error) throw error;
-		  
+
 		// 	socketIds.forEach(socketId => io.sockets.sockets[socketId].leave(room));
-		  
+
 		//   });
 	});
 	// io.of("/").adapter.on("delete-room", (room) => {
-	
+
 	// 	console.log(`deleted room ${room}`);
 	// 		io.to(room).emit('gtfo', 'boot');
 	//   });
@@ -224,4 +219,3 @@ io.on('connection', (socket) => {
 		}
 	});
 });
-

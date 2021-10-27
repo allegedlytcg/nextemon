@@ -1,6 +1,6 @@
 const lodashFilter = require('lodash/filter');
 
-export const drawCard = (deck) => {
+const drawCard = (deck) => {
 	const drawnCard = deck.slice(0, 1);
 	const updatedDeck = lodashFilter(deck, (card) => !drawnCard.includes(card));
 	return {
@@ -8,3 +8,5 @@ export const drawCard = (deck) => {
 		updatedDeck,
 	};
 };
+
+module.exports = { drawCard };

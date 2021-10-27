@@ -22,7 +22,7 @@ import {
 	initialEdit,
 } from './reducers';
 import { getUserDecks } from '../services/DeckService';
-import { io } from 'socket.io-client';
+// import { io } from 'socket.io-client';
 
 export const GlobalContext = createContext();
 
@@ -57,7 +57,7 @@ export const GlobalState = (props) => {
 
 	const [deckIdState, deckIdDispatch] = useReducer(deckId, initialDeckId);
 
-	let socket;
+	// let socket;
 	const getState = useCallback(async () => {
 		const user =
 			typeof window === 'undefined'
@@ -74,7 +74,7 @@ export const GlobalState = (props) => {
 				console.log(error);
 			}
 		}
-		socket = io.connect('/');
+		// socket = io.connect('/');
 	}, []);
 
 	useEffect(() => {
@@ -100,7 +100,7 @@ export const GlobalState = (props) => {
 				deckIdDispatch,
 				currentUser,
 				setCurrentUser,
-				socket,
+				// socket,
 			}}
 		>
 			{props.children}
