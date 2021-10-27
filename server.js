@@ -45,6 +45,8 @@ const corsOptions = {
 dbConnect();
 const PORT = process.env.PORT;
 
+console.log("port is " + PORT);
+
 nextApp.prepare().then(() => {
 	app.use(helmet()); // use all helmet provided middleware
 	app.use(
@@ -65,7 +67,7 @@ nextApp.prepare().then(() => {
 	app.use('/api/v1/deck', deckRoutes);
 	app.use('/api/v1/pokemon', PokemonRoutes);
 
-	app.all('*', (req, res) => handle(req, res));
+	app.all('*', (req, res) => handle(req, res));6
 
 	server.listen(PORT, (err) => {
 		if (err) throw err;
