@@ -1,5 +1,5 @@
 module.exports = {
-	future: { webpack5: true },
+	webpack5: true,
 	images: {
 		domains: ['images.pokemontcg.io'],
 	},
