@@ -4,7 +4,7 @@ import { baseUrl } from '../utils/baseUrl';
 
 export const getPokemon = async () => {
 	try {
-		return await axios.get(`${baseUrl()}/pokemon`);
+		return await axios.get(`${baseUrl}/pokemon`);
 	} catch (error) {
 		console.log('for sure error', error);
 	}

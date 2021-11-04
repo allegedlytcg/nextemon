@@ -16,7 +16,7 @@ export const getStarterDecks = async (starterDeckName) => {
 	const name = starterDeckName.replace(/ /g, '').toLowerCase();
 
 	try {
-		const deck = await axios.get(`${baseUrl()}/pokemon/${name}`);
+		const deck = await axios.get(`${baseUrl}/pokemon/${name}`);
 		return deck.data;
 	} catch (error) {
 		console.log(error);
