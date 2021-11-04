@@ -14,7 +14,7 @@ const getPrizeCards = (deck) => {
 		};
 	});
 
-	return [...updatedDeck, ...updatedCards];
+	return [...updatedCards, ...updatedDeck];
 };
 
 module.exports = { getPrizeCards };

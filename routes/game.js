@@ -35,11 +35,11 @@ router.post('/create', async (req, res) => {
 	const { roomId, players } = req.body;
 	const playerTransformer = players.map((player) => {
 		const { socketId } = player;
-		const deckWithHand = drawHand(player.cards);
+		const shuffledCards = shuffleDeck(player.cards);
+		const deckWithHand = drawHand(shuffledCards);
 		const deckWithPrizeCards = getPrizeCards(deckWithHand);
-		const shuffledCards = shuffleDeck(deckWithPrizeCards);
 
-		return { socketId, cards: shuffledCards };
+		return { socketId, cards: deckWithPrizeCards };
 	});
 
 	try {

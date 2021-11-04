@@ -16,14 +16,14 @@ test('should get top 6 cards of deck', () => {
 	};
 
 	expect(getPrizeCards(deck.cards)).toStrictEqual([
-		{ name: 'slowpoke' },
-		{ name: 'pigeot' },
-		{ name: 'arbok' },
 		{ isPrizeCard: true, name: 'charmeleon' },
 		{ isPrizeCard: true, name: 'wartortle' },
 		{ isPrizeCard: true, name: 'mewtwo' },
 		{ isPrizeCard: true, name: 'tentacruel' },
 		{ isPrizeCard: true, name: 'aerodactyl' },
 		{ isPrizeCard: true, name: 'omanyte' },
+		{ name: 'slowpoke' },
+		{ name: 'pigeot' },
+		{ name: 'arbok' },
 	]);
 });
