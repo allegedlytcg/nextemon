@@ -47,6 +47,7 @@ const corsOptions = {
 dbConnect();
 const PORT = process.env.PORT;
 
+
 nextApp.prepare().then(() => {
 	app.use(helmet()); // use all helmet provided middleware
 	app.use(
@@ -68,7 +69,7 @@ nextApp.prepare().then(() => {
 	app.use('/api/v1/pokemon', PokemonRoutes);
 	app.use('/api/v1/game', gameRoutes);
 
-	app.all('*', (req, res) => handle(req, res));
+	app.all('*', (req, res) => handle(req, res)); 
 
 	server.listen(PORT, (err) => {
 		if (err) throw err;
@@ -77,60 +78,74 @@ nextApp.prepare().then(() => {
 	});
 });
 const io = require('socket.io')(server, { cors: corsOptions });
-
-let roomMap = {}; // holds All of the active rooms of the server
+const rooms = io.of("/").adapter.rooms;
+const sids = io.of("/").adapter.sids;
+let roomMap = {};
 io.on('connection', (socket) => {
 	console.log('made socket connection'); //each individualclient will have a socket with the server
 	console.log(socket.id); //everytime a diff computer connects, a new id will be added
+
 	//when a new client connects, send position information
 	// socket.emit("position", position);
-
+	
+	let socketsConnectedLength = 0;
+	let valueSetOfRoom = undefined;
 	socket.on('join_room', (room) => {
 		console.log(
 			'allegedly joining a room identified by the passed string...' +
-				room,
+			room,
 		);
-		let tempRoom = room; //whats ultimately sent back to client based on circumstances
-		let rooms = Object.keys(socket.rooms);
-		let thisRoom = io.sockets.adapter.rooms[room];
-		console.log(rooms); // [ <socket.id>, 'room 237' ]
 
-		if (typeof thisRoom !== 'undefined') {
-			if (thisRoom.length == 0) {
-				console.log(
-					'no clients in that room, or is undefined creating room now',
-				);
-				socket.join(room); //room that socket/user wants to join
-			} else if (thisRoom.length == 1) {
-				console.log('joining 2nd client');
-				socket.join(room);
-			} else if (thisRoom.length == 2) {
-				console.log('full room');
-				console.log("here's a list of the connected clients:");
-				let room = io.sockets.adapter.rooms['my_room'];
-				//`` console.log(room[0]);
-				// console.log(room[1]);``
-				tempRoom = null;
+		
+		for (let [key, value] of rooms.entries()) {
+			if (key === room) {
+				console.log("found room with key of " + key + "and value of " + value);
+				valueSetOfRoom = value;
+				socketsConnectedLength = value.size;
+				break;
+				// for (let [key1, value1] of value.entries()) {
+				// 	console.log("entry i s key:" + key1 + ", value: " + value1)
+
+				// }
 			}
-			// clientsSockets = clients.sockets;
-			// numClients = (typeof clientsSockets !== 'undefined') ? Object.keys(clients).length: 0;
-			// for (var clientId in clientsSockets ){
-			//     //socket of each client in the room
-			//     var clientSocket = io.sockets.connected[clientId];
-			//     console.log(clientSocket);
-			// }
-		} else {
-			console.log(
-				'room was undefined, joining and creating new room' + room,
-			);
+
+		}
+		
+
+		console.log("entries found WAS " + socketsConnectedLength);
+
+		console.log("On join room: rooms available are " + JSON.stringify(rooms.keys()) + "is this room defined in adapter? "  + " sids whateve3 rthey are is :" + sids); // [ <socket.id>, 'room 237' ]
+
+		//check if room is already defined amongst rooms
+		if (socketsConnectedLength <= 1) {
+
+			console.log("hit DEFINED condition " + JSON.stringify(valueSetOfRoom));
+			if (valueSetOfRoom !== undefined){ //first log 
+				valueSetOfRoom.forEach(element => {
+					console.log("element of room is " + JSON.stringify(element));
+				});
+			}
+
 			socket.join(room);
+			//TODO if we've reached this point, and there was a socket already connected, its time to start the coin toss assignment
+			if(socketsConnectedLength == 1){
+				console.debug("IMPL for requesting heads/tails needed here to give back result to both clients in room")
+			}
 			roomMap[room] = { x: 200, y: 200 };
 			//when a new client connects, send position information
 			position = roomMap[room];
 			console.log('position sent is ' + position);
 			io.to(room).emit('position', position);
+			
+			console.log("allegedly socket joined room ");
+
+		} else {
+			console.log(
+				'room was FULL of users tell them get wrecked ' + '"' + room + '"',
+			);
+			room = null;
 		}
-		socket.emit('joinResp', tempRoom); //sends confirmation to client by returning the room name, or null if the room was full/client already in room
+		socket.emit('joinResp', room); //sends confirmation to client by returning the room name, or null if the room was full/client already in room
 	});
 
 	socket.on('leave_room', (room) => {
@@ -139,10 +154,7 @@ io.on('connection', (socket) => {
 		//emit a message indicating that the 'other' user left
 		io.to(room).emit('gtfo', 'boot');
 
-		console.log('room is ', room, ' and of type ', typeof room);
-
-		try {
-		} catch (error) {}
+		console.log('room is:', room, ' and of type ', typeof room);
 
 		try {
 			io.socketsLeave(room);
@@ -202,19 +214,19 @@ io.on('connection', (socket) => {
 			case 'left':
 				console.log('found left request, emitting to room');
 				position.x -= 5;
-				io.to(room).emit('position', position);
+				io.to(room).emit('moveResp', position);
 				break;
 			case 'right':
 				position.x += 5;
-				io.to(room).emit('position', position);
+				io.to(room).emit('moveResp', position);
 				break;
 			case 'up':
 				position.y -= 5;
-				io.to(room).emit('position', position);
+				io.to(room).emit('moveResp', position);
 				break;
 			case 'down':
 				position.y += 5;
-				io.to(room).emit('position', position);
+				io.to(room).emit('moveResp', position);
 				break;
 		}
 	});
