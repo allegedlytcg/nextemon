@@ -21,7 +21,7 @@ const Login = () => {
 	const userLogin = (e) => {
 		e.preventDefault();
 		axios
-			.post(`${baseUrl}/user/login`, user)
+			.post(`${baseUrl()}/user/login`, user)
 			.then((res) => {
 				localStorage.setItem('username', res.data.name);
 				localStorage.setItem('token', res.data.token);
