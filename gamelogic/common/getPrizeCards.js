@@ -1,15 +1,20 @@
 const lodashFilter = require('lodash/filter');
 
 const getPrizeCards = (deck) => {
-	const prizeCards = deck.slice(0, 6);
+	const filteredDeck = lodashFilter(deck, (card) => !card.isHand);
+	const prizeCards = filteredDeck.slice(0, 6);
 	const updatedDeck = lodashFilter(
 		deck,
 		(card) => !prizeCards.includes(card),
 	);
-	return {
-		prizeCards,
-		updatedDeck,
-	};
+	const updatedCards = prizeCards.map((card) => {
+		return {
+			...card,
+			isPrizeCard: true,
+		};
+	});
+
+	return [...updatedCards, ...updatedDeck];
 };
 
 module.exports = { getPrizeCards };

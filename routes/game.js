@@ -8,51 +8,54 @@ const {
 	shuffleDeck,
 } = require('../gamelogic/common');
 
-// @route     GET api/deck/:id
-// @desc      Get deck by deck id
-// @access    private
-router.get('/:id', async (req, res) => {
-	// try {
-	// 	let oneDeck = await Deck.findById(req.params.id);
-	// 	if (!oneDeck) {
-	// 		return res
-	// 			.status(404)
-	// 			.json({ message: 'cannot find deck with that id' });
-	// 	}
-	// 	res.status(200).json(oneDeck);
-	// } catch (error) {
-	// 	console.log(error.message);
-	// 	res.status(500).send('server errror');
-	// }
+// @route     GET api/game/create
+// @desc      GET game by roomId
+// @access    public but only the socket server will call
+router.get('/:roomId', async (req, res) => {
+	const roomId = req.params.roomId;
+	try {
+		const game = await Game.findOne({ roomId });
+		if (game) {
+			res.status(200).json(game);
+		}
+		res.status(404).json({
+			error: `game with roomId: ${roomId} not found`,
+		});
+	} catch (error) {
+		res.status(500).json({
+			error: 'server error',
+		});
+	}
 });
 
-// @route     POST api/deck/
-// @desc      create deck
-// @access    private
+// @route     POST api/game/create
+// @desc      create game
+// @access    public but only the socket server will call
 router.post('/create', async (req, res) => {
 	const { roomId, players } = req.body;
 	const playerTransformer = players.map((player) => {
 		const { socketId } = player;
 		const shuffledCards = shuffleDeck(player.cards);
-		const hand = drawHand(shuffledCards);
+		const deckWithHand = drawHand(shuffledCards);
+		const deckWithPrizeCards = getPrizeCards(deckWithHand);
 
-		return { socketId, cards: hand };
+		return { socketId, cards: deckWithPrizeCards };
 	});
-	res.status(201).json({
-		roomId,
-		players: playerTransformer,
-	});
-	// try {
-	// 	let game = new Game({
-	// 		roomId,
-	// 		players,
-	// 	});
-	// 	await game.save();
-	// 	res.status(201).json(game);
-	// } catch (error) {
-	// 	console.log(error.message);
-	// 	res.status(500).send('server errror');
-	// }
+
+	try {
+		const game = new Game({
+			roomId,
+			players: playerTransformer,
+		});
+		await game.save();
+		res.status(201).json(game);
+	} catch (error) {
+		res.status(500).send(error.message);
+	}
+});
+
+router.post('/flipcoin', (req, res) => {
+	res.status(200).json({ result: flipCoin() });
 });
 
 module.exports = router;
