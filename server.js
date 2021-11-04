@@ -47,7 +47,6 @@ const corsOptions = {
 dbConnect();
 const PORT = process.env.PORT;
 
-console.log("port is " + PORT);
 
 nextApp.prepare().then(() => {
 	app.use(helmet()); // use all helmet provided middleware
@@ -70,7 +69,7 @@ nextApp.prepare().then(() => {
 	app.use('/api/v1/pokemon', PokemonRoutes);
 	app.use('/api/v1/game', gameRoutes);
 
-	app.all('*', (req, res) => handle(req, res)); 6
+	app.all('*', (req, res) => handle(req, res)); 
 
 	server.listen(PORT, (err) => {
 		if (err) throw err;
@@ -156,9 +155,6 @@ io.on('connection', (socket) => {
 		io.to(room).emit('gtfo', 'boot');
 
 		console.log('room is:', room, ' and of type ', typeof room);
-
-		try {
-		} catch (error) { }
 
 		try {
 			io.socketsLeave(room);
