@@ -8,6 +8,7 @@ const GameSchema = new mongoose.Schema({
 	isComplete: false,
 	players: [
 		{
+			
 			socketId: { type: String, required: true },
 			turn: false,
 			cards: [
