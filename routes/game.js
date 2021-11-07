@@ -11,6 +11,7 @@ const {
 // @route     GET api/game/create
 // @desc      GET game by roomId
 // @access    public but only the socket server will call
+//for getting game state of any room
 router.get('/:roomId', async (req, res) => {
 	const roomId = req.params.roomId;
 	try {
@@ -31,6 +32,8 @@ router.get('/:roomId', async (req, res) => {
 // @route     POST api/game/create
 // @desc      create game
 // @access    public but only the socket server will call
+//creates game config based on room id, players array
+//players array contains 'cards'(deck) 'socketid'
 router.post('/create', async (req, res) => {
 	const { roomId, players } = req.body;
 	const playerTransformer = players.map((player) => {
