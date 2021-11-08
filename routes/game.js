@@ -57,6 +57,21 @@ router.post('/create', async (req, res) => {
 	}
 });
 
+// @route     POST api/game/createCopy
+// @desc      create game
+// @access    local and only the socket server will call
+//creates game config based on room id, players array
+//players array contains 'cards'(deck) 'socketid'
+router.post('/createCopy', async (req, res) => {
+	res.statusCode = 200
+	console.log("req found was " + JSON.stringify(req.body));
+	const originAllowed = `http://localhost:${process.env.port}`;//TODO MAY have to swap based on deployment
+	console.log("origin restricted to deployment port hopefully here:" + originAllowed);
+	res.setHeader('Content-Type', 'application/json')
+	res.setHeader('Access-Control-Allow-Origin', originAllowed);           
+	res.end("SENT SOMETHING BACK FROM POST WOW")
+});
+
 router.post('/flipcoin', (req, res) => {
 	res.status(200).json({ result: flipCoin() });
 });

@@ -84,6 +84,24 @@ const io = require('socket.io')(server, { cors: corsOptions });
 const rooms = io.of("/").adapter.rooms;
 const sids = io.of("/").adapter.sids;
 let roomMap = {};
+//socketIO vars
+	
+
+// const req =http.request(options1, resp => {
+// 	let data = ''
+// 	resp.on('data', chunk => {
+// 		console.log("imagine evena  chunk coming in ehre" + chunk);
+// 		data += chunk
+// 	})
+// 	resp.on('end', () => {
+// 		console.log("can we get some data here or naw?" + data);
+// 		let peopleData = JSON.parse(data)
+// 		console.log(peopleData)
+// 	})
+// })
+
+
+
 io.on('connection', (socket) => {
 	console.log('made socket connection'); //each individualclient will have a socket with the server
 	console.log(socket.id); //everytime a diff computer connects, a new id will be added
@@ -120,11 +138,12 @@ io.on('connection', (socket) => {
 			socket.join(room);
 			roomSpecObj = getRoomSpecs(rooms.entries(), room);//update roomspec obj with newly added socket of room
 			console.log("elements are hopefully (1) for first join in room " + JSON.stringify(roomSpecObj));
-			roomMap[room] = { x: 200, y: 200 };
-			//when a new client connects, send position information
-			position = roomMap[room];
-			console.log('position sent is ' + position);
-			io.to(room).emit('position', position);
+			// roomMap[room] = { x: 200, y: 200 };
+			// //when a new client connects, send position information
+			// position = roomMap[room];
+			// console.log('position sent is ' + position);
+			// io.to(room).emit('position', position);
+
 
 			console.log("allegedly socket joined room ");
 
@@ -134,6 +153,43 @@ io.on('connection', (socket) => {
 			//TODO lots here because 2nd socket assumed during join
 			socket.join(room);
 			roomSpecObj = getRoomSpecs(rooms.entries(), room);//update roomspec obj with newly added socket of room
+			//TODO construct obj required for create game to trigger
+			//TODO replace sample call with local call with cross origin localhost
+
+			//game create endpoint trigger(client-side local hit)
+			const postData = JSON.stringify({
+				'msg': 'Hello World!'
+			  });	
+			const optionsCreateGame = {
+				hostname: 'localhost',
+				port: process.env.PORT,
+				path: '/api/v1/game/createCopy',
+				method: 'POST',
+				headers: {
+				  'Content-Type': 'application/json',
+				  'Content-Length': Buffer.byteLength(postData)
+				}
+			  };
+			
+			  const req = http.request(optionsCreateGame, (res) => {
+				console.log(`STATUS: ${res.statusCode}`);
+				console.log(`HEADERS: ${JSON.stringify(res.headers)}`);
+				res.setEncoding('utf8');
+				res.on('data', (chunk) => {
+				  console.log(`BODY: ${chunk}`);
+				});
+				res.on('end', () => {
+				  console.log('No more data in response.');
+				});
+			  }); 
+			console.log("well options are " + JSON.stringify(optionsCreateGame));
+			//TODO something wrong with req here, postman is working on the 'post' ep...
+
+			const obj1 = {take: "this"};
+			req.write(postData);
+			req.on('error', error => {
+				console.error(error)
+			})
 
 			console.log("elements are hopefully(2) with second join in room " + JSON.stringify(roomSpecObj));
 			console.debug("IMPL for requesting heads/tails needed here to give back result to both clients in room")
