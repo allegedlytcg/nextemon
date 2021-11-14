@@ -137,6 +137,7 @@ io.on('connection', (socket) => {
 					);
 				});
 			}
+    }
 		// for (let [key, value] of rooms.entries()) {
 		// 	if (key === room) {
 		// 		console.log("found room with key of " + key + "and value of " + value);
