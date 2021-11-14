@@ -21,7 +21,6 @@ const dbConnect = require('./dbConnect');
 const userRoutes = require('./routes/user');
 const deckRoutes = require('./routes/deck');
 const PokemonRoutes = require('./routes/pokemon');
-const gameRoutes = require('./routes/game');
 
 const whitelist = [
 	'http://localhost:4200',
@@ -50,7 +49,6 @@ const corsOptions = {
 dbConnect();
 const PORT = process.env.PORT;
 
-
 nextApp.prepare().then(() => {
 	app.use(helmet()); // use all helmet provided middleware
 	app.use(
@@ -70,7 +68,6 @@ nextApp.prepare().then(() => {
 	app.use('/api/v1/user', userRoutes);
 	app.use('/api/v1/deck', deckRoutes);
 	app.use('/api/v1/pokemon', PokemonRoutes);
-	app.use('/api/v1/game', gameRoutes);
 
 	app.all('*', (req, res) => handle(req, res));
 
@@ -81,8 +78,8 @@ nextApp.prepare().then(() => {
 	});
 });
 const io = require('socket.io')(server, { cors: corsOptions });
-const rooms = io.of("/").adapter.rooms;
-const sids = io.of("/").adapter.sids;
+const rooms = io.of('/').adapter.rooms;
+const sids = io.of('/').adapter.sids;
 let roomMap = {};
 io.on('connection', (socket) => {
 	console.log('made socket connection'); //each individualclient will have a socket with the server
@@ -91,15 +88,56 @@ io.on('connection', (socket) => {
 	//when a new client connects, send position information
 	// socket.emit("position", position);
 
+	let socketsConnectedLength = 0;
+	let valueSetOfRoom = undefined;
 
 	// let valueSetOfRoom = undefined;
 	socket.on('join_room', (room) => {
 		console.log(
 			'allegedly joining a room identified by the passed string...' +
-			room,
+				room,
 		);
 		let roomSpecObj = getRoomSpecs(rooms.entries(), room);//pass in set
 
+		for (let [key, value] of rooms.entries()) {
+			if (key === room) {
+				console.log(
+					'found room with key of ' + key + 'and value of ' + value,
+				);
+				valueSetOfRoom = value;
+				socketsConnectedLength = value.size;
+				break;
+				// for (let [key1, value1] of value.entries()) {
+				// 	console.log("entry i s key:" + key1 + ", value: " + value1)
+
+				// }
+			}
+		}
+
+		console.log('entries found WAS ' + socketsConnectedLength);
+
+		console.log(
+			'On join room: rooms available are ' +
+				JSON.stringify(rooms.keys()) +
+				'is this room defined in adapter? ' +
+				' sids whateve3 rthey are is :' +
+				sids,
+		); // [ <socket.id>, 'room 237' ]
+
+		//check if room is already defined amongst rooms
+		if (socketsConnectedLength <= 1) {
+			console.log(
+				'hit DEFINED condition ' + JSON.stringify(valueSetOfRoom),
+			);
+			if (valueSetOfRoom !== undefined) {
+				//first log
+				valueSetOfRoom.forEach((element) => {
+					console.log(
+						'element of room is ' + JSON.stringify(element),
+					);
+				});
+			}
+    }
 		// for (let [key, value] of rooms.entries()) {
 		// 	if (key === room) {
 		// 		console.log("found room with key of " + key + "and value of " + value);
@@ -118,6 +156,12 @@ io.on('connection', (socket) => {
 		//check if room is already defined amongst rooms
 		if (roomSpecObj.roomSize == 0) {
 			socket.join(room);
+			//TODO if we've reached this point, and there was a socket already connected, its time to start the coin toss assignment
+			if (socketsConnectedLength == 1) {
+				console.debug(
+					'IMPL for requesting heads/tails needed here to give back result to both clients in room',
+				);
+			}
 			roomSpecObj = getRoomSpecs(rooms.entries(), room);//update roomspec obj with newly added socket of room
 			console.log("elements are hopefully (1) for first join in room " + JSON.stringify(roomSpecObj));
 			roomMap[room] = { x: 200, y: 200 };
@@ -141,7 +185,10 @@ io.on('connection', (socket) => {
 		}
 		else {
 			console.log(
-				'room was FULL of users tell them get wrecked ' + '"' + room + '"',
+				'room was FULL of users tell them get wrecked ' +
+					'"' +
+					room +
+					'"',
 			);
 			room = null;
 		}
