@@ -7,7 +7,7 @@ const cors = require('cors');
 const http = require('http');
 const server = http.createServer(app);
 const Game = require('./models/Game');
-const { getRoomSpecs } = require('./gameLogic/common/getRoomSpecs')
+const { getRoomSpecs } = require('./gameLogic/common/getRoomSpecs');
 const getPrizeCardsActiveGame = require('./gamelogic/common/getPrizeCardsActiveGame');
 
 const dev = process.env.NODE_ENV !== 'production';
@@ -56,6 +56,7 @@ nextApp.prepare().then(() => {
 		helmet.contentSecurityPolicy({
 			directives: {
 				...helmet.contentSecurityPolicy.getDefaultDirectives(),
+				'script-src': ["'self'", "'unsafe-eval'"],
 				'img-src': ["'self'", 'images.pokemontcg.io', 'data:'],
 			},
 		}),
@@ -97,7 +98,7 @@ io.on('connection', (socket) => {
 			'allegedly joining a room identified by the passed string...' +
 				room,
 		);
-		let roomSpecObj = getRoomSpecs(rooms.entries(), room);//pass in set
+		let roomSpecObj = getRoomSpecs(rooms.entries(), room); //pass in set
 
 		for (let [key, value] of rooms.entries()) {
 			if (key === room) {
@@ -148,10 +149,13 @@ io.on('connection', (socket) => {
 
 		// }
 
-
-
-
-		console.log("On join room: rooms available are " + JSON.stringify(rooms.keys()) + "is this room defined in adapter? " + " sids whateve3 rthey are is :" + sids); // [ <socket.id>, 'room 237' ]
+		console.log(
+			'On join room: rooms available are ' +
+				JSON.stringify(rooms.keys()) +
+				'is this room defined in adapter? ' +
+				' sids whateve3 rthey are is :' +
+				sids,
+		); // [ <socket.id>, 'room 237' ]
 
 		//check if room is already defined amongst rooms
 		if (roomSpecObj.roomSize == 0) {
@@ -170,20 +174,14 @@ io.on('connection', (socket) => {
 			console.log('position sent is ' + position);
 			io.to(room).emit('position', position);
 
-			console.log("allegedly socket joined room ");
-
+			console.log('allegedly socket joined room ');
 		}
 		//TODO if we've reached this point, and there was a socket already connected, its time to start the coin toss assignment
 		else if (roomSpecObj.roomSize == 1) {
 			//TODO lots here because 2nd socket assumed during join
 			socket.join(room);
-			roomSpecObj = getRoomSpecs(rooms.entries(), room);//update roomspec obj with newly added socket of room
+			roomSpecObj = getRoomSpecs(rooms.entries(), room); //update roomspec obj with newly added socket of room
 
-			console.log("elements are hopefully(2) with second join in room " + JSON.stringify(roomSpecObj));
-			console.debug("IMPL for requesting heads/tails needed here to give back result to both clients in room")
-
-		}
-		else {
 			console.log(
 				'room was FULL of users tell them get wrecked ' +
 					'"' +
@@ -194,10 +192,6 @@ io.on('connection', (socket) => {
 		}
 		socket.emit('joinResp', room); //sends confirmation to client by returning the room name, or null if the room was full/client already in room
 	});
-
-
-
-
 
 	socket.on('leave_room', (room) => {
 		//how do they leave?
