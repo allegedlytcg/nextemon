@@ -1,0 +1,3538 @@
+{
+	"roomId": "klsfjdlkfs",
+	"players": [
+		{
+			"socketId": "skldjflk",
+			"cards": [
+				{
+					"types": ["Lightning"],
+					"retreatCost": ["Colorless"],
+					"_id": "5edae005f24b3729783c68ac",
+					"id": "base1-58",
+					"name": "Pikachu",
+					"imageUrl": "https://images.pokemontcg.io/base1/58.png",
+					"subtype": "Basic",
+					"supertype": "Pokémon",
+					"hp": "40",
+					"convertedRetreatCost": 1,
+					"number": "58",
+					"artist": "Mitsuhiro Arita",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"attacks": [
+						{
+							"cost": ["Colorless"],
+							"_id": "6169da16e41a4420b0c96bac",
+							"name": "Gnaw",
+							"convertedEnergyCost": 1,
+							"damage": "10",
+							"text": ""
+						},
+						{
+							"cost": ["Lightning", "Colorless"],
+							"_id": "6169da16e41a4420b0c96bad",
+							"name": "Thunder Jolt",
+							"convertedEnergyCost": 2,
+							"damage": "30",
+							"text": "Flip a coin. If tails, Pikachu does 10 damage to itself."
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6169da16e41a4420b0c96bae",
+							"type": "Fighting",
+							"value": "×2"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/58_hires.png",
+					"nationalPokedexNumber": 25,
+					"resistances": []
+				},
+				{
+					"types": ["Lightning"],
+					"retreatCost": ["Colorless"],
+					"_id": "5edae005f24b3729783c68ae",
+					"id": "base1-53",
+					"name": "Magnemite",
+					"imageUrl": "https://images.pokemontcg.io/base1/53.png",
+					"subtype": "Basic",
+					"supertype": "Pokémon",
+					"hp": "40",
+					"convertedRetreatCost": 1,
+					"number": "53",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"attacks": [
+						{
+							"cost": ["Lightning"],
+							"_id": "6169da16e41a4420b0c96bb0",
+							"name": "Thunder Wave",
+							"convertedEnergyCost": 1,
+							"damage": "10",
+							"text": "Flip a coin. If heads, the Defending Pokémon is now Paralyzed."
+						},
+						{
+							"cost": ["Lightning", "Colorless"],
+							"_id": "6169da16e41a4420b0c96bb1",
+							"name": "Selfdestruct",
+							"convertedEnergyCost": 2,
+							"damage": "40",
+							"text": "Does 10 damage to each Pokémon on each player's Bench. (Don't apply Weakness and Resistance for Benched Pokémon.) Magnemite does 40 damage to itself."
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6169da16e41a4420b0c96bb2",
+							"type": "Fighting",
+							"value": "×2"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/53_hires.png",
+					"nationalPokedexNumber": 81,
+					"resistances": []
+				},
+				{
+					"types": ["Psychic"],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68b3",
+					"id": "base1-43",
+					"name": "Abra",
+					"imageUrl": "https://images.pokemontcg.io/base1/43.png",
+					"subtype": "Basic",
+					"supertype": "Pokémon",
+					"hp": "30",
+					"number": "43",
+					"artist": "Mitsuhiro Arita",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"attacks": [
+						{
+							"cost": ["Psychic"],
+							"_id": "6169da16e41a4420b0c96bb4",
+							"name": "Psyshock",
+							"convertedEnergyCost": 1,
+							"damage": "10",
+							"text": "Flip a coin. If heads, the Defending Pokémon is now Paralyzed."
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6169da16e41a4420b0c96bb5",
+							"type": "Psychic",
+							"value": "×2"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/43_hires.png",
+					"nationalPokedexNumber": 63,
+					"resistances": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68c4",
+					"id": "base1-93",
+					"name": "Gust of Wind",
+					"imageUrl": "https://images.pokemontcg.io/base1/93.png",
+					"subtype": "",
+					"supertype": "Trainer",
+					"number": "93",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/93_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68d1",
+					"id": "base1-100",
+					"name": "Lightning Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/100.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "100",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/100_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68d7",
+					"id": "base1-101",
+					"name": "Psychic Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/101.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "101",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/101_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": ["Lightning"],
+					"retreatCost": ["Colorless"],
+					"_id": "5edae005f24b3729783c68aa",
+					"id": "base1-58",
+					"name": "Pikachu",
+					"imageUrl": "https://images.pokemontcg.io/base1/58.png",
+					"subtype": "Basic",
+					"supertype": "Pokémon",
+					"hp": "40",
+					"convertedRetreatCost": 1,
+					"number": "58",
+					"artist": "Mitsuhiro Arita",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"attacks": [
+						{
+							"cost": ["Colorless"],
+							"_id": "6169da16e41a4420b0c96bba",
+							"name": "Gnaw",
+							"convertedEnergyCost": 1,
+							"damage": "10",
+							"text": ""
+						},
+						{
+							"cost": ["Lightning", "Colorless"],
+							"_id": "6169da16e41a4420b0c96bbb",
+							"name": "Thunder Jolt",
+							"convertedEnergyCost": 2,
+							"damage": "30",
+							"text": "Flip a coin. If tails, Pikachu does 10 damage to itself."
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6169da16e41a4420b0c96bbc",
+							"type": "Fighting",
+							"value": "×2"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/58_hires.png",
+					"nationalPokedexNumber": 25,
+					"resistances": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68c5",
+					"id": "base1-94",
+					"name": "Potion",
+					"imageUrl": "https://images.pokemontcg.io/base1/94.png",
+					"subtype": "",
+					"supertype": "Trainer",
+					"number": "94",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/94_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68d5",
+					"id": "base1-100",
+					"name": "Lightning Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/100.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "100",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/100_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68c1",
+					"id": "base1-71",
+					"name": "Computer Search",
+					"imageUrl": "https://images.pokemontcg.io/base1/71.png",
+					"subtype": "",
+					"supertype": "Trainer",
+					"number": "71",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Rare",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/71_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68cc",
+					"id": "base1-100",
+					"name": "Lightning Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/100.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "100",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/100_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68c6",
+					"id": "base1-88",
+					"name": "Professor Oak",
+					"imageUrl": "https://images.pokemontcg.io/base1/88.png",
+					"subtype": "",
+					"supertype": "Trainer",
+					"number": "88",
+					"artist": "Ken Sugimori",
+					"rarity": "Uncommon",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/88_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68d2",
+					"id": "base1-100",
+					"name": "Lightning Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/100.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "100",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/100_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": ["Psychic"],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68b8",
+					"id": "base3-21",
+					"name": "Haunter",
+					"imageUrl": "https://images.pokemontcg.io/base3/21.png",
+					"subtype": "Stage 1",
+					"supertype": "Pokémon",
+					"hp": "50",
+					"convertedRetreatCost": 0,
+					"number": "21",
+					"artist": "Ken Sugimori",
+					"rarity": "Rare",
+					"series": "Base",
+					"set": "Fossil",
+					"setCode": "base3",
+					"attacks": [
+						{
+							"cost": ["Psychic", "Colorless"],
+							"_id": "6169da16e41a4420b0c96bc4",
+							"name": "Nightmare",
+							"convertedEnergyCost": 2,
+							"damage": "10",
+							"text": "The Defending Pokémon is now Asleep."
+						}
+					],
+					"resistances": [
+						{
+							"_id": "6169da16e41a4420b0c96bc5",
+							"type": "Fighting",
+							"value": "-30"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base3/21_hires.png",
+					"nationalPokedexNumber": 93,
+					"weaknesses": []
+				},
+				{
+					"types": ["Psychic"],
+					"retreatCost": ["Colorless", "Colorless", "Colorless"],
+					"_id": "5edae005f24b3729783c68b4",
+					"id": "base1-32",
+					"name": "Kadabra",
+					"imageUrl": "https://images.pokemontcg.io/base1/32.png",
+					"subtype": "Stage 1",
+					"supertype": "Pokémon",
+					"hp": "60",
+					"convertedRetreatCost": 3,
+					"number": "32",
+					"artist": "Ken Sugimori",
+					"rarity": "Uncommon",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"attacks": [
+						{
+							"cost": ["Psychic", "Psychic"],
+							"_id": "6169da16e41a4420b0c96bc7",
+							"name": "Recover",
+							"convertedEnergyCost": 2,
+							"damage": "",
+							"text": "Discard 1 Energy card attached to Kadabra in order use this attack. Remove all damage counters from Kadabra."
+						},
+						{
+							"cost": ["Psychic", "Psychic", "Colorless"],
+							"_id": "6169da16e41a4420b0c96bc8",
+							"name": "Super Psy",
+							"convertedEnergyCost": 3,
+							"damage": "50",
+							"text": ""
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6169da16e41a4420b0c96bc9",
+							"type": "Psychic",
+							"value": "×2"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/32_hires.png",
+					"nationalPokedexNumber": 64,
+					"resistances": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68cb",
+					"id": "base1-100",
+					"name": "Lightning Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/100.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "100",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/100_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68cf",
+					"id": "base1-100",
+					"name": "Lightning Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/100.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "100",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/100_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68db",
+					"id": "base1-101",
+					"name": "Psychic Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/101.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "101",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/101_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": ["Psychic"],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68b6",
+					"id": "base1-50",
+					"name": "Gastly",
+					"imageUrl": "https://images.pokemontcg.io/base1/50.png",
+					"subtype": "Basic",
+					"supertype": "Pokémon",
+					"hp": "30",
+					"number": "50",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"attacks": [
+						{
+							"cost": ["Psychic"],
+							"_id": "6169da16e41a4420b0c96bce",
+							"name": "Sleeping Gas",
+							"convertedEnergyCost": 1,
+							"damage": "",
+							"text": "Flip a coin. If heads, the Defending Pokémon is now Asleep."
+						},
+						{
+							"cost": ["Psychic", "Colorless"],
+							"_id": "6169da16e41a4420b0c96bcf",
+							"name": "Destiny Bond",
+							"convertedEnergyCost": 2,
+							"damage": "",
+							"text": "Discard 1 Energy card attached to Gastly in order to use this attack. If a Pokémon Knocks Out Gastly during your opponent's next turn, Knock Out that Pokémon."
+						}
+					],
+					"resistances": [
+						{
+							"_id": "6169da16e41a4420b0c96bd0",
+							"type": "Fighting",
+							"value": "-30"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/50_hires.png",
+					"nationalPokedexNumber": 92,
+					"weaknesses": []
+				},
+				{
+					"types": ["Psychic"],
+					"retreatCost": ["Colorless", "Colorless"],
+					"_id": "5edae005f24b3729783c68bd",
+					"id": "base1-31",
+					"name": "Jynx",
+					"imageUrl": "https://images.pokemontcg.io/base1/31.png",
+					"subtype": "Basic",
+					"supertype": "Pokémon",
+					"hp": "70",
+					"convertedRetreatCost": 2,
+					"number": "31",
+					"artist": "Ken Sugimori",
+					"rarity": "Uncommon",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"attacks": [
+						{
+							"cost": ["Psychic"],
+							"_id": "6169da16e41a4420b0c96bd2",
+							"name": "Doubleslap",
+							"convertedEnergyCost": 1,
+							"damage": "10×",
+							"text": "Flip 2 coins. This attack does 10 damage times the number of heads."
+						},
+						{
+							"cost": ["Psychic", "Psychic", "Colorless"],
+							"_id": "6169da16e41a4420b0c96bd3",
+							"name": "Meditate",
+							"convertedEnergyCost": 3,
+							"damage": "20+",
+							"text": "Does 20 damage plus 10 more damage for each damage counter on the Defending Pokémon."
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6169da16e41a4420b0c96bd4",
+							"type": "Psychic",
+							"value": "×2"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/31_hires.png",
+					"nationalPokedexNumber": 124,
+					"resistances": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68dc",
+					"id": "base1-101",
+					"name": "Psychic Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/101.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "101",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/101_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68e2",
+					"id": "base1-101",
+					"name": "Psychic Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/101.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "101",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/101_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": ["Lightning"],
+					"retreatCost": ["Colorless"],
+					"_id": "5edae005f24b3729783c68ab",
+					"id": "base1-58",
+					"name": "Pikachu",
+					"imageUrl": "https://images.pokemontcg.io/base1/58.png",
+					"subtype": "Basic",
+					"supertype": "Pokémon",
+					"hp": "40",
+					"convertedRetreatCost": 1,
+					"number": "58",
+					"artist": "Mitsuhiro Arita",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"attacks": [
+						{
+							"cost": ["Colorless"],
+							"_id": "6169da16e41a4420b0c96bd8",
+							"name": "Gnaw",
+							"convertedEnergyCost": 1,
+							"damage": "10",
+							"text": ""
+						},
+						{
+							"cost": ["Lightning", "Colorless"],
+							"_id": "6169da16e41a4420b0c96bd9",
+							"name": "Thunder Jolt",
+							"convertedEnergyCost": 2,
+							"damage": "30",
+							"text": "Flip a coin. If tails, Pikachu does 10 damage to itself."
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6169da16e41a4420b0c96bda",
+							"type": "Fighting",
+							"value": "×2"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/58_hires.png",
+					"nationalPokedexNumber": 25,
+					"resistances": []
+				},
+				{
+					"types": ["Psychic"],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68b9",
+					"id": "base3-21",
+					"name": "Haunter",
+					"imageUrl": "https://images.pokemontcg.io/base3/21.png",
+					"subtype": "Stage 1",
+					"supertype": "Pokémon",
+					"hp": "50",
+					"convertedRetreatCost": 0,
+					"number": "21",
+					"artist": "Ken Sugimori",
+					"rarity": "Rare",
+					"series": "Base",
+					"set": "Fossil",
+					"setCode": "base3",
+					"attacks": [
+						{
+							"cost": ["Psychic", "Colorless"],
+							"_id": "6169da16e41a4420b0c96bdc",
+							"name": "Nightmare",
+							"convertedEnergyCost": 2,
+							"damage": "10",
+							"text": "The Defending Pokémon is now Asleep."
+						}
+					],
+					"resistances": [
+						{
+							"_id": "6169da16e41a4420b0c96bdd",
+							"type": "Fighting",
+							"value": "-30"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base3/21_hires.png",
+					"nationalPokedexNumber": 93,
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68c2",
+					"id": "base1-80",
+					"name": "Defender",
+					"imageUrl": "https://images.pokemontcg.io/base1/80.png",
+					"subtype": "",
+					"supertype": "Trainer",
+					"number": "80",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Uncommon",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/80_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68c9",
+					"id": "base1-95",
+					"name": "Switch",
+					"imageUrl": "https://images.pokemontcg.io/base1/95.png",
+					"subtype": "",
+					"supertype": "Trainer",
+					"number": "95",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/95_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68cd",
+					"id": "base1-100",
+					"name": "Lightning Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/100.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "100",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/100_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68da",
+					"id": "base1-101",
+					"name": "Psychic Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/101.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "101",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/101_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68e0",
+					"id": "base1-101",
+					"name": "Psychic Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/101.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "101",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/101_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68de",
+					"id": "base1-101",
+					"name": "Psychic Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/101.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "101",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/101_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": ["Psychic"],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68bb",
+					"id": "base1-49",
+					"name": "Drowzee",
+					"imageUrl": "https://images.pokemontcg.io/base1/49.png",
+					"subtype": "Basic",
+					"supertype": "Pokémon",
+					"hp": "50",
+					"number": "49",
+					"artist": "Ken Sugimori",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"attacks": [
+						{
+							"cost": ["Colorless"],
+							"_id": "6169da16e41a4420b0c96be5",
+							"name": "Pound",
+							"convertedEnergyCost": 1,
+							"damage": "10",
+							"text": ""
+						},
+						{
+							"cost": ["Psychic", "Psychic"],
+							"_id": "6169da16e41a4420b0c96be6",
+							"name": "Confuse Ray",
+							"convertedEnergyCost": 2,
+							"damage": "10",
+							"text": "Flip a coin. If heads, the Defending Pokémon is now Confused."
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6169da16e41a4420b0c96be7",
+							"type": "Psychic",
+							"value": "×2"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/49_hires.png",
+					"nationalPokedexNumber": 96,
+					"resistances": []
+				},
+				{
+					"types": ["Psychic"],
+					"retreatCost": ["Colorless", "Colorless"],
+					"_id": "5edae005f24b3729783c68bc",
+					"id": "base1-31",
+					"name": "Jynx",
+					"imageUrl": "https://images.pokemontcg.io/base1/31.png",
+					"subtype": "Basic",
+					"supertype": "Pokémon",
+					"hp": "70",
+					"convertedRetreatCost": 2,
+					"number": "31",
+					"artist": "Ken Sugimori",
+					"rarity": "Uncommon",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"attacks": [
+						{
+							"cost": ["Psychic"],
+							"_id": "6169da16e41a4420b0c96be9",
+							"name": "Doubleslap",
+							"convertedEnergyCost": 1,
+							"damage": "10×",
+							"text": "Flip 2 coins. This attack does 10 damage times the number of heads."
+						},
+						{
+							"cost": ["Psychic", "Psychic", "Colorless"],
+							"_id": "6169da16e41a4420b0c96bea",
+							"name": "Meditate",
+							"convertedEnergyCost": 3,
+							"damage": "20+",
+							"text": "Does 20 damage plus 10 more damage for each damage counter on the Defending Pokémon."
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6169da16e41a4420b0c96beb",
+							"type": "Psychic",
+							"value": "×2"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/31_hires.png",
+					"nationalPokedexNumber": 124,
+					"resistances": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68e4",
+					"id": "base1-101",
+					"name": "Psychic Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/101.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "101",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/101_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": ["Psychic"],
+					"retreatCost": ["Colorless", "Colorless", "Colorless"],
+					"_id": "5edae005f24b3729783c68be",
+					"id": "base1-10",
+					"name": "Mewtwo",
+					"imageUrl": "https://images.pokemontcg.io/base1/10.png",
+					"subtype": "Basic",
+					"supertype": "Pokémon",
+					"hp": "60",
+					"convertedRetreatCost": 3,
+					"number": "10",
+					"artist": "Ken Sugimori",
+					"rarity": "Rare",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"attacks": [
+						{
+							"cost": ["Psychic", "Colorless"],
+							"_id": "6169da16e41a4420b0c96bee",
+							"name": "Psychic",
+							"convertedEnergyCost": 2,
+							"damage": "10+",
+							"text": "Does 10 damage plus 10 more damage for each Energy card attached to the Defending Pokémon."
+						},
+						{
+							"cost": ["Psychic", "Psychic"],
+							"_id": "6169da16e41a4420b0c96bef",
+							"name": "Barrier",
+							"convertedEnergyCost": 2,
+							"damage": "",
+							"text": "Discard 1 Energy card attached to Mewtwo in order to use this attack. During your opponent's next turn, prevent all effects of attacks, including damage, done to Mewtwo."
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6169da16e41a4420b0c96bf0",
+							"type": "Psychic",
+							"value": "×2"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/10_hires.png",
+					"nationalPokedexNumber": 150,
+					"resistances": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68d6",
+					"id": "base1-101",
+					"name": "Psychic Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/101.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "101",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/101_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": ["Lightning"],
+					"retreatCost": ["Colorless"],
+					"_id": "5edae005f24b3729783c68af",
+					"id": "base1-53",
+					"name": "Magnemite",
+					"imageUrl": "https://images.pokemontcg.io/base1/53.png",
+					"subtype": "Basic",
+					"supertype": "Pokémon",
+					"hp": "40",
+					"convertedRetreatCost": 1,
+					"number": "53",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"attacks": [
+						{
+							"cost": ["Lightning"],
+							"_id": "6169da16e41a4420b0c96bf3",
+							"name": "Thunder Wave",
+							"convertedEnergyCost": 1,
+							"damage": "10",
+							"text": "Flip a coin. If heads, the Defending Pokémon is now Paralyzed."
+						},
+						{
+							"cost": ["Lightning", "Colorless"],
+							"_id": "6169da16e41a4420b0c96bf4",
+							"name": "Selfdestruct",
+							"convertedEnergyCost": 2,
+							"damage": "40",
+							"text": "Does 10 damage to each Pokémon on each player's Bench. (Don't apply Weakness and Resistance for Benched Pokémon.) Magnemite does 40 damage to itself."
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6169da16e41a4420b0c96bf5",
+							"type": "Fighting",
+							"value": "×2"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/53_hires.png",
+					"nationalPokedexNumber": 81,
+					"resistances": []
+				},
+				{
+					"types": ["Lightning"],
+					"retreatCost": ["Colorless"],
+					"_id": "5edae005f24b3729783c68ad",
+					"id": "base1-58",
+					"name": "Pikachu",
+					"imageUrl": "https://images.pokemontcg.io/base1/58.png",
+					"subtype": "Basic",
+					"supertype": "Pokémon",
+					"hp": "40",
+					"convertedRetreatCost": 1,
+					"number": "58",
+					"artist": "Mitsuhiro Arita",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"attacks": [
+						{
+							"cost": ["Colorless"],
+							"_id": "6169da16e41a4420b0c96bf7",
+							"name": "Gnaw",
+							"convertedEnergyCost": 1,
+							"damage": "10",
+							"text": ""
+						},
+						{
+							"cost": ["Lightning", "Colorless"],
+							"_id": "6169da16e41a4420b0c96bf8",
+							"name": "Thunder Jolt",
+							"convertedEnergyCost": 2,
+							"damage": "30",
+							"text": "Flip a coin. If tails, Pikachu does 10 damage to itself."
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6169da16e41a4420b0c96bf9",
+							"type": "Fighting",
+							"value": "×2"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/58_hires.png",
+					"nationalPokedexNumber": 25,
+					"resistances": []
+				},
+				{
+					"types": ["Psychic"],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68b7",
+					"id": "base1-50",
+					"name": "Gastly",
+					"imageUrl": "https://images.pokemontcg.io/base1/50.png",
+					"subtype": "Basic",
+					"supertype": "Pokémon",
+					"hp": "30",
+					"number": "50",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"attacks": [
+						{
+							"cost": ["Psychic"],
+							"_id": "6169da16e41a4420b0c96bfb",
+							"name": "Sleeping Gas",
+							"convertedEnergyCost": 1,
+							"damage": "",
+							"text": "Flip a coin. If heads, the Defending Pokémon is now Asleep."
+						},
+						{
+							"cost": ["Psychic", "Colorless"],
+							"_id": "6169da16e41a4420b0c96bfc",
+							"name": "Destiny Bond",
+							"convertedEnergyCost": 2,
+							"damage": "",
+							"text": "Discard 1 Energy card attached to Gastly in order to use this attack. If a Pokémon Knocks Out Gastly during your opponent's next turn, Knock Out that Pokémon."
+						}
+					],
+					"resistances": [
+						{
+							"_id": "6169da16e41a4420b0c96bfd",
+							"type": "Fighting",
+							"value": "-30"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/50_hires.png",
+					"nationalPokedexNumber": 92,
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68ca",
+					"id": "base1-100",
+					"name": "Lightning Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/100.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "100",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/100_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68d8",
+					"id": "base1-101",
+					"name": "Psychic Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/101.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "101",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/101_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68df",
+					"id": "base1-101",
+					"name": "Psychic Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/101.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "101",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/101_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68e3",
+					"id": "base1-101",
+					"name": "Psychic Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/101.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "101",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/101_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": ["Psychic"],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68b1",
+					"id": "base1-43",
+					"name": "Abra",
+					"imageUrl": "https://images.pokemontcg.io/base1/43.png",
+					"subtype": "Basic",
+					"supertype": "Pokémon",
+					"hp": "30",
+					"number": "43",
+					"artist": "Mitsuhiro Arita",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"attacks": [
+						{
+							"cost": ["Psychic"],
+							"_id": "6169da16e41a4420b0c96c03",
+							"name": "Psyshock",
+							"convertedEnergyCost": 1,
+							"damage": "10",
+							"text": "Flip a coin. If heads, the Defending Pokémon is now Paralyzed."
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6169da16e41a4420b0c96c04",
+							"type": "Psychic",
+							"value": "×2"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/43_hires.png",
+					"nationalPokedexNumber": 63,
+					"resistances": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68bf",
+					"id": "base1-91",
+					"name": "Bill",
+					"imageUrl": "https://images.pokemontcg.io/base1/91.png",
+					"subtype": "",
+					"supertype": "Trainer",
+					"number": "91",
+					"artist": "Ken Sugimori",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/91_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68c7",
+					"id": "base1-90",
+					"name": "Super Potion",
+					"imageUrl": "https://images.pokemontcg.io/base1/90.png",
+					"subtype": "",
+					"supertype": "Trainer",
+					"number": "90",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Uncommon",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/90_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68d9",
+					"id": "base1-101",
+					"name": "Psychic Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/101.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "101",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/101_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68c0",
+					"id": "base1-91",
+					"name": "Bill",
+					"imageUrl": "https://images.pokemontcg.io/base1/91.png",
+					"subtype": "",
+					"supertype": "Trainer",
+					"number": "91",
+					"artist": "Ken Sugimori",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/91_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68e1",
+					"id": "base1-101",
+					"name": "Psychic Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/101.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "101",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/101_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68e5",
+					"id": "base1-101",
+					"name": "Psychic Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/101.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "101",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/101_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68c8",
+					"id": "base1-95",
+					"name": "Switch",
+					"imageUrl": "https://images.pokemontcg.io/base1/95.png",
+					"subtype": "",
+					"supertype": "Trainer",
+					"number": "95",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/95_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68ce",
+					"id": "base1-100",
+					"name": "Lightning Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/100.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "100",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/100_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68d0",
+					"id": "base1-100",
+					"name": "Lightning Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/100.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "100",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/100_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68d4",
+					"id": "base1-100",
+					"name": "Lightning Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/100.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "100",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/100_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68dd",
+					"id": "base1-101",
+					"name": "Psychic Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/101.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "101",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/101_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": ["Lightning"],
+					"retreatCost": ["Colorless"],
+					"_id": "5edae005f24b3729783c68b0",
+					"id": "base1-53",
+					"name": "Magnemite",
+					"imageUrl": "https://images.pokemontcg.io/base1/53.png",
+					"subtype": "Basic",
+					"supertype": "Pokémon",
+					"hp": "40",
+					"convertedRetreatCost": 1,
+					"number": "53",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"attacks": [
+						{
+							"cost": ["Lightning"],
+							"_id": "6169da16e41a4420b0c96c11",
+							"name": "Thunder Wave",
+							"convertedEnergyCost": 1,
+							"damage": "10",
+							"text": "Flip a coin. If heads, the Defending Pokémon is now Paralyzed."
+						},
+						{
+							"cost": ["Lightning", "Colorless"],
+							"_id": "6169da16e41a4420b0c96c12",
+							"name": "Selfdestruct",
+							"convertedEnergyCost": 2,
+							"damage": "40",
+							"text": "Does 10 damage to each Pokémon on each player's Bench. (Don't apply Weakness and Resistance for Benched Pokémon.) Magnemite does 40 damage to itself."
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6169da16e41a4420b0c96c13",
+							"type": "Fighting",
+							"value": "×2"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/53_hires.png",
+					"nationalPokedexNumber": 81,
+					"resistances": []
+				},
+				{
+					"types": ["Psychic"],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68b2",
+					"id": "base1-43",
+					"name": "Abra",
+					"imageUrl": "https://images.pokemontcg.io/base1/43.png",
+					"subtype": "Basic",
+					"supertype": "Pokémon",
+					"hp": "30",
+					"number": "43",
+					"artist": "Mitsuhiro Arita",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"attacks": [
+						{
+							"cost": ["Psychic"],
+							"_id": "6169da16e41a4420b0c96c15",
+							"name": "Psyshock",
+							"convertedEnergyCost": 1,
+							"damage": "10",
+							"text": "Flip a coin. If heads, the Defending Pokémon is now Paralyzed."
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6169da16e41a4420b0c96c16",
+							"type": "Psychic",
+							"value": "×2"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/43_hires.png",
+					"nationalPokedexNumber": 63,
+					"resistances": []
+				},
+				{
+					"types": ["Psychic"],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68b5",
+					"id": "base1-50",
+					"name": "Gastly",
+					"imageUrl": "https://images.pokemontcg.io/base1/50.png",
+					"subtype": "Basic",
+					"supertype": "Pokémon",
+					"hp": "30",
+					"number": "50",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"attacks": [
+						{
+							"cost": ["Psychic"],
+							"_id": "6169da16e41a4420b0c96c18",
+							"name": "Sleeping Gas",
+							"convertedEnergyCost": 1,
+							"damage": "",
+							"text": "Flip a coin. If heads, the Defending Pokémon is now Asleep."
+						},
+						{
+							"cost": ["Psychic", "Colorless"],
+							"_id": "6169da16e41a4420b0c96c19",
+							"name": "Destiny Bond",
+							"convertedEnergyCost": 2,
+							"damage": "",
+							"text": "Discard 1 Energy card attached to Gastly in order to use this attack. If a Pokémon Knocks Out Gastly during your opponent's next turn, Knock Out that Pokémon."
+						}
+					],
+					"resistances": [
+						{
+							"_id": "6169da16e41a4420b0c96c1a",
+							"type": "Fighting",
+							"value": "-30"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/50_hires.png",
+					"nationalPokedexNumber": 92,
+					"weaknesses": []
+				},
+				{
+					"types": ["Psychic"],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68ba",
+					"id": "base1-49",
+					"name": "Drowzee",
+					"imageUrl": "https://images.pokemontcg.io/base1/49.png",
+					"subtype": "Basic",
+					"supertype": "Pokémon",
+					"hp": "50",
+					"number": "49",
+					"artist": "Ken Sugimori",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"attacks": [
+						{
+							"cost": ["Colorless"],
+							"_id": "6169da16e41a4420b0c96c1c",
+							"name": "Pound",
+							"convertedEnergyCost": 1,
+							"damage": "10",
+							"text": ""
+						},
+						{
+							"cost": ["Psychic", "Psychic"],
+							"_id": "6169da16e41a4420b0c96c1d",
+							"name": "Confuse Ray",
+							"convertedEnergyCost": 2,
+							"damage": "10",
+							"text": "Flip a coin. If heads, the Defending Pokémon is now Confused."
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6169da16e41a4420b0c96c1e",
+							"type": "Psychic",
+							"value": "×2"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/49_hires.png",
+					"nationalPokedexNumber": 96,
+					"resistances": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68c3",
+					"id": "base1-93",
+					"name": "Gust of Wind",
+					"imageUrl": "https://images.pokemontcg.io/base1/93.png",
+					"subtype": "",
+					"supertype": "Trainer",
+					"number": "93",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/93_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edae005f24b3729783c68d3",
+					"id": "base1-100",
+					"name": "Lightning Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/100.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "100",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/100_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				}
+			]
+		},
+		{
+			"socketId": "sfsdfsd",
+			"cards": [
+				{
+					"types": ["Water"],
+					"retreatCost": ["Colorless"],
+					"_id": "5edadb06f24b3729783c67bb",
+					"id": "base1-59",
+					"name": "Poliwag",
+					"imageUrl": "https://images.pokemontcg.io/base1/59.png",
+					"subtype": "Basic",
+					"supertype": "Pokémon",
+					"hp": "40",
+					"convertedRetreatCost": 1,
+					"number": "59",
+					"artist": "Ken Sugimori",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"attacks": [
+						{
+							"cost": ["Water"],
+							"_id": "6178878c3dcc7251f42e274e",
+							"name": "Water Gun",
+							"convertedEnergyCost": 1,
+							"damage": "10+",
+							"text": "Does 10 damage plus 10 damage for each Energy attached to Poliwag but not used to pay for this attack's Energy cost. Extra Energy after the end don't count."
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6178878c3dcc7251f42e274f",
+							"type": "Grass",
+							"value": "×2"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/59_hires.png",
+					"nationalPokedexNumber": 60,
+					"resistances": []
+				},
+				{
+					"types": ["Water"],
+					"retreatCost": ["Colorless"],
+					"_id": "5edadb06f24b3729783c67bf",
+					"id": "base1-38",
+					"name": "Poliwhirl",
+					"imageUrl": "https://images.pokemontcg.io/base1/38.png",
+					"subtype": "Stage 1",
+					"supertype": "Pokémon",
+					"hp": "60",
+					"convertedRetreatCost": 1,
+					"number": "38",
+					"artist": "Ken Sugimori",
+					"rarity": "Uncommon",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"attacks": [
+						{
+							"cost": ["Water", "Water"],
+							"_id": "6178878c3dcc7251f42e2751",
+							"name": "Amnesia",
+							"convertedEnergyCost": 2,
+							"damage": "",
+							"text": "Choose 1 of defenders attacks. Defender cannot use that attack next turn."
+						},
+						{
+							"cost": ["Water", "Water", "Colorless"],
+							"_id": "6178878c3dcc7251f42e2752",
+							"name": "Doubleslap",
+							"convertedEnergyCost": 3,
+							"damage": "30×",
+							"text": "Flip 2 coins. This attack does 30 damage times number of heads."
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6178878c3dcc7251f42e2753",
+							"type": "Grass",
+							"value": "×2"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/38_hires.png",
+					"nationalPokedexNumber": 61,
+					"resistances": []
+				},
+				{
+					"types": ["Fighting"],
+					"retreatCost": ["Colorless", "Colorless", "Colorless"],
+					"_id": "5edadb06f24b3729783c67c6",
+					"id": "base2-61",
+					"name": "Rhyhorn",
+					"imageUrl": "https://images.pokemontcg.io/base2/61.png",
+					"subtype": "Basic",
+					"supertype": "Pokémon",
+					"hp": "70",
+					"convertedRetreatCost": 3,
+					"number": "61",
+					"artist": "Mitsuhiro Arita",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Jungle",
+					"setCode": "base2",
+					"attacks": [
+						{
+							"cost": ["Colorless"],
+							"_id": "6178878c3dcc7251f42e2755",
+							"name": "Leer",
+							"convertedEnergyCost": 1,
+							"damage": "",
+							"text": "Flip a coin. If heads, the Defending Pokémon can't attack Rhyhorn during your opponent's next turn. (Benching either Pokémon ends this effect.)"
+						},
+						{
+							"cost": ["Fighting", "Colorless", "Colorless"],
+							"_id": "6178878c3dcc7251f42e2756",
+							"name": "Horn Attack",
+							"convertedEnergyCost": 3,
+							"damage": "30",
+							"text": ""
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6178878c3dcc7251f42e2757",
+							"type": "Grass",
+							"value": "×2"
+						}
+					],
+					"resistances": [
+						{
+							"_id": "6178878c3dcc7251f42e2758",
+							"type": "Lightning",
+							"value": "-30"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base2/61_hires.png",
+					"nationalPokedexNumber": 111
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67d6",
+					"id": "base1-88",
+					"name": "Professor Oak",
+					"imageUrl": "https://images.pokemontcg.io/base1/88.png",
+					"subtype": "",
+					"supertype": "Trainer",
+					"number": "88",
+					"artist": "Ken Sugimori",
+					"rarity": "Uncommon",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/88_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67e1",
+					"id": "base1-102",
+					"name": "Water Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/102.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "102",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/102_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": ["Water"],
+					"retreatCost": ["Colorless"],
+					"_id": "5edadb06f24b3729783c67c0",
+					"id": "base1-41",
+					"name": "Seel",
+					"imageUrl": "https://images.pokemontcg.io/base1/41.png",
+					"subtype": "Basic",
+					"supertype": "Pokémon",
+					"hp": "60",
+					"convertedRetreatCost": 1,
+					"number": "41",
+					"artist": "Ken Sugimori",
+					"rarity": "Uncommon",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"attacks": [
+						{
+							"cost": ["Water"],
+							"_id": "6178878c3dcc7251f42e275c",
+							"name": "Headbutt",
+							"convertedEnergyCost": 1,
+							"damage": "10",
+							"text": ""
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6178878c3dcc7251f42e275d",
+							"type": "Lightning",
+							"value": "×2"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/41_hires.png",
+					"nationalPokedexNumber": 86,
+					"resistances": []
+				},
+				{
+					"types": ["Fighting"],
+					"retreatCost": ["Colorless", "Colorless", "Colorless"],
+					"_id": "5edadb06f24b3729783c67c5",
+					"id": "base2-61",
+					"name": "Rhyhorn",
+					"imageUrl": "https://images.pokemontcg.io/base2/61.png",
+					"subtype": "Basic",
+					"supertype": "Pokémon",
+					"hp": "70",
+					"convertedRetreatCost": 3,
+					"number": "61",
+					"artist": "Mitsuhiro Arita",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Jungle",
+					"setCode": "base2",
+					"attacks": [
+						{
+							"cost": ["Colorless"],
+							"_id": "6178878c3dcc7251f42e275f",
+							"name": "Leer",
+							"convertedEnergyCost": 1,
+							"damage": "",
+							"text": "Flip a coin. If heads, the Defending Pokémon can't attack Rhyhorn during your opponent's next turn. (Benching either Pokémon ends this effect.)"
+						},
+						{
+							"cost": ["Fighting", "Colorless", "Colorless"],
+							"_id": "6178878c3dcc7251f42e2760",
+							"name": "Horn Attack",
+							"convertedEnergyCost": 3,
+							"damage": "30",
+							"text": ""
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6178878c3dcc7251f42e2761",
+							"type": "Grass",
+							"value": "×2"
+						}
+					],
+					"resistances": [
+						{
+							"_id": "6178878c3dcc7251f42e2762",
+							"type": "Lightning",
+							"value": "-30"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base2/61_hires.png",
+					"nationalPokedexNumber": 111
+				},
+				{
+					"types": ["Colorless"],
+					"retreatCost": ["Colorless"],
+					"_id": "5edadb06f24b3729783c67ce",
+					"id": "base2-51",
+					"name": "Eevee",
+					"imageUrl": "https://images.pokemontcg.io/base2/51.png",
+					"subtype": "Basic",
+					"supertype": "Pokémon",
+					"hp": "50",
+					"convertedRetreatCost": 1,
+					"number": "51",
+					"artist": "Kagemaru Himeno",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Jungle",
+					"setCode": "base2",
+					"attacks": [
+						{
+							"cost": ["Colorless"],
+							"_id": "6178878c3dcc7251f42e2764",
+							"name": "Tail Wag",
+							"convertedEnergyCost": 1,
+							"damage": "",
+							"text": "Flip a coin. If heads, the Defending Pokémon can't attack Eevee during your opponent's next turn. (Benching either Pokémon ends this effect.)"
+						},
+						{
+							"cost": ["Colorless", "Colorless"],
+							"_id": "6178878c3dcc7251f42e2765",
+							"name": "Quick Attack",
+							"convertedEnergyCost": 2,
+							"damage": "10+",
+							"text": "Flip a coin. If heads, this attack does 10 damage plus 20 more damage; if tails, this attack does 10 damage."
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6178878c3dcc7251f42e2766",
+							"type": "Fighting",
+							"value": "×2"
+						}
+					],
+					"resistances": [
+						{
+							"_id": "6178878c3dcc7251f42e2767",
+							"type": "Psychic",
+							"value": "-30"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base2/51_hires.png",
+					"nationalPokedexNumber": 133
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67d5",
+					"id": "base1-94",
+					"name": "Potion",
+					"imageUrl": "https://images.pokemontcg.io/base1/94.png",
+					"subtype": "",
+					"supertype": "Trainer",
+					"number": "94",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/94_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67e3",
+					"id": "base1-102",
+					"name": "Water Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/102.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "102",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/102_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": ["Colorless"],
+					"retreatCost": ["Colorless"],
+					"_id": "5edadb06f24b3729783c67c8",
+					"id": "base2-56",
+					"name": "Meowth",
+					"imageUrl": "https://images.pokemontcg.io/base2/56.png",
+					"subtype": "Basic",
+					"supertype": "Pokémon",
+					"hp": "50",
+					"convertedRetreatCost": 1,
+					"number": "56",
+					"artist": "Mitsuhiro Arita",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Jungle",
+					"setCode": "base2",
+					"attacks": [
+						{
+							"cost": ["Colorless", "Colorless"],
+							"_id": "6178878c3dcc7251f42e276b",
+							"name": "Pay Day",
+							"convertedEnergyCost": 2,
+							"damage": "10",
+							"text": "Flip a coin. If heads, draw a card."
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6178878c3dcc7251f42e276c",
+							"type": "Fighting",
+							"value": "×2"
+						}
+					],
+					"resistances": [
+						{
+							"_id": "6178878c3dcc7251f42e276d",
+							"type": "Psychic",
+							"value": "-30"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base2/56_hires.png",
+					"nationalPokedexNumber": 52
+				},
+				{
+					"types": ["Colorless"],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67cd",
+					"id": "base2-42",
+					"name": "Persian",
+					"imageUrl": "https://images.pokemontcg.io/base2/42.png",
+					"subtype": "Stage 1",
+					"supertype": "Pokémon",
+					"hp": "70",
+					"convertedRetreatCost": 0,
+					"number": "42",
+					"artist": "Kagemaru Himeno",
+					"rarity": "Uncommon",
+					"series": "Base",
+					"set": "Jungle",
+					"setCode": "base2",
+					"attacks": [
+						{
+							"cost": ["Colorless", "Colorless"],
+							"_id": "6178878c3dcc7251f42e276f",
+							"name": "Scratch",
+							"convertedEnergyCost": 2,
+							"damage": "20",
+							"text": ""
+						},
+						{
+							"cost": ["Colorless", "Colorless", "Colorless"],
+							"_id": "6178878c3dcc7251f42e2770",
+							"name": "Pounce",
+							"convertedEnergyCost": 3,
+							"damage": "30",
+							"text": "If the Defending Pokémon attacks Persian during your opponent's next turn, any damage done by the attack is reduce by 10 (after applying Weakness and Resistance). (Benching either Pokémon ends this effect.)"
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6178878c3dcc7251f42e2771",
+							"type": "Fighting",
+							"value": "×2"
+						}
+					],
+					"resistances": [
+						{
+							"_id": "6178878c3dcc7251f42e2772",
+							"type": "Psychic",
+							"value": "-30"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base2/42_hires.png",
+					"nationalPokedexNumber": 53
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67f1",
+					"id": "base1-97",
+					"name": "Fighting Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/97.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "97",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/97_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": ["Colorless"],
+					"retreatCost": ["Colorless"],
+					"_id": "5edadb06f24b3729783c67d1",
+					"id": "base2-51",
+					"name": "Eevee",
+					"imageUrl": "https://images.pokemontcg.io/base2/51.png",
+					"subtype": "Basic",
+					"supertype": "Pokémon",
+					"hp": "50",
+					"convertedRetreatCost": 1,
+					"number": "51",
+					"artist": "Kagemaru Himeno",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Jungle",
+					"setCode": "base2",
+					"attacks": [
+						{
+							"cost": ["Colorless"],
+							"_id": "6178878c3dcc7251f42e2775",
+							"name": "Tail Wag",
+							"convertedEnergyCost": 1,
+							"damage": "",
+							"text": "Flip a coin. If heads, the Defending Pokémon can't attack Eevee during your opponent's next turn. (Benching either Pokémon ends this effect.)"
+						},
+						{
+							"cost": ["Colorless", "Colorless"],
+							"_id": "6178878c3dcc7251f42e2776",
+							"name": "Quick Attack",
+							"convertedEnergyCost": 2,
+							"damage": "10+",
+							"text": "Flip a coin. If heads, this attack does 10 damage plus 20 more damage; if tails, this attack does 10 damage."
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6178878c3dcc7251f42e2777",
+							"type": "Fighting",
+							"value": "×2"
+						}
+					],
+					"resistances": [
+						{
+							"_id": "6178878c3dcc7251f42e2778",
+							"type": "Psychic",
+							"value": "-30"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base2/51_hires.png",
+					"nationalPokedexNumber": 133
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67e4",
+					"id": "base1-102",
+					"name": "Water Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/102.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "102",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/102_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67ea",
+					"id": "base1-97",
+					"name": "Fighting Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/97.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "97",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/97_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67f2",
+					"id": "base1-97",
+					"name": "Fighting Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/97.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "97",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/97_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67d3",
+					"id": "base1-93",
+					"name": "Gust of Wind",
+					"imageUrl": "https://images.pokemontcg.io/base1/93.png",
+					"subtype": "",
+					"supertype": "Trainer",
+					"number": "93",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/93_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": ["Water"],
+					"retreatCost": ["Colorless"],
+					"_id": "5edadb06f24b3729783c67ba",
+					"id": "base1-59",
+					"name": "Poliwag",
+					"imageUrl": "https://images.pokemontcg.io/base1/59.png",
+					"subtype": "Basic",
+					"supertype": "Pokémon",
+					"hp": "40",
+					"convertedRetreatCost": 1,
+					"number": "59",
+					"artist": "Ken Sugimori",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"attacks": [
+						{
+							"cost": ["Water"],
+							"_id": "6178878c3dcc7251f42e277e",
+							"name": "Water Gun",
+							"convertedEnergyCost": 1,
+							"damage": "10+",
+							"text": "Does 10 damage plus 10 damage for each Energy attached to Poliwag but not used to pay for this attack's Energy cost. Extra Energy after the end don't count."
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6178878c3dcc7251f42e277f",
+							"type": "Grass",
+							"value": "×2"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/59_hires.png",
+					"nationalPokedexNumber": 60,
+					"resistances": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67d8",
+					"id": "base1-90",
+					"name": "Super Potion",
+					"imageUrl": "https://images.pokemontcg.io/base1/90.png",
+					"subtype": "",
+					"supertype": "Trainer",
+					"number": "90",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Uncommon",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/90_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67ee",
+					"id": "base1-97",
+					"name": "Fighting Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/97.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "97",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/97_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": ["Fighting"],
+					"retreatCost": ["Colorless", "Colorless", "Colorless"],
+					"_id": "5edadb06f24b3729783c67c4",
+					"id": "base2-61",
+					"name": "Rhyhorn",
+					"imageUrl": "https://images.pokemontcg.io/base2/61.png",
+					"subtype": "Basic",
+					"supertype": "Pokémon",
+					"hp": "70",
+					"convertedRetreatCost": 3,
+					"number": "61",
+					"artist": "Mitsuhiro Arita",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Jungle",
+					"setCode": "base2",
+					"attacks": [
+						{
+							"cost": ["Colorless"],
+							"_id": "6178878c3dcc7251f42e2783",
+							"name": "Leer",
+							"convertedEnergyCost": 1,
+							"damage": "",
+							"text": "Flip a coin. If heads, the Defending Pokémon can't attack Rhyhorn during your opponent's next turn. (Benching either Pokémon ends this effect.)"
+						},
+						{
+							"cost": ["Fighting", "Colorless", "Colorless"],
+							"_id": "6178878c3dcc7251f42e2784",
+							"name": "Horn Attack",
+							"convertedEnergyCost": 3,
+							"damage": "30",
+							"text": ""
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6178878c3dcc7251f42e2785",
+							"type": "Grass",
+							"value": "×2"
+						}
+					],
+					"resistances": [
+						{
+							"_id": "6178878c3dcc7251f42e2786",
+							"type": "Lightning",
+							"value": "-30"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base2/61_hires.png",
+					"nationalPokedexNumber": 111
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67db",
+					"id": "base1-102",
+					"name": "Water Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/102.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "102",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/102_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67df",
+					"id": "base1-102",
+					"name": "Water Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/102.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "102",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/102_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67e0",
+					"id": "base1-102",
+					"name": "Water Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/102.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "102",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/102_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67ef",
+					"id": "base1-97",
+					"name": "Fighting Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/97.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "97",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/97_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67f4",
+					"id": "base1-97",
+					"name": "Fighting Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/97.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "97",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/97_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67f5",
+					"id": "base1-97",
+					"name": "Fighting Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/97.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "97",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/97_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": ["Water"],
+					"retreatCost": ["Colorless"],
+					"_id": "5edadb06f24b3729783c67bc",
+					"id": "base1-59",
+					"name": "Poliwag",
+					"imageUrl": "https://images.pokemontcg.io/base1/59.png",
+					"subtype": "Basic",
+					"supertype": "Pokémon",
+					"hp": "40",
+					"convertedRetreatCost": 1,
+					"number": "59",
+					"artist": "Ken Sugimori",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"attacks": [
+						{
+							"cost": ["Water"],
+							"_id": "6178878c3dcc7251f42e278e",
+							"name": "Water Gun",
+							"convertedEnergyCost": 1,
+							"damage": "10+",
+							"text": "Does 10 damage plus 10 damage for each Energy attached to Poliwag but not used to pay for this attack's Energy cost. Extra Energy after the end don't count."
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6178878c3dcc7251f42e278f",
+							"type": "Grass",
+							"value": "×2"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/59_hires.png",
+					"nationalPokedexNumber": 60,
+					"resistances": []
+				},
+				{
+					"types": ["Colorless"],
+					"retreatCost": ["Colorless"],
+					"_id": "5edadb06f24b3729783c67cb",
+					"id": "base2-56",
+					"name": "Meowth",
+					"imageUrl": "https://images.pokemontcg.io/base2/56.png",
+					"subtype": "Basic",
+					"supertype": "Pokémon",
+					"hp": "50",
+					"convertedRetreatCost": 1,
+					"number": "56",
+					"artist": "Mitsuhiro Arita",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Jungle",
+					"setCode": "base2",
+					"attacks": [
+						{
+							"cost": ["Colorless", "Colorless"],
+							"_id": "6178878c3dcc7251f42e2791",
+							"name": "Pay Day",
+							"convertedEnergyCost": 2,
+							"damage": "10",
+							"text": "Flip a coin. If heads, draw a card."
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6178878c3dcc7251f42e2792",
+							"type": "Fighting",
+							"value": "×2"
+						}
+					],
+					"resistances": [
+						{
+							"_id": "6178878c3dcc7251f42e2793",
+							"type": "Psychic",
+							"value": "-30"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base2/56_hires.png",
+					"nationalPokedexNumber": 52
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67e6",
+					"id": "base1-102",
+					"name": "Water Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/102.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "102",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/102_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": ["Water"],
+					"retreatCost": ["Colorless"],
+					"_id": "5edadb06f24b3729783c67bd",
+					"id": "base1-59",
+					"name": "Poliwag",
+					"imageUrl": "https://images.pokemontcg.io/base1/59.png",
+					"subtype": "Basic",
+					"supertype": "Pokémon",
+					"hp": "40",
+					"convertedRetreatCost": 1,
+					"number": "59",
+					"artist": "Ken Sugimori",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"attacks": [
+						{
+							"cost": ["Water"],
+							"_id": "6178878c3dcc7251f42e2796",
+							"name": "Water Gun",
+							"convertedEnergyCost": 1,
+							"damage": "10+",
+							"text": "Does 10 damage plus 10 damage for each Energy attached to Poliwag but not used to pay for this attack's Energy cost. Extra Energy after the end don't count."
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6178878c3dcc7251f42e2797",
+							"type": "Grass",
+							"value": "×2"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/59_hires.png",
+					"nationalPokedexNumber": 60,
+					"resistances": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67da",
+					"id": "base1-102",
+					"name": "Water Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/102.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "102",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/102_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": ["Water"],
+					"retreatCost": ["Colorless"],
+					"_id": "5edadb06f24b3729783c67be",
+					"id": "base1-38",
+					"name": "Poliwhirl",
+					"imageUrl": "https://images.pokemontcg.io/base1/38.png",
+					"subtype": "Stage 1",
+					"supertype": "Pokémon",
+					"hp": "60",
+					"convertedRetreatCost": 1,
+					"number": "38",
+					"artist": "Ken Sugimori",
+					"rarity": "Uncommon",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"attacks": [
+						{
+							"cost": ["Water", "Water"],
+							"_id": "6178878c3dcc7251f42e279a",
+							"name": "Amnesia",
+							"convertedEnergyCost": 2,
+							"damage": "",
+							"text": "Choose 1 of defenders attacks. Defender cannot use that attack next turn."
+						},
+						{
+							"cost": ["Water", "Water", "Colorless"],
+							"_id": "6178878c3dcc7251f42e279b",
+							"name": "Doubleslap",
+							"convertedEnergyCost": 3,
+							"damage": "30×",
+							"text": "Flip 2 coins. This attack does 30 damage times number of heads."
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6178878c3dcc7251f42e279c",
+							"type": "Grass",
+							"value": "×2"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/38_hires.png",
+					"nationalPokedexNumber": 61,
+					"resistances": []
+				},
+				{
+					"types": ["Fighting"],
+					"retreatCost": ["Colorless"],
+					"_id": "5edadb06f24b3729783c67c2",
+					"id": "base1-52",
+					"name": "Machop",
+					"imageUrl": "https://images.pokemontcg.io/base1/52.png",
+					"subtype": "Basic",
+					"supertype": "Pokémon",
+					"hp": "50",
+					"convertedRetreatCost": 1,
+					"number": "52",
+					"artist": "Mitsuhiro Arita",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"attacks": [
+						{
+							"cost": ["Fighting"],
+							"_id": "6178878c3dcc7251f42e279e",
+							"name": "Low Kick",
+							"convertedEnergyCost": 1,
+							"damage": "20",
+							"text": ""
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6178878c3dcc7251f42e279f",
+							"type": "Psychic",
+							"value": "×2"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/52_hires.png",
+					"nationalPokedexNumber": 66,
+					"resistances": []
+				},
+				{
+					"types": ["Fighting"],
+					"retreatCost": ["Colorless", "Colorless", "Colorless"],
+					"_id": "5edadb06f24b3729783c67c7",
+					"id": "base2-45",
+					"name": "Rhydon",
+					"imageUrl": "https://images.pokemontcg.io/base2/45.png",
+					"subtype": "Stage 1",
+					"supertype": "Pokémon",
+					"hp": "100",
+					"convertedRetreatCost": 3,
+					"number": "45",
+					"artist": "Kagemaru Himeno",
+					"rarity": "Uncommon",
+					"series": "Base",
+					"set": "Jungle",
+					"setCode": "base2",
+					"attacks": [
+						{
+							"cost": ["Fighting", "Colorless", "Colorless"],
+							"_id": "6178878c3dcc7251f42e27a1",
+							"name": "Horn Attack",
+							"convertedEnergyCost": 3,
+							"damage": "30",
+							"text": ""
+						},
+						{
+							"cost": [
+								"Fighting",
+								"Fighting",
+								"Fighting",
+								"Fighting"
+							],
+							"_id": "6178878c3dcc7251f42e27a2",
+							"name": "Ram",
+							"convertedEnergyCost": 4,
+							"damage": "50",
+							"text": "Rhydon does 20 damage to itself. If your opponent has any Benched Pokémon, he or she chooses 1 of them and switches it with the Defending Pokémon. (Do the damage before switching the Pokémon. Switch the Pokémon even if Rhydon is knocked out.)"
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6178878c3dcc7251f42e27a3",
+							"type": "Grass",
+							"value": "×2"
+						}
+					],
+					"resistances": [
+						{
+							"_id": "6178878c3dcc7251f42e27a4",
+							"type": "Lightning",
+							"value": "-30"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base2/45_hires.png",
+					"nationalPokedexNumber": 112
+				},
+				{
+					"types": ["Colorless"],
+					"retreatCost": ["Colorless"],
+					"_id": "5edadb06f24b3729783c67c9",
+					"id": "base2-56",
+					"name": "Meowth",
+					"imageUrl": "https://images.pokemontcg.io/base2/56.png",
+					"subtype": "Basic",
+					"supertype": "Pokémon",
+					"hp": "50",
+					"convertedRetreatCost": 1,
+					"number": "56",
+					"artist": "Mitsuhiro Arita",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Jungle",
+					"setCode": "base2",
+					"attacks": [
+						{
+							"cost": ["Colorless", "Colorless"],
+							"_id": "6178878c3dcc7251f42e27a6",
+							"name": "Pay Day",
+							"convertedEnergyCost": 2,
+							"damage": "10",
+							"text": "Flip a coin. If heads, draw a card."
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6178878c3dcc7251f42e27a7",
+							"type": "Fighting",
+							"value": "×2"
+						}
+					],
+					"resistances": [
+						{
+							"_id": "6178878c3dcc7251f42e27a8",
+							"type": "Psychic",
+							"value": "-30"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base2/56_hires.png",
+					"nationalPokedexNumber": 52
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67d7",
+					"id": "base1-90",
+					"name": "Super Potion",
+					"imageUrl": "https://images.pokemontcg.io/base1/90.png",
+					"subtype": "",
+					"supertype": "Trainer",
+					"number": "90",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Uncommon",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/90_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67d9",
+					"id": "base1-95",
+					"name": "Switch",
+					"imageUrl": "https://images.pokemontcg.io/base1/95.png",
+					"subtype": "",
+					"supertype": "Trainer",
+					"number": "95",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/95_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67e5",
+					"id": "base1-102",
+					"name": "Water Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/102.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "102",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/102_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67ec",
+					"id": "base1-97",
+					"name": "Fighting Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/97.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "97",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/97_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67f3",
+					"id": "base1-97",
+					"name": "Fighting Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/97.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "97",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/97_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67eb",
+					"id": "base1-97",
+					"name": "Fighting Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/97.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "97",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/97_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67f0",
+					"id": "base1-97",
+					"name": "Fighting Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/97.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "97",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/97_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": ["Colorless"],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67cc",
+					"id": "base2-42",
+					"name": "Persian",
+					"imageUrl": "https://images.pokemontcg.io/base2/42.png",
+					"subtype": "Stage 1",
+					"supertype": "Pokémon",
+					"hp": "70",
+					"convertedRetreatCost": 0,
+					"number": "42",
+					"artist": "Kagemaru Himeno",
+					"rarity": "Uncommon",
+					"series": "Base",
+					"set": "Jungle",
+					"setCode": "base2",
+					"attacks": [
+						{
+							"cost": ["Colorless", "Colorless"],
+							"_id": "6178878c3dcc7251f42e27b1",
+							"name": "Scratch",
+							"convertedEnergyCost": 2,
+							"damage": "20",
+							"text": ""
+						},
+						{
+							"cost": ["Colorless", "Colorless", "Colorless"],
+							"_id": "6178878c3dcc7251f42e27b2",
+							"name": "Pounce",
+							"convertedEnergyCost": 3,
+							"damage": "30",
+							"text": "If the Defending Pokémon attacks Persian during your opponent's next turn, any damage done by the attack is reduce by 10 (after applying Weakness and Resistance). (Benching either Pokémon ends this effect.)"
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6178878c3dcc7251f42e27b3",
+							"type": "Fighting",
+							"value": "×2"
+						}
+					],
+					"resistances": [
+						{
+							"_id": "6178878c3dcc7251f42e27b4",
+							"type": "Psychic",
+							"value": "-30"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base2/42_hires.png",
+					"nationalPokedexNumber": 53
+				},
+				{
+					"types": ["Fighting"],
+					"retreatCost": ["Colorless"],
+					"_id": "5edadb06f24b3729783c67c3",
+					"id": "base1-52",
+					"name": "Machop",
+					"imageUrl": "https://images.pokemontcg.io/base1/52.png",
+					"subtype": "Basic",
+					"supertype": "Pokémon",
+					"hp": "50",
+					"convertedRetreatCost": 1,
+					"number": "52",
+					"artist": "Mitsuhiro Arita",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"attacks": [
+						{
+							"cost": ["Fighting"],
+							"_id": "6178878c3dcc7251f42e27b6",
+							"name": "Low Kick",
+							"convertedEnergyCost": 1,
+							"damage": "20",
+							"text": ""
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6178878c3dcc7251f42e27b7",
+							"type": "Psychic",
+							"value": "×2"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/52_hires.png",
+					"nationalPokedexNumber": 66,
+					"resistances": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67ed",
+					"id": "base1-97",
+					"name": "Fighting Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/97.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "97",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/97_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67d2",
+					"id": "base1-93",
+					"name": "Gust of Wind",
+					"imageUrl": "https://images.pokemontcg.io/base1/93.png",
+					"subtype": "",
+					"supertype": "Trainer",
+					"number": "93",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/93_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67e2",
+					"id": "base1-102",
+					"name": "Water Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/102.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "102",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/102_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67e7",
+					"id": "base1-102",
+					"name": "Water Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/102.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "102",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/102_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": ["Water"],
+					"retreatCost": ["Colorless"],
+					"_id": "5edadb06f24b3729783c67c1",
+					"id": "base2-12",
+					"name": "Vaporeon",
+					"imageUrl": "https://images.pokemontcg.io/base2/12.png",
+					"subtype": "Stage 1",
+					"supertype": "Pokémon",
+					"hp": "80",
+					"convertedRetreatCost": 1,
+					"number": "12",
+					"artist": "Kagemaru Himeno",
+					"rarity": "Rare",
+					"series": "Base",
+					"set": "Jungle",
+					"setCode": "base2",
+					"attacks": [
+						{
+							"cost": ["Colorless", "Colorless"],
+							"_id": "6178878c3dcc7251f42e27bd",
+							"name": "Quick Attack",
+							"convertedEnergyCost": 2,
+							"damage": "10+",
+							"text": "Flip a coin. If heads, this attack does 10 damage plus 20 more damage; if tails, this attack does 10 damage."
+						},
+						{
+							"cost": ["Water", "Water", "Colorless"],
+							"_id": "6178878c3dcc7251f42e27be",
+							"name": "Water Gun",
+							"convertedEnergyCost": 3,
+							"damage": "30+",
+							"text": "Does 30 damage plus 10 more damage for each Energy attached to Vaporeon but not used to pay for this attack's Energy cost. Extra Energy after the 2nd doesn't count."
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6178878c3dcc7251f42e27bf",
+							"type": "Lightning",
+							"value": "×2"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base2/12_hires.png",
+					"nationalPokedexNumber": 134,
+					"resistances": []
+				},
+				{
+					"types": ["Colorless"],
+					"retreatCost": ["Colorless"],
+					"_id": "5edadb06f24b3729783c67ca",
+					"id": "base2-56",
+					"name": "Meowth",
+					"imageUrl": "https://images.pokemontcg.io/base2/56.png",
+					"subtype": "Basic",
+					"supertype": "Pokémon",
+					"hp": "50",
+					"convertedRetreatCost": 1,
+					"number": "56",
+					"artist": "Mitsuhiro Arita",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Jungle",
+					"setCode": "base2",
+					"attacks": [
+						{
+							"cost": ["Colorless", "Colorless"],
+							"_id": "6178878c3dcc7251f42e27c1",
+							"name": "Pay Day",
+							"convertedEnergyCost": 2,
+							"damage": "10",
+							"text": "Flip a coin. If heads, draw a card."
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6178878c3dcc7251f42e27c2",
+							"type": "Fighting",
+							"value": "×2"
+						}
+					],
+					"resistances": [
+						{
+							"_id": "6178878c3dcc7251f42e27c3",
+							"type": "Psychic",
+							"value": "-30"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base2/56_hires.png",
+					"nationalPokedexNumber": 52
+				},
+				{
+					"types": ["Colorless"],
+					"retreatCost": ["Colorless"],
+					"_id": "5edadb06f24b3729783c67cf",
+					"id": "base2-51",
+					"name": "Eevee",
+					"imageUrl": "https://images.pokemontcg.io/base2/51.png",
+					"subtype": "Basic",
+					"supertype": "Pokémon",
+					"hp": "50",
+					"convertedRetreatCost": 1,
+					"number": "51",
+					"artist": "Kagemaru Himeno",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Jungle",
+					"setCode": "base2",
+					"attacks": [
+						{
+							"cost": ["Colorless"],
+							"_id": "6178878c3dcc7251f42e27c5",
+							"name": "Tail Wag",
+							"convertedEnergyCost": 1,
+							"damage": "",
+							"text": "Flip a coin. If heads, the Defending Pokémon can't attack Eevee during your opponent's next turn. (Benching either Pokémon ends this effect.)"
+						},
+						{
+							"cost": ["Colorless", "Colorless"],
+							"_id": "6178878c3dcc7251f42e27c6",
+							"name": "Quick Attack",
+							"convertedEnergyCost": 2,
+							"damage": "10+",
+							"text": "Flip a coin. If heads, this attack does 10 damage plus 20 more damage; if tails, this attack does 10 damage."
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6178878c3dcc7251f42e27c7",
+							"type": "Fighting",
+							"value": "×2"
+						}
+					],
+					"resistances": [
+						{
+							"_id": "6178878c3dcc7251f42e27c8",
+							"type": "Psychic",
+							"value": "-30"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base2/51_hires.png",
+					"nationalPokedexNumber": 133
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67d4",
+					"id": "base1-94",
+					"name": "Potion",
+					"imageUrl": "https://images.pokemontcg.io/base1/94.png",
+					"subtype": "",
+					"supertype": "Trainer",
+					"number": "94",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/94_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67dc",
+					"id": "base1-102",
+					"name": "Water Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/102.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "102",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/102_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67e9",
+					"id": "base1-97",
+					"name": "Fighting Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/97.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "97",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/97_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": ["Colorless"],
+					"retreatCost": ["Colorless"],
+					"_id": "5edadb06f24b3729783c67d0",
+					"id": "base2-51",
+					"name": "Eevee",
+					"imageUrl": "https://images.pokemontcg.io/base2/51.png",
+					"subtype": "Basic",
+					"supertype": "Pokémon",
+					"hp": "50",
+					"convertedRetreatCost": 1,
+					"number": "51",
+					"artist": "Kagemaru Himeno",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Jungle",
+					"setCode": "base2",
+					"attacks": [
+						{
+							"cost": ["Colorless"],
+							"_id": "6178878c3dcc7251f42e27cd",
+							"name": "Tail Wag",
+							"convertedEnergyCost": 1,
+							"damage": "",
+							"text": "Flip a coin. If heads, the Defending Pokémon can't attack Eevee during your opponent's next turn. (Benching either Pokémon ends this effect.)"
+						},
+						{
+							"cost": ["Colorless", "Colorless"],
+							"_id": "6178878c3dcc7251f42e27ce",
+							"name": "Quick Attack",
+							"convertedEnergyCost": 2,
+							"damage": "10+",
+							"text": "Flip a coin. If heads, this attack does 10 damage plus 20 more damage; if tails, this attack does 10 damage."
+						}
+					],
+					"weaknesses": [
+						{
+							"_id": "6178878c3dcc7251f42e27cf",
+							"type": "Fighting",
+							"value": "×2"
+						}
+					],
+					"resistances": [
+						{
+							"_id": "6178878c3dcc7251f42e27d0",
+							"type": "Psychic",
+							"value": "-30"
+						}
+					],
+					"imageUrlHiRes": "https://images.pokemontcg.io/base2/51_hires.png",
+					"nationalPokedexNumber": 133
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67dd",
+					"id": "base1-102",
+					"name": "Water Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/102.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "102",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/102_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67de",
+					"id": "base1-102",
+					"name": "Water Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/102.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "102",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/102_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				},
+				{
+					"types": [],
+					"retreatCost": [],
+					"_id": "5edadb06f24b3729783c67e8",
+					"id": "base1-97",
+					"name": "Fighting Energy",
+					"imageUrl": "https://images.pokemontcg.io/base1/97.png",
+					"subtype": "Basic",
+					"supertype": "Energy",
+					"number": "97",
+					"artist": "Keiji Kinebuchi",
+					"rarity": "Common",
+					"series": "Base",
+					"set": "Base",
+					"setCode": "base1",
+					"imageUrlHiRes": "https://images.pokemontcg.io/base1/97_hires.png",
+					"attacks": [],
+					"resistances": [],
+					"weaknesses": []
+				}
+			]
+		}
+	]
+}
