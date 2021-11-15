@@ -7,6 +7,8 @@ const cors = require('cors');
 const http = require('http');
 const server = http.createServer(app);
 const Game = require('./models/Game');
+const { createGame } = require('./gamelogic/socket_controllers/createGame');
+const { createPreGame } = require('./gamelogic/socket_controllers/createPreGame')
 const { getRoomSpecs } = require('./gameLogic/common/getRoomSpecs');
 const getPrizeCardsActiveGame = require('./gamelogic/common/getPrizeCardsActiveGame');
 
@@ -56,7 +58,7 @@ nextApp.prepare().then(() => {
 		helmet.contentSecurityPolicy({
 			directives: {
 				...helmet.contentSecurityPolicy.getDefaultDirectives(),
-			
+				'script-src': ["'self'", "'unsafe-eval'"],
 				'img-src': ["'self'", 'images.pokemontcg.io', 'data:'],
 			},
 		}),
@@ -202,46 +204,20 @@ io.on('connection', (socket) => {
 			roomSpecObj = getRoomSpecs(rooms.entries(), room);//update roomspec obj with newly added socket of room
 			//TODO construct obj required for create game to trigger
 			//TODO replace sample call with local call with cross origin localhost
+			console.debug("room spec obj on 2 player join is " + JSON.stringify(roomSpecObj));
 
-			//game create endpoint trigger(client-side local hit)
-			const postData = JSON.stringify({
-				'msg': 'Hello World!'
-			  });	
-			const optionsCreateGame = {
-				hostname: 'localhost',
-				port: process.env.PORT,
-				path: '/api/v1/game/createCopy',
-				method: 'POST',
-				headers: {
-				  'Content-Type': 'application/json',
-				  'Content-Length': Buffer.byteLength(postData)
-				}
-			  };
+			let gameCreateObj = { roomId:roomSpecObj.roomName, players : [roomSpecObj.socketNames[0], roomSpecObj.socketNames[0]] };
+			console.log("well gamecreateOBJ for later is " + JSON.stringify(gameCreateObj));
+
+
+
+			//pass to preGame function
 			
-			  const req = http.request(optionsCreateGame, (res) => {
-				console.log(`STATUS: ${res.statusCode}`);
-				console.log(`HEADERS: ${JSON.stringify(res.headers)}`);
-				res.setEncoding('utf8');
-				res.on('data', (chunk) => {
-				  console.log(`BODY: ${chunk}`);
-				});
-				res.on('end', () => {
-				  console.log('No more data in response.');
-				});
-			  }); 
-			console.log("well options are " + JSON.stringify(optionsCreateGame));
-			//TODO something wrong with req here, postman is working on the 'post' ep...
-
-			const obj1 = {take: "this"};
-			req.write(postData);
-			req.on('error', error => {
-				console.error(error)
-			})
-
-			console.log("elements are hopefully(2) with second join in room " + JSON.stringify(roomSpecObj));
-			console.debug("IMPL for requesting heads/tails needed here to give back result to both clients in room")
+			const pregameCreatedConfirmation = createPreGame({});
+			console.debug("gameCreatedConfirmation should be succesfull maybe? " + JSON.stringify(pregameCreatedConfirmation));
+	
 		}
-			else{
+		else{
 			console.log(
 				'room was FULL of users tell them get wrecked ' +
 					'"' +
@@ -307,7 +283,7 @@ io.on('connection', (socket) => {
 
 	//now listening for custom events fromc lient
 	//TODO CHANGE FRONT-END TO PASS STATE RATHER THAN GLOBAL STATE OF POSITION HERE
-	//TODO CHANGE THIS METHOD TO TAKE AN ADDITIONAL ARGUMENT FROM FRONT END
+	//TODO REMOVE THIS AFTER ROOM EMISSION SAMPLE NO LONGER NEEDED
 	socket.on('move', (data, room) => {
 		//message, room
 		let rooms = Object.keys(socket.rooms);
@@ -337,4 +313,37 @@ io.on('connection', (socket) => {
 				break;
 		}
 	});
+
+	/*
+	gamestart is triggered specifically FROM CLIENT after backend tells room its ready for pregame config(decks)
+	*/
+	// socket.on('gameStart', (data, room) => {
+	// 	//message, room
+	// 	let rooms = Object.keys(socket.rooms);
+	// 	console.log(rooms); // [ <socket.id>, 'room 237' ]
+	// 	console.log('something hexpressening');
+	// 	console.log('direction passed is' + data);
+	// 	console.log('room passed is' + room);
+	// 	let position = roomMap[room];
+
+	// 	switch (data) {
+	// 		case 'left':
+	// 			console.log('found left request, emitting to room');
+	// 			position.x -= 5;
+	// 			io.to(room).emit('moveResp', position);
+	// 			break;
+	// 		case 'right':
+	// 			position.x += 5;
+	// 			io.to(room).emit('moveResp', position);
+	// 			break;
+	// 		case 'up':
+	// 			position.y -= 5;
+	// 			io.to(room).emit('moveResp', position);
+	// 			break;
+	// 		case 'down':
+	// 			position.y += 5;
+	// 			io.to(room).emit('moveResp', position);
+	// 			break;
+	// 	}
+	// });
 });
