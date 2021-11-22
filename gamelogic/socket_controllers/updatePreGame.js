@@ -1,28 +1,26 @@
 require('dotenv').config({ path: require('find-config')('.env') });
 const { MongoClient } = require('mongodb');
-const pregameDoc = require('../sample_docs/pregame.json');
 
-//TODO remove creating preGame obj hopefully with sample pregame.json and use args passed instead from server on 2nd socket join of room
 
 
 //auto deletes a previous pregame with the sam ename, assumes room control logic is in place to handle pregame obj mishaps
 //room id=string players=[]
-const createPreGame = ( roomId,  players ) => {
-	console.log("alright createPregame started...")
+const updatePreGame = ( roomId,  player ) => {
+	
 	try {
 		// let roomId = "hibidee-dibidee";
-		console.debug("pregame doc is " + JSON.stringify(pregameDoc) + "and is of type: " + typeof(pregameDoc));
-		let players1 = 	{"players": [
-			{
-				"socketId": players[0],
-				"cards": []
-			},
-			{
-				"socketId": players[1],
-				"cards": []
-			}
-		]
-		};
+
+		// let players1 = 	{"players": [
+		// 	{
+		// 		"socketId": players[0],
+		// 		"cards": []
+		// 	},
+		// 	{
+		// 		"socketId": players[1],
+		// 		"cards": []
+		// 	}
+		// ]
+		// };
 		MongoClient.connect(
 			process.env.MONGO_DB,
 			{ useUnifiedTopology: true },
@@ -30,13 +28,30 @@ const createPreGame = ( roomId,  players ) => {
 				if (err) throw err;
 				const pregameDb = db.db('test');
 
-				const collection = pregameDb.collection('pregames');
+				
 				let collectionCount = collection.find();
 				let countcount = await collectionCount.count();
 				console.log("ALL PREGAMES IN COLLECTION COUNT IS: " + (countcount));
-				const existing = await collection.findOne({ roomId });
+				
 				console.debug("if not null exists + " +  existing);
+				//use roomId to find the pregame to update, checked by player socket passed
+				const collection = pregameDb.collection('pregames');
+				const existing = await collection.findOne({ roomId });
+				const requestedPlayerConfig = existing.player[player];
+				console.debug("requestedPlayerconfig is " + JSON.stringify(requestedPlayerConfig));
+				if(requestedPlayerconfig.cards.length > 0){
+					return{gameStatus: 'PREGAME_UPDATE_FAIL'};
+				}
+				else{
+					//update the cards for the requested player
 
+
+
+					//check if both players cards present after update
+					const newexisting = await collection.findOne({roomId});
+					foreach
+
+				}
 				if (existing !== null) {
 					//TODO DELETE IT and recreate instead eventually
 
@@ -71,4 +86,4 @@ const createPreGame = ( roomId,  players ) => {
 	}
 };
 
-module.exports = { createPreGame };
+module.exports = { updatePreGame };
