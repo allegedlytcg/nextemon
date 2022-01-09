@@ -9,7 +9,9 @@ const http = require('http');
 const server = http.createServer(app);
 const Game = require('./models/Game');
 const { createGame } = require('./gamelogic/socket_controllers/createGame');
-const { createPreGame } = require('./gamelogic/socket_controllers/createPreGame')
+const { createPreGame } = require('./gamelogic/socket_controllers/createPreGame');
+const { updatePreGame } = require('./gamelogic/socket_controllers/updatePreGame');
+const { getDeckbyId } = require('./gamelogic/socket_controllers/updatePreGame');
 const { getRoomSpecs } = require('./gameLogic/common/getRoomSpecs');
 const getPrizeCardsActiveGame = require('./gamelogic/common/getPrizeCardsActiveGame');
 
@@ -351,17 +353,40 @@ io.on('connection', (socket) => {
 	*/
 	socket.on('preGameDeckResponse', (data, room) => {
 		//message, room
+		//at this point they'v ebeen auth, joined a room, and sent their deck
+		//TODO get the corresponding gameconfig object of the player of the room
+
+
+		//pass deck from deck id + player socket
 		let authRes = auth(data);
 		if(authRes.isAuth === true){
 			console.debug("isauth is TRUE! user to LEVERAGE passed deckId  for is" + JSON.stringify(authRes.data) + "deck id of user to search on is " + data.deckId);
+		
+			//UPDATE PREGAME via room id and player id
+			let tempRoom = room;
+			let decktoFind = data.deckId.id;
+			// const result = getDeckbyId(decktoFind);
+			console.log("data sent from PREGAMEDECKRESP is " + JSON.stringify(data));
+			//get socket of user that wants to send their deck here
+			// roomSpecObj = getRoomSpecs(rooms.entries(), room);//update roomspec obj with newly added socket of room
+
+			
+			let gameCreateObj = { roomId:room, players : null};
+
+			//search for card data of deck seleted for this pre-game/eventually actual gameconfig obj
+
+			
+			const pregameCreatedConfirmation = updatePreGame(gameCreateObj.roomId, gameCreateObj.players, decktoFind);
+			//get users deck
 		}
 		else{
 			//consider handling this situation by disconnection
 			console.log("Auth users only permitted, SHOULD NOT reach this case...");
 
 		}
+		
 		let rooms = Object.keys(socket.rooms);
-	
+
 		console.log(rooms); // [ <socket.id>, 'room 237' ]
 		console.log('room requetsed for pregameDeck is' + room);
 		console.log('Obj listened in preGame request is' + JSON.stringify(data));

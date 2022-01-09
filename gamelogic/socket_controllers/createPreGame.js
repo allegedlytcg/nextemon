@@ -5,7 +5,7 @@ const pregameDoc = require('../sample_docs/pregame.json');
 //TODO remove creating preGame obj hopefully with sample pregame.json and use args passed instead from server on 2nd socket join of room
 
 
-//auto deletes a previous pregame with the sam ename, assumes room control logic is in place to handle pregame obj mishaps
+//auto deletes a previous pregame with the same room name, assumes room control logic is in place to handle pregame obj mishaps
 //room id=string players=[]
 const createPreGame = ( roomId,  players ) => {
 	console.log("alright createPregame started...")
@@ -33,12 +33,13 @@ const createPreGame = ( roomId,  players ) => {
 				const collection = pregameDb.collection('pregames');
 				let collectionCount = collection.find();
 				let countcount = await collectionCount.count();
-				console.log("ALL PREGAMES IN COLLECTION COUNT IS: " + (countcount));
+				console.log("ALL PREGAMES IN COLLECTION COUNT IS: " + JSON.stringify(countcount));
 				const existing = await collection.findOne({ roomId });
-				console.debug("if not null exists + " +  existing);
+				console.debug("if not null exists + " +  JSON.stringify(existing));
 
 				if (existing !== null) {
 					//TODO DELETE IT and recreate instead eventually
+					console.debug("DELETING PREVIOUS ROOM NAME WAS USED + " +  existing);
 
 					const delres = collection.deleteOne(existing);
 					//if above doesn't work delete using roomId?
@@ -46,7 +47,7 @@ const createPreGame = ( roomId,  players ) => {
 					console.log("DELETING PREGAME with roomId: "+ roomId +" aleady exists, needs deletion/forced update RESULTED is" + JSON.stringify(delres));
 					//now existing should be null
 					const newexisting = await collection.findOne({roomId});
-					console.debug("if null was deleted! + " +  newexisting);
+					console.debug("Replaced deleted with new pregame config using same name! + " +  newexisting);
 				}
 				else{
 					console.log('ROOM NOT CREATED YET')
