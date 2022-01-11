@@ -8,9 +8,3 @@ module.exports = {
     styledComponents: true,
   },
 };
-
-// const withCSS = require('@zeit/next-css');
-// module.exports = withCSS({
-// 	/* config options here */
-// 	future: { webpack5: true },
-// });
