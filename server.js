@@ -351,7 +351,7 @@ io.on('connection', (socket) => {
 	gamestart is triggered specifically FROM CLIENT of room X after backend tells room its ready for pregame config(decks)
 	data:{token:string, deckId:string} room:string
 	*/
-	socket.on('preGameDeckResponse', (data, room) => {
+	socket.on('preGameDeckResponse', async (data, room) => {
 		//message, room
 		//at this point they'v ebeen auth, joined a room, and sent their deck
 		//TODO get the corresponding gameconfig object of the player of the room
@@ -364,7 +364,8 @@ io.on('connection', (socket) => {
 		
 			//UPDATE PREGAME via room id and player id
 			let tempRoom = room;
-			let decktoFind = data.deckId.id;
+			console.log({data})
+			let deckToFind = data.deckId
 			// const result = getDeckbyId(decktoFind);
 			console.log("data sent from PREGAMEDECKRESP is " + JSON.stringify(data));
 			//get socket of user that wants to send their deck here
@@ -376,7 +377,8 @@ io.on('connection', (socket) => {
 			//search for card data of deck seleted for this pre-game/eventually actual gameconfig obj
 
 			
-			const pregameCreatedConfirmation = updatePreGame(gameCreateObj.roomId, gameCreateObj.players, decktoFind);
+			const pregameUpdatedConfirmation = await updatePreGame(gameCreateObj.roomId, gameCreateObj.players, deckToFind);
+			console.log("pregameCreatedConfirmation here is deck maybe" + JSON.stringify(pregameUpdatedConfirmation))
 			//get users deck
 		}
 		else{
