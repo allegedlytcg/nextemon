@@ -3,10 +3,11 @@
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "nodemon server.js",
-		"build": "next build",
-		"start": "node server.js",
-		"test": "jest --coverage"
+		"dev": "nodemon src/server.js --exec babel-node",
+		"build": "babel src/ -d lib/ next build",
+		"start": "node lib/server.js",
+		"test": "jest --coverage",
+		"flow": "flow"
 	},
 	"engines": {
 		"node": "14.x"
@@ -40,8 +41,15 @@
 		"styled-components": "^5.2.3"
 	},
 	"devDependencies": {
+		"@babel/cli": "^7.16.0",
+		"@babel/core": "^7.16.0",
+		"@babel/node": "^7.16.0",
+		"@babel/preset-env": "^7.16.4",
+		"@babel/preset-flow": "^7.16.0",
 		"babel-plugin-styled-components": "^1.12.0",
+		"babel-plugin-transform-flow-strip-types": "^6.22.0",
 		"file-loader": "^6.2.0",
+		"flow-bin": "^0.164.0",
 		"jest": "^27.3.1",
 		"nodemon": "^2.0.7"
 	}
