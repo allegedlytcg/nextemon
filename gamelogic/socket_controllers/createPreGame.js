@@ -27,15 +27,18 @@ const createPreGame = ( roomId,  players ) => {
 				const pregameDb = db.db('test');
 
 				const collection = pregameDb.collection('pregames');
+				console.log("room id for create pregame is " + JSON.stringify(roomId));
 				const existing = await collection.findOne({ roomId });
 
+				//simply deletes existing pregame config to clear for new players on this room
 				if (existing !== null) {
 					const delres = collection.deleteOne(existing);
 					//if above doesn't work delete using roomId?
 					
 					// console.log("DELETING PREGAME with roomId:", roomId, "aleady exists, needs deletion/forced update RESULTED is", JSON.stringify(delres));
 					//now existing should be null
-					const newexisting = await collection.findOne({roomId});
+					//TODO keep below for testing purposes for now
+					// const newexisting = await collection.findOne({roomId});
 					// console.debug("Replaced deleted with new pregame config using same name!", newexisting);
 				}
 

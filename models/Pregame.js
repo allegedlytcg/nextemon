@@ -64,4 +64,4 @@ const PregameSchema = new mongoose.Schema({
 // 	return true;
 // }, 'decks must have at least one card and sixty maximum');
 
-module.exports = Deck = mongoose.model('pregame', PregameSchema);
+module.exports = Pregame = mongoose.model('pregame', PregameSchema);

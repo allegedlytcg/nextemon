@@ -244,9 +244,10 @@ io.on('connection', (socket) => {
 			//UPDATE PREGAME via room id and player id
 			let deckToFind = data.deckId		
 			let gameCreateObj = {roomId: room, players: null};
-			
+			//await works on function because it is returning an asynch call, and will wait for it!
 			const pregameUpdatedConfirmation = await updatePreGame(gameCreateObj.roomId, gameCreateObj.players, deckToFind);
-			console.log("pregameCreatedConfirmation here is deck maybe", JSON.stringify(pregameUpdatedConfirmation))
+
+			console.log("pregameCreatedConfirmation here is deck maybe", pregameUpdatedConfirmation.name);
 		} else {
 			//consider handling this situation by disconnection
 			console.log("Auth users only permitted, SHOULD NOT reach this case...");
