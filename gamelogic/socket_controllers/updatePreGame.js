@@ -6,19 +6,39 @@ const Pregame = require('../../models/Pregame')
 async function updateGameConfig(roomId, player, deckIdPassed){
 	try {
 		const deck = await Deck.findById(deckIdPassed)
-		console.log("deck found is..." + JSON.stringify(deck));
-		// //TODO replace with findOneandUpdate
-		// const pregame = await Pregame.findOne({roomId})
-		// console.log("pregame found is..." + JSON.stringify(pregame));
-		// console.log("setting player config and finding out if not empty on pregame record after update");
+		console.log("deck found is..." + JSON.stringify(deck.name));
+		//TODO replace with findOneandUpdate
+		// let tempPregame = await Pregame.findOne({roomId});
+		// console.log("temppregame config is " + JSON.stringify(tempPregame) + "while player socket is " + JSON.Stringify(player));;
+		// let indexOfPlayer = 0;
+		// //get position of the index
+		// for (let i = 0; i < tempPregame.players.length; i++) {
+		// 	if (player === tempPregame.players[i].socketId){
+		// 		//found matching socket	
+		// 		indexOfPlayer = i;
+		// 		break;
+		// 	}
+		// 	else if(i+1 === tempPregame.players.length){
+		// 		console.error("did not find appropriate socket ID for pregame configuration, there is an issue on server side");
+		// 	}
+		//   }
+
+
+		const pregameUpdated = await Pregame.findOneAndUpdate(
+			{ roomId, "players.socketId":player} ,
+			{ $set:{
+					
+				       'players.cards': deck.cards
+				    },
+				},
+				{new:true}
+		);
+		console.log("pregame updated and found is..." + JSON.stringify(pregameUpdated.players));
+		console.log("setting player config and finding out if not empty on pregame record after update");
 		// let returnString = "Issue occured during update pregame config";
-		// // if(pregame.player[0].cards > 0 && pregame.player[1].cards >0){
-		// // 	return "Both players are configured" 
-		// // }
-		// // else{
-		// 	return pregame
-		// // }
-		return deck
+
+		return pregameUpdated
+		
 	} catch (error) {
 		return error;
 	}
