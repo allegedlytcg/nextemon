@@ -8,32 +8,32 @@ async function updateGameConfig(roomId, player, deckIdPassed){
 		const deck = await Deck.findById(deckIdPassed)
 		console.log("deck found is..." + JSON.stringify(deck.name));
 		//TODO replace with findOneandUpdate
-		// let tempPregame = await Pregame.findOne({roomId});
-		// console.log("temppregame config is " + JSON.stringify(tempPregame) + "while player socket is " + JSON.Stringify(player));;
-		// let indexOfPlayer = 0;
-		// //get position of the index
-		// for (let i = 0; i < tempPregame.players.length; i++) {
-		// 	if (player === tempPregame.players[i].socketId){
-		// 		//found matching socket	
-		// 		indexOfPlayer = i;
-		// 		break;
-		// 	}
-		// 	else if(i+1 === tempPregame.players.length){
-		// 		console.error("did not find appropriate socket ID for pregame configuration, there is an issue on server side");
-		// 	}
-		//   }
+		let tempPregame = await Pregame.findOne({roomId});
+		console.log("temppregame config is " + JSON.stringify(tempPregame) + "while player socket is " + JSON.stringify(player));;
+		let indexOfPlayer = 0;
+		//get position of the index
+		for (let i = 0; i < tempPregame.players.length; i++) {
+			if (player === tempPregame.players[i].socketId){
+				//found matching socket	
+				indexOfPlayer = i;
+				break;
+			}
+			else if(i+1 === tempPregame.players.length){
+				console.error("did not find appropriate socket ID for pregame configuration, there is an issue on server side");
+			}
+		  }
+		let body = JSON.parse(JSON.stringify(tempPregame));
+		body.players[indexOfPlayer].cards = JSON.parse(JSON.stringify(deck));
+		delete body._id;
+		console.log("body is now hopefully sent with update here as..." + JSON.stringify(body));
+		
 
-
-		const pregameUpdated = await Pregame.findOneAndUpdate(
-			{ roomId, "players.socketId":player} ,
-			{ $set:{
-					
-				       'players.cards': deck.cards
-				    },
-				},
-				{new:true}
+		const pregameUpdated = await Pregame.updateOne(
+			{ roomId} ,
+			{body},
+				
 		);
-		console.log("pregame updated and found is..." + JSON.stringify(pregameUpdated.players));
+		console.log("pregame updated and found is..." + JSON.stringify(pregameUpdated));
 		console.log("setting player config and finding out if not empty on pregame record after update");
 		// let returnString = "Issue occured during update pregame config";
 
