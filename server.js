@@ -197,7 +197,7 @@ io.on('connection', (socket) => {
 
 			let gameCreateObj = { roomId:roomSpecObj.roomName, players : [roomSpecObj.socketNames[0], roomSpecObj.socketNames[1]] };
 			const pregameCreatedConfirmation = await createPreGame(gameCreateObj.roomId, gameCreateObj.players );
-			console.log("pregamecreatedconfirmation is " + pregameCreatedConfirmation)
+			// console.log("pregamecreatedconfirmation is " + pregameCreatedConfirmation)
 			if(pregameCreatedConfirmation !== undefined && pregameCreatedConfirmation.gameStatus === globalConstants.PREGAME_CREATE_SUCCESS){
 				//todo implement echo to room indicating to client side, that we're ready to receive decks
 				//this is due to nature of 'join_room' socket.io not allowing a body to be sent with the join
@@ -245,10 +245,10 @@ io.on('connection', (socket) => {
 		if (authRes.isAuth === true){		
 			//UPDATE PREGAME via room id and player id
 			let deckToFind = data.deckId		
-			let gameCreateObj = {roomId: room, players: null};
+			
 			//await works on function because it is returning an asynch call, and will wait for it!
-			const pregameUpdatedConfirmation = await updatePreGame(gameCreateObj.roomId, gameCreateObj.players, deckToFind);
-			console.log("pregameCreatedConfirmation here is update result maybe", pregameUpdatedConfirmation);
+			const pregameUpdatedConfirmation = await updatePreGame(room, socket.id, deckToFind);
+			// console.log("pregameCreatedConfirmation here is update result maybe", pregameUpdatedConfirmation);
 		} else {
 			//consider handling this situation by disconnection
 			console.log("Auth users only permitted, SHOULD NOT reach this case...");

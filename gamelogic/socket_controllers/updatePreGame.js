@@ -28,7 +28,7 @@ async function updateGameConfig(roomId, player, deckIdPassed){
 		// console.log("deck to stringify maybe is " + JSON.stringify(deck));
 		body.players[indexOfPlayer].cards = JSON.parse(JSON.stringify(deck.cards));
 		delete body._id;
-		let sliceOfcards = body.players[indexOfPlayer].cards.slice(-5);
+		let sliceOfcards = body.players[indexOfPlayer].cards.slice(-2);
 
 		console.log("body is now hopefully sent with update here as..." + JSON.stringify(sliceOfcards) );
 		
@@ -38,7 +38,7 @@ async function updateGameConfig(roomId, player, deckIdPassed){
 			body,
 			{ new: true },
 		);
-		console.log("pregame updated and found is..." + JSON.stringify(pregameUpdated));
+		console.log("pregame updated and found is..." + JSON.stringify(pregameUpdated.roomId));
 		console.log("setting player config and finding out if not empty on pregame record after update");
 		// let returnString = "Issue occured during update pregame config";
 
