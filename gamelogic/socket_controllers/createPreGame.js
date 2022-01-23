@@ -1,13 +1,27 @@
 require('dotenv').config({ path: require('find-config')('.env') });
-const { MongoClient } = require('mongodb');
+const Deck = require('../../models/Deck')
+const Pregame = require('../../models/Pregame')
 
 //TODO remove creating preGame obj hopefully with sample pregame.json and use args passed instead from server on 2nd socket join of room
 
 //auto deletes a previous pregame with the same room name, assumes room control logic is in place to handle pregame obj mishaps
 //room id=string players=[]
-const createPreGame = ( roomId,  players ) => {
+
+
+// @route     POST api/deck/
+// @desc      create deck
+// @access    private
+
+
+const createPreGame = (roomId, players) => {
+	
+		return createPreGameAsync(roomId,players);
+
+
+}
+
+async function createPreGameAsync(roomId, players){
 	try {
-		// let roomId = "hibidee-dibidee";
 		let players1 = 	{"players": [
 			{
 				"socketId": players[0],
@@ -19,42 +33,81 @@ const createPreGame = ( roomId,  players ) => {
 			}
 		]
 		};
-		MongoClient.connect(
-			process.env.MONGO_DB,
-			{ useUnifiedTopology: true },
-			async (err, db) => {
-				if (err) throw err;
-				const pregameDb = db.db('test');
 
-				const collection = pregameDb.collection('pregames');
-				console.log("room id for create pregame is " + JSON.stringify(roomId));
-				const existing = await collection.findOne({ roomId });
 
-				//simply deletes existing pregame config to clear for new players on this room
-				if (existing !== null) {
-					const delres = collection.deleteOne(existing);
-					//if above doesn't work delete using roomId?
-					
-					// console.log("DELETING PREGAME with roomId:", roomId, "aleady exists, needs deletion/forced update RESULTED is", JSON.stringify(delres));
-					//now existing should be null
-					//TODO keep below for testing purposes for now
-					// const newexisting = await collection.findOne({roomId});
-					// console.debug("Replaced deleted with new pregame config using same name!", newexisting);
-				}
+		const existing = await Pregame.findOne({ roomId });
 
-				const newPreGame = {
-					roomId,
-					players: players1,
-				};
+		//simply deletes existing pregame config to clear for new players on this room
+		if (existing !== null) {
+			const delres = Pregame.deleteOne(existing);
+			//if above doesn't work delete using roomId?
+			
+			console.log("DELETING PREGAME with roomId:", roomId, "aleady exists, needs deletion/forced update RESULTED is", JSON.stringify(delres));
+			//now existing should be null
+			//TODO keep below for testing purposes for now
+			// const newexisting = await collection.findOne({roomId});
+			// console.debug("Replaced deleted with new pregame config using same name!", newexisting);
+		}
+		else{
+			console.log("did not find existing ")
+		}
 
-				await collection.insertOne(newPreGame);
-				db.close();
-			},
-		);
+		const newPreGame = {
+			roomId,
+			players: players1,
+		};
+
+		const shit = await Pregame.insertOne(newPreGame);
+		const shit2 = await Pregame.findOne({roomId});
+		console.log("Logging created pregame config to ensure its created" + JSON.stringify(newPreGame));
 		return {gameStatus: 'PREGAME_CREATE_SUCCESS'};
 	} catch (error) {
 		return error;
 	}
-};
+}
+
+// const createPreGame = ( roomId,  players ) => {
+// 	try {
+// 		// let roomId = "hibidee-dibidee";
+		
+// 		MongoClient.connect(
+// 			process.env.MONGO_DB,
+// 			{ useUnifiedTopology: true },
+// 			async (err, db) => {
+// 				if (err) throw err;
+// 				const pregameDb = db.db('test');
+
+// 				const collection = pregameDb.collection('pregames');
+// 				console.log("room id for create pregame is " + JSON.stringify(roomId));
+// 				const existing = await collection.findOne({ roomId });
+
+// 				//simply deletes existing pregame config to clear for new players on this room
+// 				if (existing !== null) {
+// 					const delres = collection.deleteOne(existing);
+// 					//if above doesn't work delete using roomId?
+					
+// 					// console.log("DELETING PREGAME with roomId:", roomId, "aleady exists, needs deletion/forced update RESULTED is", JSON.stringify(delres));
+// 					//now existing should be null
+// 					//TODO keep below for testing purposes for now
+// 					// const newexisting = await collection.findOne({roomId});
+// 					// console.debug("Replaced deleted with new pregame config using same name!", newexisting);
+// 				}
+
+// 				const newPreGame = {
+// 					roomId,
+// 					players: players1,
+// 				};
+
+// 				await collection.insertOne(newPreGame);
+// 				await collection.findOne({roomId});
+// 				console.log("Logging created pregame config to ensure its created" + JSON.stringify(newPreGame));
+// 				db.close();
+// 			},
+// 		);
+// 		return {gameStatus: 'PREGAME_CREATE_SUCCESS'};
+// 	} catch (error) {
+// 		return error;
+// 	}
+// };
 
 module.exports = { createPreGame };

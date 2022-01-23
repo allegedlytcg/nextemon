@@ -13,7 +13,7 @@ const PregameSchema = new mongoose.Schema({
 			
 			socketId: { type: String, required: true},
             //default [] important for ready check, 2 players/non-empty deck signifies ready
-			cards: [//uses poke tcg api properties, not our custom ones
+			cards: [
                 {
                     id: String,
                     name: String,
@@ -54,7 +54,7 @@ const PregameSchema = new mongoose.Schema({
                         },
                     ],
                 },
-			],
+            ],
 		},
 	],
 }, {collection: 'pregames'});//its this by default from mongooses weird ass nature but I like explicit =)

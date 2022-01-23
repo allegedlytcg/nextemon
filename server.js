@@ -164,7 +164,7 @@ io.on('connection', (socket) => {
 	let socketsConnectedLength = 0;
 	let valueSetOfRoom = undefined;
 
-	socket.on('join_room', (room) => {
+	socket.on('join_room', async (room) => {
 		let roomSpecObj = getRoomSpecs(rooms.entries(), room); //pass in set
 
 		for (let [key, value] of rooms.entries()) {
@@ -196,11 +196,13 @@ io.on('connection', (socket) => {
 			// console.debug("room spec obj on 2 player join is " + JSON.stringify(roomSpecObj));
 
 			let gameCreateObj = { roomId:roomSpecObj.roomName, players : [roomSpecObj.socketNames[0], roomSpecObj.socketNames[1]] };
-			const pregameCreatedConfirmation = createPreGame(gameCreateObj.roomId, gameCreateObj.players );
-		
-			if(pregameCreatedConfirmation.gameStatus === globalConstants.PREGAME_CREATE_SUCCESS){
+			const pregameCreatedConfirmation = await createPreGame(gameCreateObj.roomId, gameCreateObj.players );
+			console.log("pregamecreatedconfirmation is " + pregameCreatedConfirmation)
+			if(pregameCreatedConfirmation !== undefined && pregameCreatedConfirmation.gameStatus === globalConstants.PREGAME_CREATE_SUCCESS){
 				//todo implement echo to room indicating to client side, that we're ready to receive decks
 				//this is due to nature of 'join_room' socket.io not allowing a body to be sent with the join
+				console.log('pregameconfirmed success on create')
+
 				io.to(room).emit('preGameDeckRequest', {});//client needs only signal, signifying send jwt+deck array position
 			} else {
 				this.logger.error("there is a bug involving pregameCreation, raise issue")
@@ -246,7 +248,6 @@ io.on('connection', (socket) => {
 			let gameCreateObj = {roomId: room, players: null};
 			//await works on function because it is returning an asynch call, and will wait for it!
 			const pregameUpdatedConfirmation = await updatePreGame(gameCreateObj.roomId, gameCreateObj.players, deckToFind);
-			console.log("bust");
 			console.log("pregameCreatedConfirmation here is update result maybe", pregameUpdatedConfirmation);
 		} else {
 			//consider handling this situation by disconnection
