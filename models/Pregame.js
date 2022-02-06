@@ -8,6 +8,9 @@ const PregameSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
+
+    coinDecisionSocketId:{type:String, required:false},
+
 	players: [
 		{
 			

@@ -247,7 +247,33 @@ io.on('connection', (socket) => {
 			let deckToFind = data.deckId		
 			
 			//await works on function because it is returning an asynch call, and will wait for it!
-			const pregameUpdatedConfirmation = await updatePreGame(room, socket.id, deckToFind);
+			const pregameUpdatedResult = await updatePreGame(room, socket.id, deckToFind);
+			//take the result and emit coin toss if both decks are updated
+			let cardsPresent = true;
+			if (pregameUpdatedResult !== undefined){ //first log 
+				pregameUpdatedResult.players.forEach(element => {
+					if(element.cards.length >1){
+						console.log("found cards for a player")
+					}
+					else{
+						console.log("DID NOT FIND CARDS for one of the players");
+						cardsPresent = false;
+					}
+				});
+			}
+			//Will send to only 1 client once both decks are updated(last client to update will decide coin toss)
+			if(cardsPresent){
+
+				console.log("SHOULD EMIT coin toss now")
+				socket.emit('reqCoinTossDecision', {"socketToDecideCoinToss": pregameUpdatedResult.coinDecisionSocketId});//client needs only signal, signifying send jwt+deck array position
+
+			}
+			else{
+				console.log("Not emiting coin toss for this update...(only 1 user updated so far)")
+			}
+			console.log("Cards present for both? " + cardsPresent)
+			//emit to room, client will reject/approve to keep flow in agreement, backend won't allow non-socket coin decision client from happening
+
 			// console.log("pregameCreatedConfirmation here is update result maybe", pregameUpdatedConfirmation);
 		} else {
 			//consider handling this situation by disconnection

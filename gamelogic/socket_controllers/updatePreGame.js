@@ -51,7 +51,7 @@ async function updateGameConfig(roomId, player, deckIdPassed){
 
 		const pregameUpdated = await Pregame.findOneAndUpdate(
 			{ roomId, "players.socketId": player },
-			{ $set: { "players.$.cards": cardsToUpdate}}
+			{ $set: { "players.$.cards": cardsToUpdate, "coinDecisionSocketId":player}}
 			
 		);
 		
@@ -59,7 +59,14 @@ async function updateGameConfig(roomId, player, deckIdPassed){
 		console.log("setting player config and finding out if not empty on pregame record after update");
 		// let returnString = "Issue occured during update pregame config";
 			console.log("pregameupdated result is " + pregameUpdated);
-		return pregameUpdated
+	
+		const pregameFetch = await Pregame.findOne({roomId})
+
+			
+		//TODO if pregameFetch contains cards for both players (not empty) trigger reqCoinTossDecision event to FE
+		
+
+		return pregameFetch;
 		
 	} catch (error) {
 		return error;
