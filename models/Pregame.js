@@ -8,12 +8,15 @@ const PregameSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
+
+    coinDecisionSocketId:{type:String, required:false},
+
 	players: [
 		{
 			
 			socketId: { type: String, required: true},
             //default [] important for ready check, 2 players/non-empty deck signifies ready
-			cards: [//uses poke tcg api properties, not our custom ones
+			cards: [
                 {
                     id: String,
                     name: String,
@@ -54,7 +57,7 @@ const PregameSchema = new mongoose.Schema({
                         },
                     ],
                 },
-			],
+            ],
 		},
 	],
 }, {collection: 'pregames'});//its this by default from mongooses weird ass nature but I like explicit =)
@@ -64,4 +67,4 @@ const PregameSchema = new mongoose.Schema({
 // 	return true;
 // }, 'decks must have at least one card and sixty maximum');
 
-module.exports = Deck = mongoose.model('pregame', PregameSchema);
+module.exports = Pregame = mongoose.model('pregame', PregameSchema);

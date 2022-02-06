@@ -60,6 +60,7 @@ router.post('/login', async (req, res) => {
 	// console.log(name);
 	try {
 		// check if user exists
+		console.log("Name passed to login is " + JSON.stringify(name));
 		let user = await User.findOne({ name });
 		if (!user) {
 			return res.status(404).send('user not found');

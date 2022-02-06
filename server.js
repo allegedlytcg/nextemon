@@ -120,13 +120,10 @@ io.on('connection', (socket) => {
 		// let trashtoken = "trashtoken";//trial for unauth
 		try {
 		const decoded = jwt.verify(data.token, process.env.JWT_SECRET);
-			
 			let user = decoded.user;
-
-			console.log("req.user is defined? " + JSON.stringify(user));
+			
 			return { isAuth: true, data: user};//return user for single-need db transaction on deck
 		} catch (err) {
-			console.log("fantastic an error as usual in auth this time of socket " + err);
 			return {isAuth:false, data: null};
 		}
 	}
@@ -167,63 +164,16 @@ io.on('connection', (socket) => {
 	let socketsConnectedLength = 0;
 	let valueSetOfRoom = undefined;
 
-
-	// let valueSetOfRoom = undefined;
-	socket.on('join_room', (room) => {
-		console.log(
-			'allegedly joining a room identified by the passed string...' +
-				room,
-		);
+	socket.on('join_room', async (room) => {
 		let roomSpecObj = getRoomSpecs(rooms.entries(), room); //pass in set
 
 		for (let [key, value] of rooms.entries()) {
 			if (key === room) {
-				console.log(
-					'found room with key of ' + key + 'and value of ' + value,
-				);
 				valueSetOfRoom = value;
 				socketsConnectedLength = value.size;
 				break;
-				// for (let [key1, value1] of value.entries()) {
-				// 	console.log("entry i s key:" + key1 + ", value: " + value1)
-
-				// }
 			}
 		}
-
-		console.log('entries found WAS ' + socketsConnectedLength);
-
-		console.log(
-			'On join room: rooms available are ' +
-				JSON.stringify(rooms.keys()) +
-				'is this room defined in adapter? ' +
-				' sids whateve3 rthey are is :' +
-				sids,
-		); // [ <socket.id>, 'room 237' ]
-
-		//check if room is already defined amongst rooms
-		if (socketsConnectedLength <= 1) {
-			console.log(
-				'hit DEFINED condition ' + JSON.stringify(valueSetOfRoom),
-			);
-			if (valueSetOfRoom !== undefined) {
-				//first log
-				valueSetOfRoom.forEach((element) => {
-					console.log(
-						'element of room is ' + JSON.stringify(element),
-					);
-				});
-			}
-    }
-
-
-		console.log(
-			'On join room: rooms available are ' +
-				JSON.stringify(rooms.keys()) +
-				'is this room defined in adapter? ' +
-				' sids whateve3 rthey are is :' +
-				sids,
-		); // [ <socket.id>, 'room 237' ]
 
 		//check if room is already defined amongst rooms
 		if (roomSpecObj.roomSize == 0) {
@@ -235,62 +185,33 @@ io.on('connection', (socket) => {
 				);
 			}
 			roomSpecObj = getRoomSpecs(rooms.entries(), room);//update roomspec obj with newly added socket of room
-			console.log("elements are hopefully (1) for first join in room " + JSON.stringify(roomSpecObj));
-			// roomMap[room] = { x: 200, y: 200 };
-			// //when a new client connects, send position information
-			// position = roomMap[room];
-			// console.log('position sent is ' + position);
-			// io.to(room).emit('position', position);
-
-
-			console.log('allegedly socket joined room ');
 		}
+
 		//TODO if we've reached this point, and there was a socket already connected, its time to start the coin toss assignment
 		else if (roomSpecObj.roomSize == 1) {
 			//TODO lots here because 2nd socket assumed during join
 			socket.join(room);
-			// console.log("YUMMY cookie is: " + JSON.stringify(socket.request.headers));
 			roomSpecObj = getRoomSpecs(rooms.entries(), room);//update roomspec obj with newly added socket of room
 			//TODO replace sample call with local call with cross origin localhost
-			console.debug("room spec obj on 2 player join is " + JSON.stringify(roomSpecObj));
+			// console.debug("room spec obj on 2 player join is " + JSON.stringify(roomSpecObj));
 
 			let gameCreateObj = { roomId:roomSpecObj.roomName, players : [roomSpecObj.socketNames[0], roomSpecObj.socketNames[1]] };
-			console.log("well gamecreateOBJ for later is " + JSON.stringify(gameCreateObj));
-
-
-
-			//pass to preGame function
-			
-			const pregameCreatedConfirmation = createPreGame(gameCreateObj.roomId, gameCreateObj.players );
-			console.debug("gameCreatedConfirmation should be succesfull maybe? " + JSON.stringify(pregameCreatedConfirmation));
-			if(pregameCreatedConfirmation.gameStatus === globalConstants.PREGAME_CREATE_SUCCESS){
+			const pregameCreatedConfirmation = await createPreGame(gameCreateObj.roomId, gameCreateObj.players );
+			// console.log("pregamecreatedconfirmation is " + pregameCreatedConfirmation)
+			if(pregameCreatedConfirmation !== undefined && pregameCreatedConfirmation.gameStatus === globalConstants.PREGAME_CREATE_SUCCESS){
 				//todo implement echo to room indicating to client side, that we're ready to receive decks
 				//this is due to nature of 'join_room' socket.io not allowing a body to be sent with the join
-				io.to(room).emit('preGameDeckRequest', {});//client needs only signal, signifying send jwt+deck array position
-				
+				console.log('pregameconfirmed success on create')
 
-			}
-			else{
+				io.to(room).emit('preGameDeckRequest', {});//client needs only signal, signifying send jwt+deck array position
+			} else {
 				this.logger.error("there is a bug involving pregameCreation, raise issue")
 			}
-
-		}
-		else{
-			console.log(
-				'room was FULL of users tell them get wrecked ' +
-					'"' +
-					room +
-					'"',
-					
-			);
+		}	else {
 			room = null
-		
 		}
 		socket.emit('joinResp', room); //sends confirmation to client by returning the room name, or null if the room was full/client already in room
 	});
-
-
-
 
 	//When a socket leaves, both sockets leave from room
 	//TODO determine issues with disconnections/etc related to leaving room
@@ -310,43 +231,6 @@ io.on('connection', (socket) => {
 			console.log('finished socket leave on room');
 		}
 	});
-
-	//POC for listen event on room
-	// socket.on('move', (data, room) => {
-	// 	//message, room
-	// 	let rooms = Object.keys(socket.rooms);
-	// 	console.log(rooms); // [ <socket.id>, 'room 237' ]
-	// 	console.log('something hexpressening');
-	// 	console.log('direction passed is' + data);
-	// 	console.log('room passed is' + room);
-	// 	let position = roomMap[room];
-
-	// 	switch (data) {
-	// 		case 'left':
-	// 			console.log('found left request, emitting to room');
-	// 			position.x -= 5;
-	// 			io.to(room).emit('moveResp', position);
-	// 			break;
-	// 		case 'right':
-	// 			position.x += 5;
-	// 			io.to(room).emit('moveResp', position);
-	// 			break;
-	// 		case 'up':
-	// 			position.y -= 5;
-	// 			io.to(room).emit('moveResp', position);
-	// 			break;
-	// 		case 'down':
-	// 			position.y += 5;
-	// 			io.to(room).emit('moveResp', position);
-	// 			break;
-	// 	}
-	// });
-
-
-
-
-	//game config and game start req/responses
-
 	/*
 	gamestart is triggered specifically FROM CLIENT of room X after backend tells room its ready for pregame config(decks)
 	data:{token:string, deckId:string} room:string
@@ -356,69 +240,48 @@ io.on('connection', (socket) => {
 		//at this point they'v ebeen auth, joined a room, and sent their deck
 		//TODO get the corresponding gameconfig object of the player of the room
 
-
 		//pass deck from deck id + player socket
 		let authRes = auth(data);
-		if(authRes.isAuth === true){
-			console.debug("isauth is TRUE! user to LEVERAGE passed deckId  for is" + JSON.stringify(authRes.data) + "deck id of user to search on is " + data.deckId);
-		
+		if (authRes.isAuth === true){		
 			//UPDATE PREGAME via room id and player id
-			let tempRoom = room;
-			console.log({data})
-			let deckToFind = data.deckId
-			// const result = getDeckbyId(decktoFind);
-			console.log("data sent from PREGAMEDECKRESP is " + JSON.stringify(data));
-			//get socket of user that wants to send their deck here
-			// roomSpecObj = getRoomSpecs(rooms.entries(), room);//update roomspec obj with newly added socket of room
-
+			let deckToFind = data.deckId		
 			
-			let gameCreateObj = { roomId:room, players : null};
+			//await works on function because it is returning an asynch call, and will wait for it!
+			const pregameUpdatedResult = await updatePreGame(room, socket.id, deckToFind);
+			//take the result and emit coin toss if both decks are updated
+			let cardsPresent = true;
+			if (pregameUpdatedResult !== undefined){ //first log 
+				pregameUpdatedResult.players.forEach(element => {
+					if(element.cards.length >1){
+						console.log("found cards for a player")
+					}
+					else{
+						console.log("DID NOT FIND CARDS for one of the players");
+						cardsPresent = false;
+					}
+				});
+			}
+			else{
+				console.log('SOMEHOWPREGAMEuPDATED RESULT IS NOT DEFINED ' );
+				cardsPresent = false;
+			}
+			//Will send to only 1 client once both decks are updated(last client to update will decide coin toss)
+			if(cardsPresent === true){
 
-			//search for card data of deck seleted for this pre-game/eventually actual gameconfig obj
+				console.log("SHOULD EMIT coin toss now")
+				socket.emit('reqCoinTossDecision', {"socketToDecideCoinToss":socket.id});//client needs only signal, signifying send jwt+deck array position
 
-			
-			const pregameUpdatedConfirmation = await updatePreGame(gameCreateObj.roomId, gameCreateObj.players, deckToFind);
-			console.log("pregameCreatedConfirmation here is deck maybe" + JSON.stringify(pregameUpdatedConfirmation))
-			//get users deck
-		}
-		else{
+			}
+			else{
+				console.log("Not emiting coin toss for this update...(only 1 user updated so far)")
+			}
+			console.log("Cards present for both? " + cardsPresent)
+			//emit to room, client will reject/approve to keep flow in agreement, backend won't allow non-socket coin decision client from happening
+
+			// console.log("pregameCreatedConfirmation here is update result maybe", pregameUpdatedConfirmation);
+		} else {
 			//consider handling this situation by disconnection
 			console.log("Auth users only permitted, SHOULD NOT reach this case...");
-
 		}
-		
-		let rooms = Object.keys(socket.rooms);
-
-		console.log(rooms); // [ <socket.id>, 'room 237' ]
-		console.log('room requetsed for pregameDeck is' + room);
-		console.log('Obj listened in preGame request is' + JSON.stringify(data));
-		
-
-		//for simplicity, we locate the deck by array, and find deck the same
-		//way (token extract user id) per payload
-
-		//see if that sockets deck is there already before updating
-
-		let updatePreGameSuccess = "";
-
-		// switch (data) {
-		// 	case 'left':
-		// 		console.log('found left request, emitting to room');
-		// 		position.x -= 5;
-		// 		io.to(room).emit('moveResp', position);
-		// 		break;
-		// 	case 'right':
-		// 		position.x += 5;
-		// 		io.to(room).emit('moveResp', position);
-		// 		break;
-		// 	case 'up':
-		// 		position.y -= 5;
-		// 		io.to(room).emit('moveResp', position);
-		// 		break;
-		// 	case 'down':
-		// 		position.y += 5;
-		// 		io.to(room).emit('moveResp', position);
-		// 		break;
-		// }
 	});
 });

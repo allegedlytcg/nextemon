@@ -9,16 +9,14 @@ const getRoomSpecs = (roomEntries, roomName) => {
 
     for (let [key, value] of roomEntries) {
         if (key === obj.roomName) {
-            console.log("found room with key of " + key + "and value of " + value);
             valueSetOfRoom = value;
             obj.roomSize = value.size;
             break;
         }
-
+        
     }
     if (valueSetOfRoom !== undefined){ //first log 
         valueSetOfRoom.forEach(element => {
-            console.log("element of room is " + JSON.stringify(element));
             obj.socketNames.push(element);
         });
     }
@@ -27,6 +25,3 @@ const getRoomSpecs = (roomEntries, roomName) => {
 };
 
 module.exports = { getRoomSpecs };
-
-
-
