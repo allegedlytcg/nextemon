@@ -261,11 +261,15 @@ io.on('connection', (socket) => {
 					}
 				});
 			}
+			else{
+				console.log('SOMEHOWPREGAMEuPDATED RESULT IS NOT DEFINED ' );
+				cardsPresent = false;
+			}
 			//Will send to only 1 client once both decks are updated(last client to update will decide coin toss)
-			if(cardsPresent){
+			if(cardsPresent === true){
 
 				console.log("SHOULD EMIT coin toss now")
-				socket.emit('reqCoinTossDecision', {"socketToDecideCoinToss": pregameUpdatedResult.coinDecisionSocketId});//client needs only signal, signifying send jwt+deck array position
+				socket.emit('reqCoinTossDecision', {"socketToDecideCoinToss":socket.id});//client needs only signal, signifying send jwt+deck array position
 
 			}
 			else{
