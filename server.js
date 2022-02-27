@@ -11,6 +11,8 @@ const Game = require('./models/Game');
 const { createGame } = require('./gamelogic/socket_controllers/createGame');
 const { createPreGame } = require('./gamelogic/socket_controllers/createPreGame');
 const { updatePreGame } = require('./gamelogic/socket_controllers/updatePreGame');
+const { updatePreGameCoinResult } = require('./gamelogic/socket_controllers/updatePreGame');
+
 const { getDeckbyId } = require('./gamelogic/socket_controllers/updatePreGame');
 const { getRoomSpecs } = require('./gameLogic/common/getRoomSpecs');
 const getPrizeCardsActiveGame = require('./gamelogic/common/getPrizeCardsActiveGame');
@@ -280,6 +282,71 @@ io.on('connection', (socket) => {
 			//emit to room, client will reject/approve to keep flow in agreement, backend won't allow non-socket coin decision client from happening
 
 			// console.log("pregameCreatedConfirmation here is update result maybe", pregameUpdatedConfirmation);
+		} else {
+			//consider handling this situation by disconnection
+			console.log("Auth users only permitted, SHOULD NOT reach this case...");
+		}
+	});
+
+
+	//happens after pregamedeck response, and after client submits coin decision
+	socket.on('coinDecision', async (data, room) => {
+		//message, room
+		//at this point they'v ebeen auth, joined a room, and sent their deck
+		//TODO get the corresponding gameconfig object of the player of the room
+
+		//pass deck from deck id + player socket
+		let authRes = auth(data);
+		if (authRes.isAuth === true) {
+			//headsOrTailsChosen is property used on payload by front-end expected here
+		
+			//await works on function because it is returning an asynch call, and will wait for it!
+			const pregameUpdatedCoinResult = await updatePreGameCoinResult(room, socket.id, data.headsOrTailsChosen);
+
+
+			//get the losing player by checking the winning player
+			//simply emit the winning socket to the room, then have client check with itself if it is the winner, along with the result I guess
+			let coinResult = ''
+
+			if (data.headsOrTailsChosen === globalConstants.HEADSSTR) {
+				if(pregameUpdatedCoinResult.coinDecisionSocketId === socket.id){
+					coinResult = globalConstants.HEADSSTR;
+				}
+				else{
+					coinResult=globalConstants.TAILSSTR;
+				}
+			}
+			else {
+				if(pregameUpdatedCoinResult.coinDecisionSocketId === socket.id){
+					coinResult = globalConstants.TAILSSTR;
+				}
+				else{
+					coinResult=globalConstants.HEADSSTR;
+				}
+			}
+			console.log('coin result determined before passing to room clients is ' + JSON.stringify(coinResult) + " while winning socket is " + pregameUpdatedCoinResult.coinDecisionSocketId );
+
+
+
+			//todo determine how to emit to losing socket, since we're only listening to the one socket here, perhaps emit to room?
+			// if (pregameUpdatedCoinResult !== undefined) {
+			// 	pregameUpdatedCoinResult.players.forEach(element => {
+			// 		if (element.socketId === coinDecidingPlayer) {
+			// 			console.log("found losing player")
+			// 			console.log("found cards for a player")
+			// 		}
+			// 		else {
+			// 			console.log("DID NOT FIND CARDS for one of the players");
+			// 			cardsPresent = false;
+			// 		}
+			// 	});
+			// }
+
+			// else {
+			// 	console.log('SOMEHOWPREGAMEuPDATED RESULT IS NOT DEFINED ');
+			// 	cardsPresent = false;
+			// }
+		
 		} else {
 			//consider handling this situation by disconnection
 			console.log("Auth users only permitted, SHOULD NOT reach this case...");
