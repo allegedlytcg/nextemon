@@ -273,7 +273,8 @@ io.on('connection', (socket) => {
 
 			}
 			else{
-				console.log("Not emiting coin toss for this update...(only 1 user updated so far)")
+				console.log("SHOULD EMIT coin toss LOSER because first to get here... always is second due to synchronized db activity and emissions")
+				socket.emit('reqCoinTossDecisionWaitingPlayer', {"socketToDecideCoinToss":socket.id})
 			}
 			console.log("Cards present for both? " + cardsPresent)
 			//emit to room, client will reject/approve to keep flow in agreement, backend won't allow non-socket coin decision client from happening
