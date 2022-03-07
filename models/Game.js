@@ -13,23 +13,29 @@ const GameSchema = new mongoose.Schema({
 			turn: false,
 			cards: [
 				{
+					//we could add 'inDeck' property, however we can deduce from the booleans below whether it is in the deck if it meets
+					//none of those categories, i.e. not isHand/isActive etc
+				
+					//user defined(us)
+					isHand: [Boolean],
+					isActive:[Boolean],
+					isBench: [Boolean],
+					benchPos: [Number],//should always be between 0-4 if 'isBench' is true
+					isPrizeCard: [Boolean],
+					isDiscarded: [Boolean],
+					hidden: [Boolean],
+					damageCounters: [Number],//if damageCounter * 10 >= hp, the pokemon should be removed from play
+					attachedEnergies: [],
+	
+					//api defined
+					types: [String],
+					retreatCost: [String],
 					id: String,
 					name: String,
-					isHand: false,
-					isbench: false,
-					isPrizeCard: false,
-					isDiscarded: false,
-					hidden: false,
-					damageCounters: [Number],
-					attachedEnergies: [],
-					nationalPokedexNumber: Number,
 					imageUrl: String,
-					imageUrlHiRes: String,
-					types: [String],
-					supertype: String,
 					subtype: String,
+					supertype: String,
 					hp: String,
-					retreatCost: [String],
 					convertedRetreatCost: Number,
 					number: String,
 					artist: String,
@@ -46,18 +52,23 @@ const GameSchema = new mongoose.Schema({
 							convertedEnergyCost: Number,
 						},
 					],
-					resistances: [
-						{
-							type: { type: String },
-							value: String,
-						},
-					],
 					weaknesses: [
 						{
 							type: { type: String },
 							value: String,
 						},
 					],
+					imageUrlHiRes: String,
+					nationalPokedexNumber: Number,
+					resistances: [
+						{
+							type: { type: String },
+							value: String,
+						},
+					],
+					
+		
+	
 				},
 			],
 		},

@@ -1,6 +1,7 @@
 require('dotenv').config({ path: require('find-config')('.env') });
 const Deck = require('../../models/Deck')
 const Pregame = require('../../models/Pregame')
+const Game = require('../../models/Game')
 const { flipCoin} = require('../common');
 
 //each player updates pregame config with their chosen deck
@@ -85,6 +86,7 @@ async function getPregameByRoomName(roomId){
 		return error;
 	}
 }
+//critical step, not only provides coin result, but new actual game config db presence since we have everything needed to start the game!
 //occurs after update game config, and player emits their decision for coin result guess 
 //execute coin toss and update the coindecision socketid to the winning socket
 async function updateGameConfigCoinResult(roomId, player, playerCoinDecision){
@@ -130,7 +132,41 @@ async function updateGameConfigCoinResult(roomId, player, playerCoinDecision){
 			{returnOriginal: false}
 			
 		);
+
+		let updatedPregame = await Pregame.findOne({roomId});
+		console.log("updatedPregame to work from and is now showing winner socketid of " + JSON.stringify(updatedPregame.coinDecisionSocketId));
+		//see if existing, if so delete!
+		let delres = await Game.findOneAndDelete({roomId});
+		//simply deletes existing pregame config to clear for new players on this room
+		if (delres !== null) {
+			//if above doesn't work delete using roomId?
+			
+			console.log("Result of game deletion query with roomId:", roomId, " is..." , delres);
+
+		}
+		else{
+			console.log("did not find existing game ")
+		}
+		console.log('attempting to log socket + single card from a player ' + JSON.stringify(updatedPregame.players[0].socketId) + 
+		'card of that player is ' + JSON.stringify(updatedPregame.players[0].cards[0]))
+		let isPlayer1Winner = updatedPregame.players[0].socketId === winningPlayer;
+		//for each card we have to modify base properties we have added to track status of card during game, such as isBench, isActive etc
+	
+
+		let newGame = new Game({
+			roomId,
+			players: [{socketId: updatedPregame.players[0].socketId, turn: isPlayer1Winner, cards:updatedPregame.players[0].cards},
+					{socketId: updatedPregame.players[1].socketId, turn: !isPlayer1Winner, cards:updatedPregame.players[1].cards},
 		
+				]
+		});
+		
+		const shit = await newGame.save();
+		const shit2 = await Game.findOne({roomId});
+		console.log("Logging created pregame config to ensure its created " + shit.roomId + " and finding that created record is " + shit2.roomId + 
+		'maybe player here hopefully... ' + JSON.stringify(shit2.players[0].socketId) + 'is it player 1 turn? ' + shit2.players[0].turn + ' how about player 2? '
+		+ JSON.stringify(shit2.players[1].turn));
+		console.log("my kingdom for a card " + JSON.stringify(shit2.players[0].cards[0].isActive))
 
 
 		return pregameUpdated;

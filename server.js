@@ -267,7 +267,7 @@ io.on('connection', (socket) => {
 				console.log('SOMEHOWPREGAMEuPDATED RESULT IS NOT DEFINED ' );
 				cardsPresent = false;
 			}
-			//Will send to only 1 client once both decks are updated(last client to update will decide coin toss)
+			//Will send to both clients, one for waiting, 
 			if(cardsPresent === true){
 
 				console.log("SHOULD EMIT coin toss now")
@@ -275,7 +275,7 @@ io.on('connection', (socket) => {
 
 			}
 			else{
-				console.log("SHOULD EMIT coin toss LOSER because first to get here... always is second due to synchronized db activity and emissions")
+				console.log("SHOULD EMIT coin toss decision loser because first to get here... always is second due to synchronized db activity and emissions")
 				socket.emit('reqCoinTossDecisionWaitingPlayer', {"socketToDecideCoinToss":socket.id})
 			}
 			console.log("Cards present for both? " + cardsPresent)
@@ -304,12 +304,12 @@ io.on('connection', (socket) => {
 			const pregameUpdatedCoinResult = await updatePreGameCoinResult(room, socket.id, data.headsOrTailsChosen);
 
 
-			//get the losing player by checking the winning player
-			//simply emit the winning socket to the room, then have client check with itself if it is the winner, along with the result I guess
+			//ensures the both clients recieve necessary information to produce the coin toss and message indicating who decides play first when gameconfig initializes hereafter
 			let coinResult = ''
-
+			let coinTossPlayerChoseCorrect = false;
 			if (data.headsOrTailsChosen === globalConstants.HEADSSTR) {
 				if(pregameUpdatedCoinResult.coinDecisionSocketId === socket.id){
+					coinTossPlayerChoseCorrect = true;
 					coinResult = globalConstants.HEADSSTR;
 				}
 				else{
@@ -318,6 +318,7 @@ io.on('connection', (socket) => {
 			}
 			else {
 				if(pregameUpdatedCoinResult.coinDecisionSocketId === socket.id){
+					coinTossPlayerChoseCorrect = true;
 					coinResult = globalConstants.TAILSSTR;
 				}
 				else{
@@ -325,6 +326,11 @@ io.on('connection', (socket) => {
 				}
 			}
 			console.log('coin result determined before passing to room clients is ' + JSON.stringify(coinResult) + " while winning socket is " + pregameUpdatedCoinResult.coinDecisionSocketId );
+			//this merely allows animation to start by providing the coin toss function result, this way we can keep one method for responding to both
+			io.to(room).emit('coinResultReady', {'coinResult':coinResult,'coinTossPlayerChoseCorrect':coinTossPlayerChoseCorrect });
+
+
+			//we have everything we need to start the pregame, assign the player turn to the winning socket tracked by pregame confgi for now;
 
 
 
@@ -352,4 +358,21 @@ io.on('connection', (socket) => {
 			console.log("Auth users only permitted, SHOULD NOT reach this case...");
 		}
 	});
+
+
+	socket.on('gameStart', async (data, room) => {
+		//message, room
+		//at this point they'v ebeen auth, joined a room, and sent their deck
+		//TODO get the corresponding gameconfig object of the player of the room
+
+		//pass deck from deck id + player socket
+		let authRes = auth(data);
+		if (authRes.isAuth === true) {
+			//headsOrTailsChosen is property used on payload by front-end expected here
+			console.log("user has requested game start of socket id " + JSON.stringify(socket.id));
+		}
+		else{
+			console.log('unauth user has requested game start' + JSON.stringify(socket.id));
+		}
+		});
 });
