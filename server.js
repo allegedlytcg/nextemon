@@ -325,7 +325,7 @@ io.on('connection', (socket) => {
 					coinResult=globalConstants.HEADSSTR;
 				}
 			}
-			console.log('coin result determined before passing to room clients is ' + JSON.stringify(coinResult) + " while winning socket is " + pregameUpdatedCoinResult.coinDecisionSocketId );
+			console.log('coin result determined before passing to room clients is ' + JSON.stringify(coinResult) + " while winning socket is " + JSON.stringify(pregameUpdatedCoinResult) );
 			//this merely allows animation to start by providing the coin toss function result, this way we can keep one method for responding to both
 			io.to(room).emit('coinResultReady', {'coinResult':coinResult,'coinTossPlayerChoseCorrect':coinTossPlayerChoseCorrect });
 
