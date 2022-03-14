@@ -8,9 +8,9 @@ const cors = require('cors');
 const http = require('http');
 const server = http.createServer(app);
 const Game = require('./models/Game');
-const { createGame } = require('./gamelogic/socket_controllers/createGame');
 const { createPreGame } = require('./gamelogic/socket_controllers/createPreGame');
 const { updatePreGame } = require('./gamelogic/socket_controllers/updatePreGame');
+const { getPerspectiveFromGame } = require('./gamelogic/socket_controllers/updateGame');
 const { updatePreGameCoinResult } = require('./gamelogic/socket_controllers/updatePreGame');
 
 const { getDeckbyId } = require('./gamelogic/socket_controllers/updatePreGame');
@@ -325,7 +325,7 @@ io.on('connection', (socket) => {
 					coinResult=globalConstants.HEADSSTR;
 				}
 			}
-			console.log('coin result determined before passing to room clients is ' + JSON.stringify(coinResult) + " while winning socket is " + JSON.stringify(pregameUpdatedCoinResult) );
+			console.log('coin result determined before passing to room clients is ' + JSON.stringify(coinResult) + " while winning socket is " + JSON.stringify(pregameUpdatedCoinResult.coinDecisionSocketId) );
 			//this merely allows animation to start by providing the coin toss function result, this way we can keep one method for responding to both
 			io.to(room).emit('coinResultReady', {'coinResult':coinResult,'coinTossPlayerChoseCorrect':coinTossPlayerChoseCorrect });
 
@@ -370,6 +370,8 @@ io.on('connection', (socket) => {
 		if (authRes.isAuth === true) {
 			//headsOrTailsChosen is property used on payload by front-end expected here
 			console.log("user has requested game start of socket id " + JSON.stringify(socket.id));
+			const perspective = await getPerspectiveFromGame(room,socket.id);
+			
 		}
 		else{
 			console.log('unauth user has requested game start' + JSON.stringify(socket.id));

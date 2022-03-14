@@ -20,12 +20,16 @@ const GameSchema = new mongoose.Schema({
 					isHand:  { type: Boolean, default: false, },
 					isActive: { type: Boolean, default: false, },
 					isBench:  { type: Boolean, default: false, },
+					isInDeck: { type:Boolean, default: true},//must explicitly toggle off when deck modified
 					benchPos:  { type: Number, default: false, },//should always be between 0-4 if 'isBench' is true
 					isPrizeCard:  { type: Boolean, default: false, },
 					isDiscarded:  { type: Boolean, default: false, },
 					hidden:  { type: Boolean, default: false, },
-					damageCounters:  { type: Number, default: false, },//if damageCounter * 10 >= hp, the pokemon should be removed from play
-					attachedEnergies: [],
+					damageCounters:  { type: Number, default: 0, },//if damageCounter * 10 >= hp, the pokemon should be removed from play
+					//for all 'attachedAs' number indicates bench position/active pokemon, default is -1 interpreted as N/a
+					attachedAsEnergy: { type: Number, default: -1, },
+					attachedAsEvo:{type:Number, default:-1},
+					attachedAsTrainer:{type:Number, default:-1}, //for stupid defender and plus power that no one should use
 	
 					//api defined
 					types: [String],

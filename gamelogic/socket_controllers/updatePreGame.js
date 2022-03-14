@@ -1,4 +1,5 @@
 require('dotenv').config({ path: require('find-config')('.env') });
+const PlayerPerspective = require('../../classes/perspectiveModule')
 const Deck = require('../../models/Deck')
 const Pregame = require('../../models/Pregame')
 const Game = require('../../models/Game')
@@ -134,7 +135,7 @@ async function updateGameConfigCoinResult(roomId, player, playerCoinDecision) {
 			{ returnOriginal: false }
 
 		);
-		console.log('pregameUpdated from finoneandupdate is ' + JSON.stringify(pregameUpdated));
+		// console.log('pregameUpdated from finoneandupdate is ' + JSON.stringify(pregameUpdated));
 
 		const updatedPregame = await Pregame.findOne({ roomId });
 		console.log("updatedPregame to work from and is now showing winner socketid of " + JSON.stringify(updatedPregame.coinDecisionSocketId));
@@ -150,8 +151,7 @@ async function updateGameConfigCoinResult(roomId, player, playerCoinDecision) {
 		else {
 			console.log("did not find existing game ")
 		}
-		console.log('attempting to log socket + single card from a player ' + JSON.stringify(updatedPregame.players[0].socketId) +
-			'card of that player is ' + JSON.stringify(updatedPregame.players[0].cards[0]))
+
 		const isPlayer1Winner = updatedPregame.players[0].socketId === winningPlayer;
 		//for each card we have to modify base properties we have added to track status of card during game, such as isBench, isActive etc
 
@@ -176,11 +176,18 @@ async function updateGameConfigCoinResult(roomId, player, playerCoinDecision) {
 		//update deck's via shuffle and assignment of first 7 of shuffled to 'inhand' for both players
 
 		const shuffledPlayer1Deck = shuffleDeck(tempGame.players[0].cards);
-		console.log("my kingdom for a shuffled card player 1 " + JSON.stringify(shuffledPlayer1Deck));
+		//assign hand for each player
+
 
 		const shuffledPlayer2Deck = shuffleDeck(tempGame.players[1].cards);
-		console.log("my kingdom for a shuffled card player 2 " + JSON.stringify(shuffledPlayer2Deck));
 
+		for(let i=0; i<7; i++){
+			shuffledPlayer2Deck[i].isHand = true;
+			shuffledPlayer2Deck[i].isInDeck = false;
+			shuffledPlayer1Deck[i].isHand= true;
+			shuffledPlayer1Deck[i].isInDeck = false;
+
+		}
 		// let tempCardsPlayer2 = tempGame.players[1].cards.shuffle();
 
 		const shuffledGame1 = await Game.findOneAndUpdate({ roomId, "players.socketId": tempGame.players[0].socketId },
@@ -194,8 +201,10 @@ async function updateGameConfigCoinResult(roomId, player, playerCoinDecision) {
 
 		console.log("my kingdom for the same shuffled card player 1 after update " + JSON.stringify(shuffledGame1.players[0].cards[0].name))
 		console.log("my kingdom for the same shuffled card player 2 after update " + JSON.stringify(shuffledGame2.players[1].cards[0].name))
+		//TODO REMOVE THIS: we move this for gameStart method emmited from each player to get their perspective, just here as POC for now
+		// perspective.getPerspective(shuffledGame2.players[0].socketId, shuffledGame2);
 
-
+	
 
 
 		return pregameUpdated;
