@@ -10,7 +10,7 @@ const server = http.createServer(app);
 const Game = require('./models/Game');
 const { createPreGame } = require('./gamelogic/socket_controllers/createPreGame');
 const { updatePreGame } = require('./gamelogic/socket_controllers/updatePreGame');
-const { getPerspectiveFromGame } = require('./gamelogic/socket_controllers/updateGame');
+const { getStartPerspectiveFromGame } = require('./gamelogic/socket_controllers/updateGame');
 const { updatePreGameCoinResult } = require('./gamelogic/socket_controllers/updatePreGame');
 
 const { getDeckbyId } = require('./gamelogic/socket_controllers/updatePreGame');
@@ -370,7 +370,7 @@ io.on('connection', (socket) => {
 		if (authRes.isAuth === true) {
 			//headsOrTailsChosen is property used on payload by front-end expected here
 			console.log("user has requested game start of socket id " + JSON.stringify(socket.id));
-			const perspective = await getPerspectiveFromGame(room,socket.id);
+			const perspective = await getStartPerspectiveFromGame(room,socket.id);
 			
 		}
 		else{

@@ -21,7 +21,7 @@ const GameSchema = new mongoose.Schema({
 					isActive: { type: Boolean, default: false, },
 					isBench:  { type: Boolean, default: false, },
 					isInDeck: { type:Boolean, default: true},//must explicitly toggle off when deck modified
-					benchPos:  { type: Number, default: false, },//should always be between 0-4 if 'isBench' is true
+					benchPos:  { type: Number, default: -1, },//should always be between 1-5 if 'isBench' is true
 					isPrizeCard:  { type: Boolean, default: false, },
 					isDiscarded:  { type: Boolean, default: false, },
 					hidden:  { type: Boolean, default: false, },
