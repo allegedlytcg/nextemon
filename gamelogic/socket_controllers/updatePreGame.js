@@ -103,19 +103,23 @@ async function updateGameConfigCoinResult(roomId, player, playerCoinDecision) {
 		console.log("temppregamE CONFIG previous socket assigned for coin decision was " + JSON.stringify(tempPregame.coinDecisionSocketId) + "while player socket is " + JSON.stringify(player) + "player coin decision WAS" + playerCoinDecision);;
 		//winningplayer will be re-assigned according to result
 		const coinFlipResult = flipCoin().toUpperCase();
-		const winningPlayer = player;
+		let winningPlayer = player;
 		console.log('flip coin result is ' + coinFlipResult + ' while playerCo9inDecision was ' + playerCoinDecision);
 		if (!(coinFlipResult === playerCoinDecision)) {
-			for (let i = 0; i < tempPregame.players.length; i++) {
-				if (tempPregame.players[i].socketId !== player) {
-					winningPlayer = tempPregame.players[i].socketId;
-					console.log("found other socket to be the winner this time proposed coin choice of deciding player was WRONG");
-					break;
-				}
-				else {
-					console.log('loop is continuing ' + JSON.stringify(tempPregame.players[i].socketId + ' while player that decided should be same here ' + JSON.stringify(player)))
-				}
-			}
+
+			console.log("both players must be present here player1: '"+ tempPregame.players[0].socketId + "'  player2: '" + tempPregame.players[1].socketId + "'");
+			const playerFound = 
+			winningPlayer = tempPregame.players.find(aplayer=>aplayer.socketId !== player).socketId
+			// for (let i = 0; i < tempPregame.players.length; i++) {
+			// 	if (tempPregame.players[i].socketId !== player) {
+			// 		winningPlayer = tempPregame.players[i].socketId;
+			// 		console.log("found other socket to be the winner this time proposed coin choice of deciding player was WRONG");
+			// 		break;
+			// 	}
+			// 	else {
+			// 		console.log('loop is continuing ' + JSON.stringify(tempPregame.players[i].socketId + ' while player that decided should be same here ' + JSON.stringify(player)))
+			// 	}
+			// }
 
 		}
 		else {
@@ -205,9 +209,9 @@ async function updateGameConfigCoinResult(roomId, player, playerCoinDecision) {
 		// perspective.getPerspective(shuffledGame2.players[0].socketId, shuffledGame2);
 
 	
+		
 
-
-		return pregameUpdated;
+		return updatedPregame;
 
 	} catch (error) {
 		return error;

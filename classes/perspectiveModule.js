@@ -25,7 +25,7 @@ class PlayerPerspective {
 
 
 		console.log("found requesting player for perspective?" + requestingUsersCards[0].name);
-        const opponentsCards = gameConfig.players.find(element => element.socketId !== player1or2).cards;
+        // const opponentsCards = gameConfig.players.find(element => element.socketId !== player1or2).cards;
         // returnPerspective["oppInHandCount"] = opponentsCards.filter(element => element.isHand === true).length;
         // returnPerspective["oppActive"] = opponentsCards.filter(element => element.isActive === true);
         // returnPerspective["oppDeckCount"] = opponentsCards.filter(element => element.isInDeck === true).length;
@@ -35,11 +35,22 @@ class PlayerPerspective {
         // returnPerspective["oppAttachedEvolutions"] = opponentsCards.filter(element => element.attachedAsEvo === true);//should always have a valid bench/active position 0-5 
         // returnPerspective["oppAttachedTrainers"] = opponentsCards.filter(element => element.attachedAsTrainer === true);//should only be on active pokemon using numeric indicator 0 see Game.js
         
-        console.log("found opposing player for perspective?" + opponentsCards[0].name);
+        // console.log("found opposing player for perspective?" + opponentsCards[0].name);
 
 
         // console.log("return perspective opp hand count is " + returnPerspective["oppInHandCount"] + " while requesting players cards in hand are " + JSON.stringify(returnPerspective["inHand"]));
+        console.log("requesting players cards in hand are " + returnPerspective["inHand"]);
+        //todo log various parts  of the expected properties to be given as perspective
         // console.log("requesting players cards in hand are " + returnPerspective["inHand"]);
+
+        // console.log("requesting players cards in hand are " + returnPerspective["inHand"]);
+
+        // console.log("requesting players cards in hand are " + returnPerspective["inHand"]);
+
+        // console.log("requesting players cards in hand are " + returnPerspective["inHand"]);
+
+        // console.log("requesting players cards in hand are " + returnPerspective["inHand"]);
+
 
         return returnPerspective;
     }

@@ -14,6 +14,7 @@ async function getStartPerspective(roomId, player) {
 		return PlayerPerspective.getStartingPerspective(player, gameConfig);
 
 	} catch (error) {
+		console.log('error occured: ' + error)
 		return error;
 	}
 }
@@ -22,6 +23,7 @@ async function getStartPerspective(roomId, player) {
 
 
 const getStartPerspectiveFromGame = (roomId,player) => {
+	console.log("hit get start perspective from game main call")
 
 	return getStartPerspective(roomId, player);
 }
