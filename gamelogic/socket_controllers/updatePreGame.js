@@ -168,7 +168,7 @@ async function updateGameConfigCoinResult(roomId, player, playerCoinDecision) {
 			]
 		});
 
-		const shit = await newGame.save();
+		await newGame.save();
 		const shit2 = await Game.findOne({ roomId });
 		console.log("Logging created pregame config to ensure its created " + shit.roomId + " and finding that created record is " + shit2.roomId +
 			'maybe player here hopefully... ' + JSON.stringify(shit2.players[0].socketId) + 'is it player 1 turn? ' + shit2.players[0].turn + ' how about player 2? '
