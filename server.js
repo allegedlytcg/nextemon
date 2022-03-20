@@ -8,9 +8,11 @@ const cors = require('cors');
 const http = require('http');
 const server = http.createServer(app);
 const Game = require('./models/Game');
-const { createGame } = require('./gamelogic/socket_controllers/createGame');
 const { createPreGame } = require('./gamelogic/socket_controllers/createPreGame');
 const { updatePreGame } = require('./gamelogic/socket_controllers/updatePreGame');
+const { getStartPerspectiveFromGame } = require('./gamelogic/socket_controllers/updateGame');
+const { updatePreGameCoinResult } = require('./gamelogic/socket_controllers/updatePreGame');
+
 const { getDeckbyId } = require('./gamelogic/socket_controllers/updatePreGame');
 const { getRoomSpecs } = require('./gameLogic/common/getRoomSpecs');
 const getPrizeCardsActiveGame = require('./gamelogic/common/getPrizeCardsActiveGame');
@@ -265,7 +267,7 @@ io.on('connection', (socket) => {
 				console.log('SOMEHOWPREGAMEuPDATED RESULT IS NOT DEFINED ' );
 				cardsPresent = false;
 			}
-			//Will send to only 1 client once both decks are updated(last client to update will decide coin toss)
+			//Will send to both clients, one for waiting, 
 			if(cardsPresent === true){
 
 				console.log("SHOULD EMIT coin toss now")
@@ -273,7 +275,8 @@ io.on('connection', (socket) => {
 
 			}
 			else{
-				console.log("Not emiting coin toss for this update...(only 1 user updated so far)")
+				console.log("SHOULD EMIT coin toss decision loser because first to get here... always is second due to synchronized db activity and emissions")
+				socket.emit('reqCoinTossDecisionWaitingPlayer', {"socketToDecideCoinToss":socket.id})
 			}
 			console.log("Cards present for both? " + cardsPresent)
 			//emit to room, client will reject/approve to keep flow in agreement, backend won't allow non-socket coin decision client from happening
@@ -284,4 +287,98 @@ io.on('connection', (socket) => {
 			console.log("Auth users only permitted, SHOULD NOT reach this case...");
 		}
 	});
+
+
+	//happens after pregamedeck response, and after client submits coin decision
+	socket.on('coinDecision', async (data, room) => {
+		//message, room
+		//at this point they'v ebeen auth, joined a room, and sent their deck
+		//TODO get the corresponding gameconfig object of the player of the room
+
+		//pass deck from deck id + player socket
+		let authRes = auth(data);
+		if (authRes.isAuth === true) {
+			//headsOrTailsChosen is property used on payload by front-end expected here
+		
+			//await works on function because it is returning an asynch call, and will wait for it!
+			const pregameUpdatedCoinResult = await updatePreGameCoinResult(room, socket.id, data.headsOrTailsChosen);
+
+
+			//ensures the both clients recieve necessary information to produce the coin toss and message indicating who decides play first when gameconfig initializes hereafter
+			let coinResult = ''
+			let coinTossPlayerChoseCorrect = false;
+			if (data.headsOrTailsChosen === globalConstants.HEADSSTR) {
+				if(pregameUpdatedCoinResult.coinDecisionSocketId === socket.id){
+					coinTossPlayerChoseCorrect = true;
+					coinResult = globalConstants.HEADSSTR;
+				}
+				else{
+					coinResult=globalConstants.TAILSSTR;
+				}
+			}
+			else {
+				if(pregameUpdatedCoinResult.coinDecisionSocketId === socket.id){
+					coinTossPlayerChoseCorrect = true;
+					coinResult = globalConstants.TAILSSTR;
+				}
+				else{
+					coinResult=globalConstants.HEADSSTR;
+				}
+			}
+			console.log('coin result determined before passing to room clients is ' + JSON.stringify(coinResult) + " while winning socket is " + JSON.stringify(pregameUpdatedCoinResult.coinDecisionSocketId) );
+			//this merely allows animation to start by providing the coin toss function result, this way we can keep one method for responding to both
+			io.to(room).emit('coinResultReady', {'coinResult':coinResult,'coinTossPlayerChoseCorrect':coinTossPlayerChoseCorrect });
+
+
+			//we have everything we need to start the pregame, assign the player turn to the winning socket tracked by pregame confgi for now;
+
+
+
+			//todo determine how to emit to losing socket, since we're only listening to the one socket here, perhaps emit to room?
+			// if (pregameUpdatedCoinResult !== undefined) {
+			// 	pregameUpdatedCoinResult.players.forEach(element => {
+			// 		if (element.socketId === coinDecidingPlayer) {
+			// 			console.log("found losing player")
+			// 			console.log("found cards for a player")
+			// 		}
+			// 		else {
+			// 			console.log("DID NOT FIND CARDS for one of the players");
+			// 			cardsPresent = false;
+			// 		}
+			// 	});
+			// }
+
+			// else {
+			// 	console.log('SOMEHOWPREGAMEuPDATED RESULT IS NOT DEFINED ');
+			// 	cardsPresent = false;
+			// }
+		
+		} else {
+			//consider handling this situation by disconnection
+			console.log("Auth users only permitted, SHOULD NOT reach this case...");
+		}
+	});
+
+
+	//emit first starting perspective, strict format, may need adaptation for showing other special content(like opponents hand on trainer etc)
+	socket.on('gameStart', async (data, room) => {
+		//message, room
+		//at this point they'v ebeen auth, joined a room, and sent their deck
+		//TODO get the corresponding gameconfig object of the player of the room
+
+		//pass deck from deck id + player socket
+		let authRes = auth(data);
+		if (authRes.isAuth === true) {
+			//headsOrTailsChosen is property used on payload by front-end expected here
+			console.log("user has requested game start of socket id " + JSON.stringify(socket.id));
+			const perspective = await getStartPerspectiveFromGame(room,socket.id);
+		
+			socket.emit('showStartingHand', {"PlayerPerspective":perspective});//client needs only signal, signifying send jwt+deck array position
+
+			
+		}
+		else{
+			console.log('unauth user has requested game start' + JSON.stringify(socket.id));
+		}
+		});
 });

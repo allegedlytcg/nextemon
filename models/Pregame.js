@@ -9,7 +9,7 @@ const PregameSchema = new mongoose.Schema({
 		required: true,
 	},
 
-    coinDecisionSocketId:{type:String, required:false},
+    coinDecisionSocketId:{type:String, required:false},//represents 2 things at different times, the coin decision decider, then the coin decision winner for game config
 
 	players: [
 		{
