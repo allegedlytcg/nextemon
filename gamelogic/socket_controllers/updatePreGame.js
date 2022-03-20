@@ -170,20 +170,19 @@ async function updateGameConfigCoinResult(roomId, player, playerCoinDecision) {
 
 		await newGame.save();
 		const shit2 = await Game.findOne({ roomId });
-		console.log("Logging created pregame config to ensure its created " + shit.roomId + " and finding that created record is " + shit2.roomId +
-			'maybe player here hopefully... ' + JSON.stringify(shit2.players[0].socketId) + 'is it player 1 turn? ' + shit2.players[0].turn + ' how about player 2? '
-			+ JSON.stringify(shit2.players[1].turn));
+		console.log(" Newly created game record is " + shit2.roomId +
+			'maybe player here hopefully... ' + JSON.stringify(shit2.players[0].socketId) + 'is it player 1 turn? ');
 		const tempGame = JSON.parse(JSON.stringify(shit2));
 		console.log('my kingdom for a card player 1  ' +JSON.stringify(tempGame.players[0].cards[0].name))
 		console.log('my kingdom for a card player 2  ' +JSON.stringify(tempGame.players[1].cards[0].name))
 
 		//update deck's via shuffle and assignment of first 7 of shuffled to 'inhand' for both players
 
-		const shuffledPlayer1Deck = shuffleDeck(tempGame.players[0].cards);
+		let shuffledPlayer1Deck = shuffleDeck(tempGame.players[0].cards);
 		//assign hand for each player
 
 
-		const shuffledPlayer2Deck = shuffleDeck(tempGame.players[1].cards);
+		let shuffledPlayer2Deck = shuffleDeck(tempGame.players[1].cards);
 
 		for(let i=0; i<7; i++){
 			shuffledPlayer2Deck[i].isHand = true;
