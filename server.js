@@ -360,6 +360,7 @@ io.on('connection', (socket) => {
 	});
 
 
+	//emit first starting perspective, strict format, may need adaptation for showing other special content(like opponents hand on trainer etc)
 	socket.on('gameStart', async (data, room) => {
 		//message, room
 		//at this point they'v ebeen auth, joined a room, and sent their deck
@@ -371,6 +372,9 @@ io.on('connection', (socket) => {
 			//headsOrTailsChosen is property used on payload by front-end expected here
 			console.log("user has requested game start of socket id " + JSON.stringify(socket.id));
 			const perspective = await getStartPerspectiveFromGame(room,socket.id);
+		
+			socket.emit('showStartingHand', {"PlayerPerspective":perspective});//client needs only signal, signifying send jwt+deck array position
+
 			
 		}
 		else{
