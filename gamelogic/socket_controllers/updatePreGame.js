@@ -3,7 +3,7 @@ const PlayerPerspective = require('../../classes/perspectiveModule')
 const Deck = require('../../models/Deck')
 const Pregame = require('../../models/Pregame')
 const Game = require('../../models/Game')
-const { flipCoin} = require('../common');
+const { flipCoin } = require('../common');
 const { shuffleDeck } = require('../common');
 
 
@@ -107,9 +107,9 @@ async function updateGameConfigCoinResult(roomId, player, playerCoinDecision) {
 		console.log('flip coin result is ' + coinFlipResult + ' while playerCo9inDecision was ' + playerCoinDecision);
 		if (!(coinFlipResult === playerCoinDecision)) {
 
-			console.log("both players must be present here player1: '"+ tempPregame.players[0].socketId + "'  player2: '" + tempPregame.players[1].socketId + "'");
-			const playerFound = 
-			winningPlayer = tempPregame.players.find(aplayer=>aplayer.socketId !== player).socketId
+			console.log("both players must be present here player1: '" + tempPregame.players[0].socketId + "'  player2: '" + tempPregame.players[1].socketId + "'");
+			const playerFound =
+				winningPlayer = tempPregame.players.find(aplayer => aplayer.socketId !== player).socketId
 			// for (let i = 0; i < tempPregame.players.length; i++) {
 			// 	if (tempPregame.players[i].socketId !== player) {
 			// 		winningPlayer = tempPregame.players[i].socketId;
@@ -173,8 +173,8 @@ async function updateGameConfigCoinResult(roomId, player, playerCoinDecision) {
 		console.log(" Newly created game record is " + shit2.roomId +
 			'maybe player here hopefully... ' + JSON.stringify(shit2.players[0].socketId) + 'is it player 1 turn? ');
 		const tempGame = JSON.parse(JSON.stringify(shit2));
-		console.log('my kingdom for a card player 1  ' +JSON.stringify(tempGame.players[0].cards[0].name))
-		console.log('my kingdom for a card player 2  ' +JSON.stringify(tempGame.players[1].cards[0].name))
+		console.log('my kingdom for a card player 1  ' + JSON.stringify(tempGame.players[0].cards[0].name))
+		console.log('my kingdom for a card player 2  ' + JSON.stringify(tempGame.players[1].cards[0].name))
 
 		//update deck's via shuffle and assignment of first 7 of shuffled to 'inhand' for both players
 
@@ -184,13 +184,117 @@ async function updateGameConfigCoinResult(roomId, player, playerCoinDecision) {
 
 		let shuffledPlayer2Deck = shuffleDeck(tempGame.players[1].cards);
 
-		for(let i=0; i<7; i++){
+		for (let i = 0; i < 7; i++) {
 			shuffledPlayer2Deck[i].isHand = true;
 			shuffledPlayer2Deck[i].isInDeck = false;
-			shuffledPlayer1Deck[i].isHand= true;
+			shuffledPlayer1Deck[i].isHand = true;
 			shuffledPlayer1Deck[i].isInDeck = false;
 
 		}
+		//TODO remove these lines for test purposes only on front end for config, chosen index random and sequential
+		shuffledPlayer2Deck[8].isDiscarded = true;
+		shuffledPlayer2Deck[8].isInDeck = false;
+		shuffledPlayer1Deck[8].isDiscarded = true;
+		shuffledPlayer1Deck[8].isInDeck = false;
+
+		//fill active position with 8 attached
+		shuffledPlayer2Deck[9].isActive = true;
+		shuffledPlayer2Deck[9].isInDeck = false;
+		shuffledPlayer1Deck[9].isActive = true;
+		shuffledPlayer1Deck[9].isInDeck = false;
+
+		shuffledPlayer2Deck[18].attachedAsEnergy = 0;
+		shuffledPlayer2Deck[18].isInDeck = false;
+		shuffledPlayer1Deck[18].attachedAsEnergy = 0;
+		shuffledPlayer1Deck[18].isInDeck = false;
+
+		shuffledPlayer2Deck[19].attachedAsEnergy = 0;
+		shuffledPlayer2Deck[19].isInDeck = false;
+		shuffledPlayer1Deck[19].attachedAsEnergy = 0;
+		shuffledPlayer1Deck[19].isInDeck = false;
+
+		shuffledPlayer2Deck[20].attachedAsEnergy = 0;
+		shuffledPlayer2Deck[20].isInDeck = false;
+		shuffledPlayer1Deck[20].attachedAsEnergy = 0;
+		shuffledPlayer1Deck[20].isInDeck = false;
+
+		shuffledPlayer2Deck[21].attachedAsEnergy = 0;
+		shuffledPlayer2Deck[21].isInDeck = false;
+		shuffledPlayer1Deck[21].attachedAsEnergy = 0;
+		shuffledPlayer1Deck[21].isInDeck = false;
+
+		shuffledPlayer2Deck[22].attachedAsEnergy = 0;
+		shuffledPlayer2Deck[22].isInDeck = false;
+		shuffledPlayer1Deck[22].attachedAsEnergy = 0;
+		shuffledPlayer1Deck[22].isInDeck = false;
+
+		shuffledPlayer2Deck[23].attachedAsEnergy = 0;
+		shuffledPlayer2Deck[23].isInDeck = false;
+		shuffledPlayer1Deck[23].attachedAsEnergy = 0;
+		shuffledPlayer1Deck[23].isInDeck = false;
+
+		shuffledPlayer2Deck[24].attachedAsEnergy = 0;
+		shuffledPlayer2Deck[24].isInDeck = false;
+		shuffledPlayer1Deck[24].attachedAsEnergy = 0;
+		shuffledPlayer1Deck[24].isInDeck = false;
+
+		shuffledPlayer2Deck[25].attachedAsEnergy = 0;
+		shuffledPlayer2Deck[25].isInDeck = false;
+		shuffledPlayer1Deck[25].attachedAsEnergy = 0;
+		shuffledPlayer1Deck[25].isInDeck = false;
+
+		//fill the bench with 7 attached on 1st, 5 on 2nd for threshold test
+		shuffledPlayer2Deck[10].isBench = true;
+		shuffledPlayer2Deck[10].benchPos = 1;
+		shuffledPlayer2Deck[10].isInDeck = false;
+		shuffledPlayer1Deck[10].isBench = true;
+		shuffledPlayer1Deck[10].benchPos = 1;
+		shuffledPlayer1Deck[10].isInDeck = false;
+
+
+
+
+		shuffledPlayer2Deck[11].attachedAsEnergy = 1;
+		shuffledPlayer2Deck[11].isInDeck = false;
+		shuffledPlayer1Deck[11].attachedAsEnergy = 1;
+		shuffledPlayer1Deck[11].isInDeck = false;
+
+
+		shuffledPlayer2Deck[12].attachedAsEnergy = 1;
+		shuffledPlayer2Deck[12].isInDeck = false;
+		shuffledPlayer1Deck[12].attachedAsEnergy = 1;
+		shuffledPlayer1Deck[12].isInDeck = false;
+
+		shuffledPlayer2Deck[13].attachedAsEnergy = 1;
+		shuffledPlayer2Deck[13].isInDeck = false;
+		shuffledPlayer1Deck[13].attachedAsEnergy = 1;
+		shuffledPlayer1Deck[13].isInDeck = false;
+
+		shuffledPlayer2Deck[14].attachedAsEnergy = 1;
+		shuffledPlayer2Deck[14].isInDeck = false;
+		shuffledPlayer1Deck[14].attachedAsEnergy = 1;
+		shuffledPlayer1Deck[14].isInDeck = false;
+
+		shuffledPlayer2Deck[15].attachedAsEnergy = 1;
+		shuffledPlayer2Deck[15].isInDeck = false;
+		shuffledPlayer1Deck[15].attachedAsEnergy = 1;
+		shuffledPlayer1Deck[15].isInDeck = false;
+
+		shuffledPlayer2Deck[16].attachedAsEnergy = 1;
+		shuffledPlayer2Deck[16].isInDeck = false;
+		shuffledPlayer1Deck[16].attachedAsEnergy = 1;
+		shuffledPlayer1Deck[16].isInDeck = false;
+
+		shuffledPlayer2Deck[17].attachedAsEnergy = 1;
+		shuffledPlayer2Deck[17].isInDeck = false;
+		shuffledPlayer1Deck[17].attachedAsEnergy = 1;
+		shuffledPlayer1Deck[17].isInDeck = false;
+
+		//bench 1 done
+
+		//TODO remove these lines(end)
+
+
 		// let tempCardsPlayer2 = tempGame.players[1].cards.shuffle();
 
 		const shuffledGame1 = await Game.findOneAndUpdate({ roomId, "players.socketId": tempGame.players[0].socketId },
@@ -198,17 +302,17 @@ async function updateGameConfigCoinResult(roomId, player, playerCoinDecision) {
 			{ returnOriginal: false }
 		);
 		const shuffledGame2 = await Game.findOneAndUpdate({ roomId, "players.socketId": tempGame.players[1].socketId },
-		{ $set: { "players.$.cards": shuffledPlayer2Deck } },
-		{ returnOriginal: false }
-	);
+			{ $set: { "players.$.cards": shuffledPlayer2Deck } },
+			{ returnOriginal: false }
+		);
 
 		console.log("my kingdom for the same shuffled card player 1 after update " + JSON.stringify(shuffledGame1.players[0].cards[0].name))
 		console.log("my kingdom for the same shuffled card player 2 after update " + JSON.stringify(shuffledGame2.players[1].cards[0].name))
 		//TODO REMOVE THIS: we move this for gameStart method emmited from each player to get their perspective, just here as POC for now
 		// perspective.getPerspective(shuffledGame2.players[0].socketId, shuffledGame2);
 
-	
-		
+
+
 
 		return updatedPregame;
 
