@@ -191,7 +191,8 @@ async function updateGameConfigCoinResult(roomId, player, playerCoinDecision) {
 			shuffledPlayer1Deck[i].isInDeck = false;
 
 		}
-		//TODO remove these lines for test purposes only on front end for config, chosen index random and sequential
+		//TODO remove these lines for test purposes only on front end for config, chosen index sequential for
+		//testing purposes, where we have a bench with 2 pokemon, an active, and cards attached for both players
 		shuffledPlayer2Deck[8].isDiscarded = true;
 		shuffledPlayer2Deck[8].isInDeck = false;
 		shuffledPlayer1Deck[8].isDiscarded = true;
@@ -291,6 +292,27 @@ async function updateGameConfigCoinResult(roomId, player, playerCoinDecision) {
 		shuffledPlayer1Deck[17].isInDeck = false;
 
 		//bench 1 done
+
+		//bench 2
+		shuffledPlayer2Deck[26].isBench = true;
+		shuffledPlayer2Deck[26].benchPos = 2;
+		shuffledPlayer2Deck[26].isInDeck = false;
+		shuffledPlayer1Deck[26].isBench = true;
+		shuffledPlayer1Deck[26].benchPos = 2;
+		shuffledPlayer1Deck[26].isInDeck = false;
+
+
+
+
+		shuffledPlayer2Deck[27].attachedAsEvo = 2;
+		shuffledPlayer2Deck[27].isInDeck = false;
+		shuffledPlayer1Deck[27].attachedAsEvo = 2;
+		shuffledPlayer1Deck[27].isInDeck = false;
+
+		shuffledPlayer2Deck[28].attachedAsEnergy = 2;
+		shuffledPlayer2Deck[28].isInDeck = false;
+		shuffledPlayer1Deck[28].attachedAsEnergy = 2;
+		shuffledPlayer1Deck[28].isInDeck = false;
 
 		//TODO remove these lines(end)
 
