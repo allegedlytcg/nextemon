@@ -46,7 +46,9 @@ class PlayerPerspective {
             //no attached trainers on bench
 
         }
-        console.log('returnPerspective for bench is ' + JSON.stringify(returnPerspective["bench"]))
+        // console.log('returnPerspective for bench is ' + JSON.stringify(returnPerspective["bench"]))
+        console.log('returnPerspective for prizes is ' + JSON.stringify(returnPerspective["prizeCount"]))
+
 
         //add all bench to list first
 
@@ -61,9 +63,30 @@ class PlayerPerspective {
         returnPerspective["oppActive"] = opponentsCards.filter(element => element.isActive === true);
         returnPerspective["oppDeckCount"] = opponentsCards.filter(element => element.isInDeck === true).length;
         returnPerspective["oppPrizeCount"] = opponentsCards.filter(element => element.isPrizeCard === true).length;
-        returnPerspective["oppBench"] = opponentsCards.filter(element => element.isBench === true);//should always have a valid bench position 1-5 if 'isBench' is true, see Game.js
-        //todo add logic from above once tested for active/bench of self, then we can do opponent with assurance
+        returnPerspective["oppBench"] = [];//should always have a valid bench position 1-5 if 'isBench' is true, see Game.js
+        const oppBenchCards = opponentsCards.filter(element => element.isBench === true);//should always have a valid bench position 1-5 if 'isBench' is true, see Game.js
+        if (oppBenchCards === undefined) {
+            console.log('bench cards not defined!')
+        }
+        if (oppBenchCards !== undefined) {
+            oppBenchCards.forEach(
+                card => returnPerspective["oppBench"].push([card]));
+            console.log('opp bench cards found are now ' + JSON.stringify(oppBenchCards));
+        };
+        for (let i = 0; i < returnPerspective["oppBench"].length; i++) {
+            console.log('returnperspective[oppBench] is ' + JSON.stringify(returnPerspective["oppBench"][i]) + ' AND of type ' + typeof (returnPerspective["oppBench"]))
+            let foundAttachedEvo = opponentsCards.filter(card => i + 1 === card.attachedAsEvo);
+            foundAttachedEvo.forEach(attachedEvo => returnPerspective["oppBench"][i].push(attachedEvo))
+
+
+            let foundAttachedEnergy = opponentsCards.filter(card => i + 1 === card.attachedAsEnergy);
+            foundAttachedEnergy.forEach(attachedEner => returnPerspective["oppBench"][i].push(attachedEner))
+
+            //no attached trainers on bench
+
+        }
         returnPerspective["oppIsDiscarded"] = opponentsCards.filter(element => element.isDiscarded === true);
+        console.log('returnPerspective for prizes OPPONENT is ' + JSON.stringify(returnPerspective["oppPrizeCount"]))
 
         // console.log("found opposing player for perspective?" + opponentsCards[0].name);
 

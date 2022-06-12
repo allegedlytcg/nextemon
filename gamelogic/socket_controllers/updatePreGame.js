@@ -314,6 +314,32 @@ async function updateGameConfigCoinResult(roomId, player, playerCoinDecision) {
 		shuffledPlayer1Deck[28].attachedAsEnergy = 2;
 		shuffledPlayer1Deck[28].isInDeck = false;
 
+		//sample prizes for count 6 each
+		shuffledPlayer2Deck[29].isPrizeCard = true;
+		shuffledPlayer2Deck[29].isInDeck = false;
+		shuffledPlayer1Deck[29].isPrizeCard = true;
+		shuffledPlayer1Deck[29].isInDeck = false;
+		shuffledPlayer2Deck[30].isPrizeCard = true;
+		shuffledPlayer2Deck[30].isInDeck = false;
+		shuffledPlayer1Deck[30].isPrizeCard = true;
+		shuffledPlayer1Deck[30].isInDeck = false;
+		shuffledPlayer2Deck[31].isPrizeCard = true;
+		shuffledPlayer2Deck[31].isInDeck = false;
+		shuffledPlayer1Deck[31].isPrizeCard = true;
+		shuffledPlayer1Deck[31].isInDeck = false;
+		shuffledPlayer2Deck[32].isPrizeCard = true;
+		shuffledPlayer2Deck[32].isInDeck = false;
+		shuffledPlayer1Deck[32].isPrizeCard = true;
+		shuffledPlayer1Deck[32].isInDeck = false;
+		shuffledPlayer2Deck[33].isPrizeCard = true;
+		shuffledPlayer2Deck[33].isInDeck = false;
+		shuffledPlayer1Deck[33].isPrizeCard = true;
+		shuffledPlayer1Deck[33].isInDeck = false;
+		shuffledPlayer2Deck[34].isPrizeCard = true;
+		shuffledPlayer2Deck[34].isInDeck = false;
+		shuffledPlayer1Deck[34].isPrizeCard = true;
+		shuffledPlayer1Deck[34].isInDeck = false;
+
 		//TODO remove these lines(end)
 
 
