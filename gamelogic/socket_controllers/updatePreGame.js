@@ -314,6 +314,74 @@ async function updateGameConfigCoinResult(roomId, player, playerCoinDecision) {
 		shuffledPlayer1Deck[28].attachedAsEnergy = 2;
 		shuffledPlayer1Deck[28].isInDeck = false;
 
+		//bench 3
+		shuffledPlayer2Deck[35].isBench = true;
+		shuffledPlayer2Deck[35].benchPos = 3;
+		shuffledPlayer2Deck[35].isInDeck = false;
+		shuffledPlayer1Deck[35].isBench = true;
+		shuffledPlayer1Deck[35].benchPos = 3;
+		shuffledPlayer1Deck[35].isInDeck = false;
+
+
+
+
+		shuffledPlayer2Deck[36].attachedAsEnergy = 3;
+		shuffledPlayer2Deck[36].isInDeck = false;
+		shuffledPlayer1Deck[36].attachedAsEvo = 3;
+		shuffledPlayer1Deck[36].isInDeck = false;
+
+		shuffledPlayer2Deck[37].attachedAsEnergy = 3;
+		shuffledPlayer2Deck[37].isInDeck = false;
+		shuffledPlayer1Deck[37].attachedAsEnergy = 3;
+		shuffledPlayer1Deck[37].isInDeck = false;
+
+		//bench 4
+		shuffledPlayer2Deck[38].isBench = true;
+		shuffledPlayer2Deck[38].benchPos = 4;
+		shuffledPlayer2Deck[38].isInDeck = false;
+		shuffledPlayer1Deck[38].isBench = true;
+		shuffledPlayer1Deck[38].benchPos = 4;
+		shuffledPlayer1Deck[38].isInDeck = false;
+
+
+
+
+		shuffledPlayer2Deck[39].attachedAsEvo = 4;
+		shuffledPlayer2Deck[39].isInDeck = false;
+		shuffledPlayer1Deck[39].attachedAsEvo = 4;
+		shuffledPlayer1Deck[39].isInDeck = false;
+
+		shuffledPlayer2Deck[40].attachedAsEnergy = 4;
+		shuffledPlayer2Deck[40].isInDeck = false;
+		shuffledPlayer1Deck[40].attachedAsEnergy = 4;
+		shuffledPlayer1Deck[40].isInDeck = false;
+		//bench 5
+		shuffledPlayer2Deck[41].isBench = true;
+		shuffledPlayer2Deck[41].benchPos = 5;
+		shuffledPlayer2Deck[41].isInDeck = false;
+		shuffledPlayer1Deck[41].isBench = true;
+		shuffledPlayer1Deck[41].benchPos = 5;
+		shuffledPlayer1Deck[41].isInDeck = false;
+
+
+
+
+		shuffledPlayer2Deck[42].attachedAsEvo = 5;
+		shuffledPlayer2Deck[42].isInDeck = false;
+		shuffledPlayer1Deck[42].attachedAsEvo = 5;
+		shuffledPlayer1Deck[42].isInDeck = false;
+
+		shuffledPlayer2Deck[43].attachedAsEnergy = 5;
+		shuffledPlayer2Deck[43].isInDeck = false;
+		shuffledPlayer1Deck[43].attachedAsEnergy = 5;
+		shuffledPlayer1Deck[43].isInDeck = false;
+
+
+
+
+
+
+
 		//sample prizes for count 6 each
 		shuffledPlayer2Deck[29].isPrizeCard = true;
 		shuffledPlayer2Deck[29].isInDeck = false;
