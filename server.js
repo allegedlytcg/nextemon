@@ -32,26 +32,27 @@ const deckRoutes = require('./routes/deck');
 const PokemonRoutes = require('./routes/pokemon');
 
 const whitelist = [
-	'http://localhost:4200',
-	'http://localhost:8080',
-	'https://allegedlytcg.herokuapp.com',
-	'https://www.nostalgiagamestudios.com',
+  'http://localhost:4200',
+  'http://localhost:8080',
+  'https://allegedlytcg.herokuapp.com',
+  'https://www.nostalgiagamestudios.com',
+  'https://allegedlytcg.onrender.com',
 ];
 
 const corsOptions = {
-	origin: (origin, callback) => {
-		// allow requests with no origin (our next app)
-		if (!origin) return callback(null, true);
-		if (whitelist.indexOf(origin) === -1) {
-			const msg = `The CORS policy for this site does not allow access from the specified ${origin}`;
-			return callback(new Error(msg), false);
-		}
-		return callback(null, true);
-	},
-	// needs to be true for angular and
-	// same-origin for next/react
-	credentials: true || 'same-origin',
-	methods: ['GET', 'PUT', 'POST', 'DELETE'],
+  origin: (origin, callback) => {
+    // allow requests with no origin (our next app)
+    if (!origin) return callback(null, true);
+    if (whitelist.indexOf(origin) === -1) {
+      const msg = `The CORS policy for this site does not allow access from the specified ${origin}`;
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  // needs to be true for angular and
+  // same-origin for next/react
+  credentials: true || 'same-origin',
+  methods: ['GET', 'PUT', 'POST', 'DELETE'],
 };
 
 // connect database
@@ -73,19 +74,19 @@ nextApp.prepare().then(() => {
 
 	app.use(express.json({ limit: '50mb' }));
 
-	app.use(cors(corsOptions));
+  app.use(cors(corsOptions));
 
-	app.use('/api/v1/user', userRoutes);
-	app.use('/api/v1/deck', deckRoutes);
-	app.use('/api/v1/pokemon', PokemonRoutes);
+  app.use('/api/v1/user', userRoutes);
+  app.use('/api/v1/deck', deckRoutes);
+  app.use('/api/v1/pokemon', PokemonRoutes);
 
-	app.all('*', (req, res) => handle(req, res));
+  app.all('*', (req, res) => handle(req, res));
 
-	server.listen(PORT, (err) => {
-		if (err) throw err;
+  server.listen(PORT, err => {
+    if (err) throw err;
 
-		console.log(`Express server running on http://localhost:${PORT}`);
-	});
+    console.log(`Express server running on http://localhost:${PORT}`);
+  });
 });
 const io = require('socket.io')(server, { cors: corsOptions });
 const rooms = io.of('/').adapter.rooms;
