@@ -1,15 +1,19 @@
 
 // playerPerspective module
+
+const Perspective = require("../models/Perspective");
+
 //used to create perspective used by UI for interpreting each players respective views, should eventually use class to depict this model
 class PlayerPerspective {
 
+    
     //applies heavy filter to obtain correct display information on client side for any given user
-    static getStartingPerspective(player1or2, gameConfig) {
+    static getCurrentPerspectiveForGamePlayer(player1or2, gameConfig) {
         console.log("in constructor, gameConfig roomId is "
             + JSON.stringify(gameConfig.roomId) + " and player socketid passed is " + JSON.stringify(player1or2));
 
         //nd hand, bench, active
-        let returnPerspective = {};
+        let returnPerspective = new Perspective();
         //important structor of data here, client is expecting this format in order to produce accurate status of game
         //any 'attachedAs' properties should always have a valid bench/active position 0-5, with exception of trainers, which should only be active (0) position, see game.js
 
@@ -23,7 +27,7 @@ class PlayerPerspective {
         returnPerspective["deckCount"] = requestingUsersCards.filter(element => element.isInDeck === true).length;
         returnPerspective["prizeCount"] = requestingUsersCards.filter(element => element.isPrizeCard === true).length;
         //need to push new array each bench found to this property
-        returnPerspective["bench"] = [];
+        // returnPerspective["bench"] = [];
         const benchCards = requestingUsersCards.filter(element => element.isBench === true);//should always have a valid bench position 1-5 if 'isBench' is true, see Game.js
         if (benchCards === undefined) {
             console.log('bench cards not defined!')
@@ -122,6 +126,15 @@ class PlayerPerspective {
 
         return returnPerspective;
     }
+    //requestedConfig is sent by client, requesting action during their turn/responsive to some action
+    static getUpdatedPerspectiveForGamePlayer(player1or2, gameConfig, data){
+        let perspective = getCurrentPerspectiveForGamePlayer(player1or2, gameConfig);
+        console.log("on update request, current Game config is " + JSON.stringify(perspective));
+        console.log("requested action structure is as follows");
+
+
+    }6
+    //get previous gameConfig
 
     //todo typical getRespective instead of starting may be required
 

@@ -10,7 +10,7 @@ const server = http.createServer(app);
 const Game = require('./models/Game');
 const { createPreGame } = require('./gamelogic/socket_controllers/createPreGame');
 const { updatePreGame } = require('./gamelogic/socket_controllers/updatePreGame');
-const { getStartPerspectiveFromGame } = require('./gamelogic/socket_controllers/updateGame');
+const { getStartPerspectiveRootCall } = require('./gamelogic/socket_controllers/updateGame');
 const { updatePreGameCoinResult } = require('./gamelogic/socket_controllers/updatePreGame');
 
 const { getDeckbyId } = require('./gamelogic/socket_controllers/updatePreGame');
@@ -372,9 +372,30 @@ io.on('connection', (socket) => {
 		if (authRes.isAuth === true) {
 			//headsOrTailsChosen is property used on payload by front-end expected here
 			console.log("user has requested game start of socket id " + JSON.stringify(socket.id));
-			const perspective = await getStartPerspectiveFromGame(room, socket.id);
+			const perspective = await getStartPerspectiveRootCall(room, socket.id);
 
-			socket.emit('showStartingHand', { "PlayerPerspective": perspective });//client needs only signal, signifying send jwt+deck array position
+			socket.emit('showStartingPerspective', { "PlayerPerspective": perspective });//client needs only signal, signifying send jwt+deck array position
+
+
+		}
+		else {
+			console.log('unauth user has requested game start' + JSON.stringify(socket.id));
+		}
+	});
+	socket.on('gameUpdate', async (data, room) => {
+		//message, room
+		//at this point they'v ebeen auth, joined a room, and sent their deck
+		//TODO get the corresponding gameconfig object of the player of the room
+
+		//pass deck from deck id + player socket
+		let authRes = auth(data);
+		if (authRes.isAuth === true) {
+			//headsOrTailsChosen is property used on payload by front-end expected here
+			console.log("user has requested game UPDATE of socket id " + JSON.stringify(socket.id));
+			const perspective = await getUpdatedPerspectiveRootCall(room, socket.id, data);
+
+			//response to the request of a game update of any sort, energy attach, attack, everything from above root call
+			socket.emit('showUpdatedPerspective', { "PlayerPerspective": perspective });//client needs only signal, signifying send jwt+deck array position
 
 
 		}

@@ -11,7 +11,21 @@ async function getStartPerspective(roomId, player) {
 		console.log("game found for perspective roomid is " + gameConfig.roomId);
 
 	
-		return PlayerPerspective.getStartingPerspective(player, gameConfig);
+		return PlayerPerspective.getCurrentPerspectiveForGamePlayer(player, gameConfig);
+
+	} catch (error) {
+		console.log('error occured: ' + error)
+		return error;
+	}
+}
+async function getUpdatedPerspective(roomId, player) {
+	//get previous game config still
+	try {
+        const gameConfig = await Game.findOne({ roomId });
+		console.log("game found for perspective roomid is " + gameConfig.roomId);
+
+	
+		return PlayerPerspective.getUpdatedPerspectiveForGamePlayer(player, gameConfig);
 
 	} catch (error) {
 		console.log('error occured: ' + error)
@@ -22,12 +36,21 @@ async function getStartPerspective(roomId, player) {
 
 
 
-const getStartPerspectiveFromGame = (roomId,player) => {
+const getStartPerspectiveRootCall = (roomId,player) => {
 	console.log("hit get start perspective from game main call")
 
 	return getStartPerspective(roomId, player);
 }
 
+const getUpdatedPerspectiveRootCall = (roomId,player, data) => {
+	
+	const requestStructure = new RequestStructure(data.requestFromPlayer);
+	console.log("hit UPDATE perspective from a player action request of request structure " + JSON.stringify(requestStructure))
 
 
-module.exports = { getStartPerspectiveFromGame};
+	return getUpdatedPerspective(roomId, player);
+}
+
+
+
+module.exports = { getStartPerspectiveRootCall};
