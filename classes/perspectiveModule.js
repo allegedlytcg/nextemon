@@ -130,10 +130,20 @@ class PlayerPerspective {
         return returnPerspective;
     }
     //requestedConfig is sent by client, requesting action during their turn/responsive to some action
-    static getUpdatedPerspectiveForGamePlayer(player1or2, gameConfig, data){
-        let perspective = PlayerPerspective.getCurrentPerspectiveForGamePlayer(player1or2, gameConfig, data);
-        console.log("on update request, current Game config is " + JSON.stringify(perspective));
-        console.log("requested action structure is as follows" + JSON.stringify(data));
+    static getChangeRequestDecisionForGamePlayer(player1or2, gameConfig, requestStructure){
+        const requestorPerspective = PlayerPerspective.getCurrentPerspectiveForGamePlayer(player1or2, gameConfig);
+        console.log("on update request, current Game config is " + JSON.stringify(requestorPerspective));
+        console.log("requested action structure is as follows" + JSON.stringify(requestStructure));
+        // return small object indicating to the front end if its rejected(no view returned),otherwise send both obj and view
+        let respObj = {changeApproved: false, perspective: requestorPerspective }
+        if(requestorPerspective.isTurn === false){
+            return respObj;
+        }
+        else{
+            console.log('finish changing game config base don player request here');
+            respObj = {changeApproved:true, perspective:requestorPerspective};
+            return respObj;
+        }
     }
     //get previous gameConfig
 
