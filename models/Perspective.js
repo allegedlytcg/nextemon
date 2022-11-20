@@ -12,10 +12,13 @@ class Perspective{
     oppPrizeCount = 0;
     oppBench = [];
     oppIsDiscarded = [];
+    isTurn = false;
 
 
 	
 
 }
+
+
 
 module.exports = Perspective;

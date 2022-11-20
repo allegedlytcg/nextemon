@@ -12,7 +12,7 @@ const { createPreGame } = require('./gamelogic/socket_controllers/createPreGame'
 const { updatePreGame } = require('./gamelogic/socket_controllers/updatePreGame');
 const { getStartPerspectiveRootCall } = require('./gamelogic/socket_controllers/updateGame');
 const { updatePreGameCoinResult } = require('./gamelogic/socket_controllers/updatePreGame');
-
+const { getUpdatedPerspectiveRootCall } = require('./gamelogic/socket_controllers/updateGame');
 const { getDeckbyId } = require('./gamelogic/socket_controllers/updatePreGame');
 const { getRoomSpecs } = require('./gameLogic/common/getRoomSpecs');
 const getPrizeCardsActiveGame = require('./gamelogic/common/getPrizeCardsActiveGame');
@@ -393,10 +393,8 @@ io.on('connection', (socket) => {
 			//headsOrTailsChosen is property used on payload by front-end expected here
 			console.log("user has requested game UPDATE of socket id " + JSON.stringify(socket.id));
 			const perspective = await getUpdatedPerspectiveRootCall(room, socket.id, data);
-
 			//response to the request of a game update of any sort, energy attach, attack, everything from above root call
 			socket.emit('showUpdatedPerspective', { "PlayerPerspective": perspective });//client needs only signal, signifying send jwt+deck array position
-
 
 		}
 		else {

@@ -7,7 +7,7 @@ const POKE_POWER = 5;
 //TBD for actions like trainers/pokemon power response i.e. gust of wind opp choice
 const SPECIAL_RESPONSE= 6;
 
-
+//IMPORTANT THIS MATCHES THE FRONTEND FOR APPROPRIATE REQUEST INTENTION RESOLUTION
 const HAND = 0;
 const ACTIVE = 1;
 const DISCARD = 2;
@@ -30,8 +30,12 @@ const OPPBENCH5 = 17;
 class RequestStructure{
 	CATEGORY = -1;
     //TBD, different structure for each, start with sample energy attach and build this out from there
-    REQ_INFO={srcStack: -1, destStack: -1, slctdSrcCardIndex: -1};
-
+    REQ_INFO={srcStack: -1, destStack: -1, slctdSrcCardIndex: -1, slctdDestCardIndex: -1 };
+    constructor(arg) {  // Constructor
+        console.log('arg passed to constructor is ' + JSON.stringify(arg))
+        this.REQ_INFO = arg.REQ_INFO
+        this.CATEGORY = arg.CATEGORY
+    }
 
 
 	

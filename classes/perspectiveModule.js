@@ -18,6 +18,9 @@ class PlayerPerspective {
         //any 'attachedAs' properties should always have a valid bench/active position 0-5, with exception of trainers, which should only be active (0) position, see game.js
 
         const requestingUsersCards = gameConfig.players.find(element => element.socketId === player1or2).cards;
+        const requestingUserIsTurn = gameConfig.players.find(element => element.socketId === player1or2).turn;
+        returnPerspective["isTurn"] = requestingUserIsTurn;
+        console.log('This players turn? ' + returnPerspective["isTurn"])
         returnPerspective["inHand"] = requestingUsersCards.filter(element => element.isHand === true);
         //refactored to add all attached to active as well to be returned
         returnPerspective["active"] = requestingUsersCards.filter(element =>
@@ -123,17 +126,15 @@ class PlayerPerspective {
 
         // console.log("requesting players cards in hand are " + returnPerspective["inHand"]);
 
-
+        console.log('entire return perspective? ' + JSON.stringify(returnPerspective))
         return returnPerspective;
     }
     //requestedConfig is sent by client, requesting action during their turn/responsive to some action
     static getUpdatedPerspectiveForGamePlayer(player1or2, gameConfig, data){
-        let perspective = getCurrentPerspectiveForGamePlayer(player1or2, gameConfig);
+        let perspective = PlayerPerspective.getCurrentPerspectiveForGamePlayer(player1or2, gameConfig, data);
         console.log("on update request, current Game config is " + JSON.stringify(perspective));
-        console.log("requested action structure is as follows");
-
-
-    }6
+        console.log("requested action structure is as follows" + JSON.stringify(data));
+    }
     //get previous gameConfig
 
     //todo typical getRespective instead of starting may be required
