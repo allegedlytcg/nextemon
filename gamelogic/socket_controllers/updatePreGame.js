@@ -162,8 +162,8 @@ async function updateGameConfigCoinResult(roomId, player, playerCoinDecision) {
 
 		const newGame = new Game({
 			roomId,
-			players: [{ socketId: updatedPregame.players[0].socketId, turn: isPlayer1Winner, cards: updatedPregame.players[0].cards },
-			{ socketId: updatedPregame.players[1].socketId, turn: !isPlayer1Winner, cards: updatedPregame.players[1].cards },
+			players: [{ socketId: updatedPregame.players[0].socketId, turn: isPlayer1Winner, energyAttachedThisTurn: false,  cards: updatedPregame.players[0].cards },
+			{ socketId: updatedPregame.players[1].socketId, turn: !isPlayer1Winner, energyAttachedThisTurn: false, cards: updatedPregame.players[1].cards },
 
 			]
 		});

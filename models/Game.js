@@ -10,6 +10,7 @@ const GameSchema = new mongoose.Schema({
 		{
 			
 			socketId: { type: String, required: true },
+			energyAttachedThisTurn: false,
 			turn: false,
 			cards: [
 				{

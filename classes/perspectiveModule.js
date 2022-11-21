@@ -1,7 +1,8 @@
 
-// playerPerspective module
+// playerPerspective module houses all requests of action and changes to perspectives throughout gameplay
 
 const Perspective = require("../models/Perspective");
+const RequestStructure = require("../models/RequestStructure");
 
 //used to create perspective used by UI for interpreting each players respective views, should eventually use class to depict this model
 class PlayerPerspective {
@@ -129,27 +130,133 @@ class PlayerPerspective {
         console.log('entire return perspective? ' + JSON.stringify(returnPerspective))
         return returnPerspective;
     }
+    
+    //Entry point to game config changes
     //requestedConfig is sent by client, requesting action during their turn/responsive to some action
     static getChangeRequestDecisionForGamePlayer(player1or2, gameConfig, requestStructure){
-        const requestorPerspective = PlayerPerspective.getCurrentPerspectiveForGamePlayer(player1or2, gameConfig);
+        
+        //get current perspective change it later if permissed
+        let requestorPerspective = PlayerPerspective.getCurrentPerspectiveForGamePlayer(player1or2, gameConfig);
         console.log("on update request, current Game config is " + JSON.stringify(requestorPerspective));
         console.log("requested action structure is as follows" + JSON.stringify(requestStructure));
         // return small object indicating to the front end if its rejected(no view returned),otherwise send both obj and view
         let respObj = {changeApproved: false, perspective: requestorPerspective }
         if(requestorPerspective.isTurn === false){
+            console.log('NOT THIS PLAYERS TURN, SHOULD CORRECT THIS IF HAPPENING VIA GUI UNINTENTIONALLY');
             return respObj;
         }
         else{
             console.log('finish changing game config base don player request here');
-            respObj = {changeApproved:true, perspective:requestorPerspective};
+            switch(requestStructure.CATEGORY){
+                case(requestStructure.ENERGY_ATTACH):
+                    console.log('hit ENERGY ATTACH request')
+                    respObj = this.energyAttachRequest(respObj, requestStructure)
+                    break;
+                case(requestStructure.TRAINER_ACTIVATE):
+                    console.log('hit TRAINER ACTIVATE request')
+
+                    break;
+                case(requestStructure.RETREAT_ORDER):
+                    console.log('hit RETREAT ORDER request')
+
+                    break;
+                case(requestStructure.EVOLVE_ORDER):
+                    console.log('hit EVOLVE ORDER request')
+
+                    break;
+                case(requestStructure.ATTACK_ORDER):
+                console.log('hit ATTACK ORDER request')
+
+                    break;
+                case(requestStructure.POKE_POWER):
+                console.log('hit ENERGY ATTACH request')
+
+                    break;
+                default:
+                    console.log('INVALID REQUEST DID NOT MATCH ANY TYPES')
+                    break;
+
+            }
+          
             return respObj;
         }
     }
-    //get previous gameConfig
 
-    //todo typical getRespective instead of starting may be required
 
-    // getPerspective
+    static energyAttachRequest(respObj, requestStructure){
+       
+        //check if energy was attached yet this turn
+        let checkIsToBenchOrActive =  this.isToBenchOrActive(requestStructure.REQ_INFO.destStack)
+        if(!respObj.perspective.energyAttachedThisTurn && (requestStructure.HAND === requestStructure.REQ_INFO.srcStack) && checkIsToBenchOrActive){
+            console.log('Permitted the energy attach request!')
+               //if any of the above are false, return respObj, otherwise change the gameConfiguration and save to db
+     
+            respObj.perspective.energyAttachedThisTurn = true;
+            // changeGameConfig()
+        
+
+            return respObj
+        }
+        else{
+            console.log('Energy attach Request not permitted!')
+            return respObj
+        }
+
+
+    }
+    static isToBenchOrActive(destStack){
+        let isAllowed = false
+        let arg = {REQ_INFO: {}, CATEGORY: -1};
+        let reqStructure = new RequestStructure(arg);
+        switch(destStack){
+            case(reqStructure.BENCH1):
+                isAllowed = true
+                break;
+            case(reqStructure.BENCH2):
+                isAllowed = true
+                break;
+            case(reqStructure.BENCH3):
+                isAllowed = true
+                break;
+            case(reqStructure.BENCH4):
+                isAllowed = true
+                break;
+            case(reqStructure.BENCH5):
+                isAllowed = true    
+                break;
+            case(reqStructure.ACTIVE):
+                isAllowed = true
+                break;
+            default:
+                break;
+            
+        }
+
+        return isAllowed;
+    }
+    static trainerActiveRequest(){
+
+    }
+
+    static retreatOrderRequest(){
+
+    }
+    static evolveOrderRequest(){
+
+    }
+    static attackOrderRequest(){
+
+    }
+    static pokePowerRequest(){
+
+    }
+
+    //finalize game config changes to db
+    // static changeGameConfig(newConfig){
+
+    // }
+
+
 
 
 

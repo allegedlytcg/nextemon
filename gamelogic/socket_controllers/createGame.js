@@ -33,6 +33,7 @@ const createGame = ({ roomId = '', players = [] }) => {
 						socketId,
 						cards: deckWithPrizeCards,
 						turn: false,
+						energyAttachedThisTurn: false,
 					};
 				});
 
