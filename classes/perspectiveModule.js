@@ -22,10 +22,12 @@ class PlayerPerspective {
         const requestingUserIsTurn = gameConfig.players.find(element => element.socketId === player1or2).turn;
         returnPerspective["isTurn"] = requestingUserIsTurn;
         console.log('This players turn? ' + returnPerspective["isTurn"])
+        returnPerspective["energyAttachedThisTurn"] = returnPerspective["energyAttachedThisTurn"]
+        console.log('Energy attach for this players turn? ' + returnPerspective["energyAttachedThisTurn"])
         returnPerspective["inHand"] = requestingUsersCards.filter(element => element.isHand === true);
         //refactored to add all attached to active as well to be returned
         returnPerspective["active"] = requestingUsersCards.filter(element =>
-            element.isActive === true || element.attachedAsEvo === 0 || element.attachedAsEnergy === 0 || element.attachedAsEvo === 0);
+            element.isActive === true || element.attachedAsEvo === 0 || element.attachedAsEnergy === 0);
 
 
         returnPerspective["deckCount"] = requestingUsersCards.filter(element => element.isInDeck === true).length;
@@ -177,7 +179,9 @@ class PlayerPerspective {
                     break;
 
             }
-          
+
+            //expedited updated return perspective based on the new gameConfig regardless of request type for above and changes desired
+            //also vital part in returning updated for opponent later on by updating gameConfig
             return respObj;
         }
     }
@@ -192,6 +196,7 @@ class PlayerPerspective {
                //if any of the above are false, return respObj, otherwise change the gameConfiguration and save to db
      
             respObj.perspective.energyAttachedThisTurn = true;
+            respObj.changeApproved = true;
             // changeGameConfig()
         
 

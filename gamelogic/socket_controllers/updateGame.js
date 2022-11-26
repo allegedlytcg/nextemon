@@ -44,9 +44,9 @@ const getStartPerspectiveRootCall = (roomId,player) => {
 }
 
 //data.requestFromPlayer holds the player decision to authorize under conditions
-const getChangeRequestDecisionRootCall = (roomId,player, data) => {
-	console.log("request from player is " + JSON.stringify(data.requestFromPlayer))
-	const requestStructure = new RequestStructure(data.requestFromPlayer);
+const getChangeRequestDecisionRootCall = (roomId,player, requestFromPlayer) => {
+	console.log("request from player is " + JSON.stringify(requestFromPlayer))
+	const requestStructure = new RequestStructure(requestFromPlayer);
 	console.log("hit UPDATE perspective from a player action request of request structure " + JSON.stringify(requestStructure))
 
 

@@ -11,7 +11,7 @@ const Game = require('./models/Game');
 const { createPreGame } = require('./gamelogic/socket_controllers/createPreGame');
 const { updatePreGame } = require('./gamelogic/socket_controllers/updatePreGame');
 const { getStartPerspectiveRootCall } = require('./gamelogic/socket_controllers/updateGame');
-const { updatePreGameCoinResult } = require('./gamelogic/socket_controllers/updatePreGame');
+const { updatePreGameCoinResult, updateGameConfigGeneralRoot} = require('./gamelogic/socket_controllers/updatePreGame');
 const { getChangeRequestDecisionRootCall } = require('./gamelogic/socket_controllers/updateGame');
 const { getDeckbyId } = require('./gamelogic/socket_controllers/updatePreGame');
 const { getRoomSpecs } = require('./gameLogic/common/getRoomSpecs');
@@ -382,7 +382,26 @@ io.on('connection', (socket) => {
 			console.log('unauth user has requested game start' + JSON.stringify(socket.id));
 		}
 	});
-	
+	socket.on('gameViewUpdateRequest', async (data, room) => {
+		//message, room
+		//at this point they'v ebeen auth, joined a room, and sent their deck
+		//TODO get the corresponding gameconfig object of the player of the room
+
+		//pass deck from deck id + player socket
+		let authRes = auth(data);
+		if (authRes.isAuth === true) {
+			//headsOrTailsChosen is property used on payload by front-end expected here
+			console.log("user has requested game update(similar to start) of socket id " + JSON.stringify(socket.id));
+			const perspective = await getStartPerspectiveRootCall(room, socket.id);
+
+			socket.emit('showStartingPerspective', { "PlayerPerspective": perspective });//client needs only signal, signifying send jwt+deck array position
+
+
+		}
+		else {
+			console.log('unauth user has requested game update' + JSON.stringify(socket.id));
+		}
+	});
 	
 	
 	//Major begining of game update sequence req/resp/acknowledgement/resp to opposing player depending on determination 
@@ -397,12 +416,20 @@ io.on('connection', (socket) => {
 			console.log("user has requested game UPDATE of socket id " + JSON.stringify(socket.id));
 			
 			//response to the request of a game update of any sort, energy attach, attack, everything from above root call
-			const respObject = await getChangeRequestDecisionRootCall(room, socket.id, data);
+			let respObject = await getChangeRequestDecisionRootCall(room, socket.id, data.requestFromPlayer);
 			
 			//conditional to update gui for client to subsequently register and send acknowledgement of update back for other player to obtain
 			console.log("RESP OBJ VARIABLE is " + JSON.stringify(respObject));
-			socket.emit('showChangeRequestDecision', { "PlayerPerspective": respObject.perspective });//client needs only signal, signifying send jwt+deck array position
-
+			             //apply change request and update the game config, vital for success of game flow
+            if (respObject.changeApproved){
+                //return updated game config object immediately to requesting user since approved!
+				 const updatedConfig = await updateGameConfigGeneralRoot(room, socket.id, data.requestFromPlayer)
+				 respObject.perspective = updatedConfig;
+				 io.to(room).emit('promoteViewUpdate', {}); //triggers other player (identified by isTurn work? not if player attacked and switch turns)
+            }
+			socket.emit('showChangeRequestDecision', {"changeApproved": respObject.changeApproved, "PlayerPerspective": respObject.perspective });//client needs only signal, signifying send jwt+deck array position
+			//emit to opponent of requesting player to request them to update their view if changeApproved!
+	
 		}
 		else {
 			console.log('unauth user has requested game UPDATE' + JSON.stringify(socket.id));

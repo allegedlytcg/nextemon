@@ -13,6 +13,7 @@ class Perspective{
     oppBench = [];
     oppIsDiscarded = [];
     isTurn = false;
+    energyAttachedThisTurn = false;
 
 
 	
