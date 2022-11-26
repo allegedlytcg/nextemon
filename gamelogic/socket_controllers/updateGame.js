@@ -27,7 +27,7 @@ async function getChangeRequestDecision(roomId, player, requestStructure) {
         const gameConfig = await Game.findOne({ roomId });
 		console.log("game found for perspective roomid is " + gameConfig.roomId);
 		return PlayerPerspective.getChangeRequestDecisionForGamePlayer(player, gameConfig, requestStructure);
-
+		
 	} catch (error) {
 		console.log('error occured: ' + error)
 		return error;
@@ -46,11 +46,10 @@ const getStartPerspectiveRootCall = (roomId,player) => {
 //data.requestFromPlayer holds the player decision to authorize under conditions
 const getChangeRequestDecisionRootCall = (roomId,player, requestFromPlayer) => {
 	console.log("request from player is " + JSON.stringify(requestFromPlayer))
-	const requestStructure = new RequestStructure(requestFromPlayer);
-	console.log("hit UPDATE perspective from a player action request of request structure " + JSON.stringify(requestStructure))
+	console.log("hit UPDATE perspective from a player action request of request structure " + JSON.stringify(requestFromPlayer))
 
 
-	return getChangeRequestDecision(roomId, player, requestStructure);
+	return getChangeRequestDecision(roomId, player, requestFromPlayer);
 }
 
 

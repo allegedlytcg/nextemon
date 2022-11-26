@@ -30,6 +30,7 @@ const dbConnect = require('./dbConnect');
 const userRoutes = require('./routes/user');
 const deckRoutes = require('./routes/deck');
 const PokemonRoutes = require('./routes/pokemon');
+const RequestStructure = require('./models/RequestStructure');
 
 const whitelist = [
   'http://localhost:4200',
@@ -409,21 +410,22 @@ io.on('connection', (socket) => {
 		//message, room
 		//at this point they'v ebeen auth, joined a room, and sent their deck
 		//TODO get the corresponding gameconfig object of the player of the room
-
+		const requestStructure = new RequestStructure(data.requestFromPlayer) //allows us to obtain the constants
 		//pass deck from deck id + player socket
 		let authRes = auth(data);
 		if (authRes.isAuth === true) {
 			console.log("user has requested game UPDATE of socket id " + JSON.stringify(socket.id));
 			
 			//response to the request of a game update of any sort, energy attach, attack, everything from above root call
-			let respObject = await getChangeRequestDecisionRootCall(room, socket.id, data.requestFromPlayer);
+			 
+			let respObject = await getChangeRequestDecisionRootCall(room, socket.id, requestStructure);
 			
 			//conditional to update gui for client to subsequently register and send acknowledgement of update back for other player to obtain
 			console.log("RESP OBJ VARIABLE is " + JSON.stringify(respObject));
 			             //apply change request and update the game config, vital for success of game flow
             if (respObject.changeApproved){
                 //return updated game config object immediately to requesting user since approved!
-				 const updatedConfig = await updateGameConfigGeneralRoot(room, socket.id, data.requestFromPlayer)
+				 const updatedConfig = await updateGameConfigGeneralRoot(room, socket.id, requestStructure)
 				 respObject.perspective = updatedConfig;
 				 io.to(room).emit('promoteViewUpdate', {}); //triggers other player (identified by isTurn work? not if player attacked and switch turns)
             }

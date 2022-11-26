@@ -5,6 +5,7 @@ const Pregame = require('../../models/Pregame')
 const Game = require('../../models/Game')
 const { flipCoin } = require('../common');
 const { shuffleDeck } = require('../common');
+const RequestStructure = require("../../models/RequestStructure");
 
 
 //each player updates pregame config with their chosen deck
@@ -467,41 +468,62 @@ async function updateGameConfigGeneral(roomId, player, reqStructureConfirmed) {
 const modifyGameConfig = async (player, curGameConfig, reqStructureConfirmed)=>{
 	//BASED ON REQ STRUCTURE MODIFY THE GAME AND APPLY UPDATE
 	console.log("REQUEST STRUCTURE ON MOD GAME CONFIG IS " + JSON.stringify(reqStructureConfirmed))
+	console.log("REQUEST STRUCTURE constant logging is " + JSON.stringify(reqStructureConfirmed.ENERGY_ATTACH))
+	console.log("UPDATE player PASSED logging is " + JSON.stringify(player))
+	console.log("gameConfig players available are " + JSON.stringify(curGameConfig.players[0].socketId) + " and other player is " + JSON.stringify(curGameConfig.players[1].socketId))
+	const playerIndex = curGameConfig.players[0].socketId === player?0:1; //for update this players cards only energy attach
 
 
 	switch(reqStructureConfirmed.CATEGORY){
 		case(reqStructureConfirmed.ENERGY_ATTACH):
 			console.log('energy attach game config change issued');
 			//remove source card from source stack and place in another array
+		
 			let tempCards =curGameConfig.players.filter((givenPlayer) => {
-				return givenPlayer.socketId = player
+				return givenPlayer.socketId === player
 			})[0].cards;
+			console.log('temp cards of player here hopefully ' + JSON.stringify(tempCards));
+
 			//get the correct stack to remove from
-			let cardStackSrc = tempCards.filter((card)=>{card.isHand});
+			let cardStackSrc = tempCards.filter((card)=>{return card.isHand === true});
 			console.log("card stack source is hopefully same order here as expected" + JSON.stringify(cardStackSrc));
 			let cardToSwap = cardStackSrc[reqStructureConfirmed.REQ_INFO.slctdSrcCardIndex];
-			console.log("card remembered hopefully is right one here for energy update" + JSON.stringify(cardRem));
+			console.log("card remembered hopefully is right one here for energy update" + JSON.stringify(cardToSwap));
 			//from bench or active for basic energy attach request, get destination stack
 			//switch for bench/active pos stack to add to
 			//get the correct stack to add to the end of array for update
 			let cardStackDest = [];
-			switch(reqStructureConfirmed.destStack){
+			switch(reqStructureConfirmed.REQ_INFO.destStack){
 				case(reqStructureConfirmed.ACTIVE):
 					console.log("confirmed active 'ENERGY ATTACH'")
 					
-					cardStackDest = tempCards.filter(element =>
-						element.isActive === true || element.attachedAsEvo === 0 || element.attachedAsEnergy === 0);		
+					cardStackDest = tempCards.filter((element) => {
+						return element.isActive === true || element.attachedAsEvo === 0 || element.attachedAsEnergy === 0
+					});		
 					break;
 				case(reqStructureConfirmed.BENCH1):
 					console.error("confirmed bench 1 'ENERGY ATTACH'")
 					//hopefully get equivalent stack here as what we get in perspective or else tune it up to match exactly
-					cardStackDest = tempCards.filter(element => element.isBench === true && (element.benchPos === 1 || element.attachedAsEvo === 1 || element.attachedAsEnergy === 1));//should always have a valid bench position 1-5 if 'isBench' is true, see Game.js
+					cardStackDest = tempCards.filter((element) => {return element.isBench === true && (element.benchPos === 1 || element.attachedAsEvo === 1 || element.attachedAsEnergy === 1)});//should always have a valid bench position 1-5 if 'isBench' is true, see Game.js
 					if (cardStackDest === undefined) {
 						console.error('bench cards not defined energy attach update fail!')
 					}
 					if (cardStackDest !== undefined) {
-						console.log('bench cards found for destination ENERGY ATTACH are now ' + JSON.stringify(benchCards));
+						console.log('bench cards found for destination ENERGY ATTACH are now ' + JSON.stringify(cardStackDest));
 					};
+					//at this point everything we need to make update just need to modify arrays
+					//remove from source stack
+					//how? get the isHand cards and locate the one we found via index and remove it
+					
+					//add to dest stack
+					const updatedGame = await Game.findOneAndUpdate({ roomId, "players.socketId": tempGame.players[playerIndex].socketId },
+						{ $set: { "players.$.cards": tempCards } },
+						{ returnOriginal: false }
+					);
+					console.log('udpated cards in game hopefully now ' + JSON.stringify(updatedGame).players[playerIndex].cards);
+
+					//return new gameConfig
+
 
 					break;
 				case(reqStructureConfirmed.BENCH2):
@@ -533,10 +555,7 @@ const modifyGameConfig = async (player, curGameConfig, reqStructureConfirmed)=>{
 		// { $set: { "players.$.cards": changedPlayerCards } },
 		// { returnOriginal: false }
 		// );
-		// const shuffledGame2 = await Game.findOneAndUpdate({ roomId, "players.socketId": tempGame.players[1].socketId },
-		// 	{ $set: { "players.$.cards": shuffledPlayer2Deck } },
-		// 	{ returnOriginal: false }
-		// );
+
 			break;
 		case(reqStructureConfirmed.TRAINER_ACTIVATE):
 			console.log('hit TRAINER ACTIVATE request')

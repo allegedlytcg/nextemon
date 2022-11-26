@@ -135,12 +135,12 @@ class PlayerPerspective {
     
     //Entry point to game config changes
     //requestedConfig is sent by client, requesting action during their turn/responsive to some action
-    static getChangeRequestDecisionForGamePlayer(player1or2, gameConfig, requestStructure){
+    static getChangeRequestDecisionForGamePlayer(player1or2, gameConfig, requestFromPlayer){
         
         //get current perspective change it later if permissed
         let requestorPerspective = PlayerPerspective.getCurrentPerspectiveForGamePlayer(player1or2, gameConfig);
-        console.log("on update request, current Game config is " + JSON.stringify(requestorPerspective));
-        console.log("requested action structure is as follows" + JSON.stringify(requestStructure));
+        // console.log("on update request, current Game config is " + JSON.stringify(requestorPerspective));
+        console.log("requested action structure is as follows" + JSON.stringify(requestFromPlayer));
         // return small object indicating to the front end if its rejected(no view returned),otherwise send both obj and view
         let respObj = {changeApproved: false, perspective: requestorPerspective }
         if(requestorPerspective.isTurn === false){
@@ -149,28 +149,30 @@ class PlayerPerspective {
         }
         else{
             console.log('finish changing game config base don player request here');
-            switch(requestStructure.CATEGORY){
-                case(requestStructure.ENERGY_ATTACH):
+            switch(requestFromPlayer.CATEGORY){
+                case(requestFromPlayer.ENERGY_ATTACH):
                     console.log('hit ENERGY ATTACH request')
-                    respObj = this.energyAttachRequest(respObj, requestStructure)
+                    respObj = this.energyAttachRequest(respObj, requestFromPlayer)
+
+                    //we know its energy attach hit from here
                     break;
-                case(requestStructure.TRAINER_ACTIVATE):
+                case(requestFromPlayer.TRAINER_ACTIVATE):
                     console.log('hit TRAINER ACTIVATE request')
 
                     break;
-                case(requestStructure.RETREAT_ORDER):
+                case(requestFromPlayer.RETREAT_ORDER):
                     console.log('hit RETREAT ORDER request')
 
                     break;
-                case(requestStructure.EVOLVE_ORDER):
+                case(requestFromPlayer.EVOLVE_ORDER):
                     console.log('hit EVOLVE ORDER request')
 
                     break;
-                case(requestStructure.ATTACK_ORDER):
+                case(requestFromPlayer.ATTACK_ORDER):
                 console.log('hit ATTACK ORDER request')
 
                     break;
-                case(requestStructure.POKE_POWER):
+                case(requestFromPlayer.POKE_POWER):
                 console.log('hit ENERGY ATTACH request')
 
                     break;
@@ -193,6 +195,8 @@ class PlayerPerspective {
         let checkIsToBenchOrActive =  this.isToBenchOrActive(requestStructure.REQ_INFO.destStack)
         if(!respObj.perspective.energyAttachedThisTurn && (requestStructure.HAND === requestStructure.REQ_INFO.srcStack) && checkIsToBenchOrActive){
             console.log('Permitted the energy attach request!')
+            console.log("REQUEST STRUCTURE constant logging is " + JSON.stringify(requestStructure.ENERGY_ATTACH))
+
                //if any of the above are false, return respObj, otherwise change the gameConfiguration and save to db
      
             respObj.perspective.energyAttachedThisTurn = true;
@@ -212,7 +216,7 @@ class PlayerPerspective {
     static isToBenchOrActive(destStack){
         let isAllowed = false
         let arg = {REQ_INFO: {}, CATEGORY: -1};
-        let reqStructure = new RequestStructure(arg);
+        let reqStructure = new RequestStructure(arg); //allows us to obtain the constants
         switch(destStack){
             case(reqStructure.BENCH1):
                 isAllowed = true
