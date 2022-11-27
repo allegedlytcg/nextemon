@@ -8,9 +8,11 @@ const cors = require('cors');
 const http = require('http');
 const server = http.createServer(app);
 const Game = require('./models/Game');
-const { createGame } = require('./gamelogic/socket_controllers/createGame');
 const { createPreGame } = require('./gamelogic/socket_controllers/createPreGame');
 const { updatePreGame } = require('./gamelogic/socket_controllers/updatePreGame');
+const { getStartPerspectiveRootCall } = require('./gamelogic/socket_controllers/updateGame');
+const { updatePreGameCoinResult, updateGameConfigGeneralRoot} = require('./gamelogic/socket_controllers/updatePreGame');
+const { getChangeRequestDecisionRootCall } = require('./gamelogic/socket_controllers/updateGame');
 const { getDeckbyId } = require('./gamelogic/socket_controllers/updatePreGame');
 const { getRoomSpecs } = require('./gameLogic/common/getRoomSpecs');
 const getPrizeCardsActiveGame = require('./gamelogic/common/getPrizeCardsActiveGame');
@@ -28,6 +30,7 @@ const dbConnect = require('./dbConnect');
 const userRoutes = require('./routes/user');
 const deckRoutes = require('./routes/deck');
 const PokemonRoutes = require('./routes/pokemon');
+const RequestStructure = require('./models/RequestStructure');
 
 const whitelist = [
   'http://localhost:4200',
@@ -91,7 +94,7 @@ const rooms = io.of('/').adapter.rooms;
 const sids = io.of('/').adapter.sids;
 
 //socketIO vars
-	
+
 
 // const req =http.request(options1, resp => {
 // 	let data = ''
@@ -120,12 +123,12 @@ io.on('connection', (socket) => {
 	var auth = function (data) {
 		// let trashtoken = "trashtoken";//trial for unauth
 		try {
-		const decoded = jwt.verify(data.token, process.env.JWT_SECRET);
+			const decoded = jwt.verify(data.token, process.env.JWT_SECRET);
 			let user = decoded.user;
-			
-			return { isAuth: true, data: user};//return user for single-need db transaction on deck
+
+			return { isAuth: true, data: user };//return user for single-need db transaction on deck
 		} catch (err) {
-			return {isAuth:false, data: null};
+			return { isAuth: false, data: null };
 		}
 	}
 
@@ -142,15 +145,15 @@ io.on('connection', (socket) => {
 	// 	  if (!err && decoded){
 	// 		//restore temporarily disabled connection
 	// 		io.sockets.connected[socket.id] = socket;
-	
+
 	// 		socket.decoded_token = decoded;
 	// 		socket.connectedAt = new Date();
-	
+
 	// 		// Disconnect listener
 	// 		socket.on('disconnect', function () {
 	// 		  console.log('SOCKET [%s] DISCONNECTED', socket.id);
 	// 		});
-	
+
 	// 		console.log('SOCKET [%s] CONNECTED', socket.id);
 	// 		socket.emit('authenticated');
 	// 		return { isAuth: true, data: data.token};//return data back and auth message to start db transaction for deck
@@ -160,7 +163,7 @@ io.on('connection', (socket) => {
 	// 	  }
 	// 	})
 	//   }
-	
+
 
 	let socketsConnectedLength = 0;
 	let valueSetOfRoom = undefined;
@@ -179,7 +182,7 @@ io.on('connection', (socket) => {
 		//check if room is already defined amongst rooms
 		if (roomSpecObj.roomSize == 0) {
 			socket.join(room);
-			//TODO if we've reached this point, and there was a socket already connected, its time to start the coin toss assignment
+			// if we've reached this point, and there was a socket already connected, its time to start the coin toss assignment
 			if (socketsConnectedLength == 1) {
 				console.debug(
 					'IMPL for requesting heads/tails needed here to give back result to both clients in room',
@@ -188,19 +191,19 @@ io.on('connection', (socket) => {
 			roomSpecObj = getRoomSpecs(rooms.entries(), room);//update roomspec obj with newly added socket of room
 		}
 
-		//TODO if we've reached this point, and there was a socket already connected, its time to start the coin toss assignment
+		// if we've reached this point, and there was a socket already connected, its time to start the coin toss assignment
 		else if (roomSpecObj.roomSize == 1) {
-			//TODO lots here because 2nd socket assumed during join
+			// lots here because 2nd socket assumed during join
 			socket.join(room);
 			roomSpecObj = getRoomSpecs(rooms.entries(), room);//update roomspec obj with newly added socket of room
-			//TODO replace sample call with local call with cross origin localhost
+			// replace sample call with local call with cross origin localhost
 			// console.debug("room spec obj on 2 player join is " + JSON.stringify(roomSpecObj));
 
-			let gameCreateObj = { roomId:roomSpecObj.roomName, players : [roomSpecObj.socketNames[0], roomSpecObj.socketNames[1]] };
-			const pregameCreatedConfirmation = await createPreGame(gameCreateObj.roomId, gameCreateObj.players );
+			let gameCreateObj = { roomId: roomSpecObj.roomName, players: [roomSpecObj.socketNames[0], roomSpecObj.socketNames[1]] };
+			const pregameCreatedConfirmation = await createPreGame(gameCreateObj.roomId, gameCreateObj.players);
 			// console.log("pregamecreatedconfirmation is " + pregameCreatedConfirmation)
-			if(pregameCreatedConfirmation !== undefined && pregameCreatedConfirmation.gameStatus === globalConstants.PREGAME_CREATE_SUCCESS){
-				//todo implement echo to room indicating to client side, that we're ready to receive decks
+			if (pregameCreatedConfirmation !== undefined && pregameCreatedConfirmation.gameStatus === globalConstants.PREGAME_CREATE_SUCCESS) {
+				// implement echo to room indicating to client side, that we're ready to receive decks
 				//this is due to nature of 'join_room' socket.io not allowing a body to be sent with the join
 				console.log('pregameconfirmed success on create')
 
@@ -208,7 +211,7 @@ io.on('connection', (socket) => {
 			} else {
 				this.logger.error("there is a bug involving pregameCreation, raise issue")
 			}
-		}	else {
+		} else {
 			room = null
 		}
 		socket.emit('joinResp', room); //sends confirmation to client by returning the room name, or null if the room was full/client already in room
@@ -243,38 +246,39 @@ io.on('connection', (socket) => {
 
 		//pass deck from deck id + player socket
 		let authRes = auth(data);
-		if (authRes.isAuth === true){		
+		if (authRes.isAuth === true) {
 			//UPDATE PREGAME via room id and player id
-			let deckToFind = data.deckId		
-			
+			let deckToFind = data.deckId
+
 			//await works on function because it is returning an asynch call, and will wait for it!
 			const pregameUpdatedResult = await updatePreGame(room, socket.id, deckToFind);
 			//take the result and emit coin toss if both decks are updated
 			let cardsPresent = true;
-			if (pregameUpdatedResult !== undefined){ //first log 
+			if (pregameUpdatedResult !== undefined) { //first log 
 				pregameUpdatedResult.players.forEach(element => {
-					if(element.cards.length >1){
+					if (element.cards.length > 1) {
 						console.log("found cards for a player")
 					}
-					else{
+					else {
 						console.log("DID NOT FIND CARDS for one of the players");
 						cardsPresent = false;
 					}
 				});
 			}
-			else{
-				console.log('SOMEHOWPREGAMEuPDATED RESULT IS NOT DEFINED ' );
+			else {
+				console.log('SOMEHOWPREGAMEuPDATED RESULT IS NOT DEFINED ');
 				cardsPresent = false;
 			}
-			//Will send to only 1 client once both decks are updated(last client to update will decide coin toss)
-			if(cardsPresent === true){
+			//Will send to both clients, one for waiting, 
+			if (cardsPresent === true) {
 
 				console.log("SHOULD EMIT coin toss now")
-				socket.emit('reqCoinTossDecision', {"socketToDecideCoinToss":socket.id});//client needs only signal, signifying send jwt+deck array position
+				socket.emit('reqCoinTossDecision', { "socketToDecideCoinToss": socket.id });//client needs only signal, signifying send jwt+deck array position
 
 			}
-			else{
-				console.log("Not emiting coin toss for this update...(only 1 user updated so far)")
+			else {
+				console.log("SHOULD EMIT coin toss decision loser because first to get here... always is second due to synchronized db activity and emissions")
+				socket.emit('reqCoinTossDecisionWaitingPlayer', { "socketToDecideCoinToss": socket.id })
 			}
 			console.log("Cards present for both? " + cardsPresent)
 			//emit to room, client will reject/approve to keep flow in agreement, backend won't allow non-socket coin decision client from happening
@@ -285,4 +289,182 @@ io.on('connection', (socket) => {
 			console.log("Auth users only permitted, SHOULD NOT reach this case...");
 		}
 	});
+
+
+	//happens after pregamedeck response, and after client submits coin decision
+	socket.on('coinDecision', async (data, room) => {
+		//message, room
+		//at this point they'v ebeen auth, joined a room, and sent their deck
+		//TODO get the corresponding gameconfig object of the player of the room
+
+		//pass deck from deck id + player socket
+		let authRes = auth(data);
+		if (authRes.isAuth === true) {
+			//headsOrTailsChosen is property used on payload by front-end expected here
+
+			//await works on function because it is returning an asynch call, and will wait for it!
+			const pregameUpdatedCoinResult = await updatePreGameCoinResult(room, socket.id, data.headsOrTailsChosen);
+
+
+			//ensures the both clients recieve necessary information to produce the coin toss and message indicating who decides play first when gameconfig initializes hereafter
+			let coinResult = ''
+			let coinTossPlayerChoseCorrect = false;
+			if (data.headsOrTailsChosen === globalConstants.HEADSSTR) {
+				if (pregameUpdatedCoinResult.coinDecisionSocketId === socket.id) {
+					coinTossPlayerChoseCorrect = true;
+					coinResult = globalConstants.HEADSSTR;
+				}
+				else {
+					coinResult = globalConstants.TAILSSTR;
+				}
+			}
+			else {
+				if (pregameUpdatedCoinResult.coinDecisionSocketId === socket.id) {
+					coinTossPlayerChoseCorrect = true;
+					coinResult = globalConstants.TAILSSTR;
+				}
+				else {
+					coinResult = globalConstants.HEADSSTR;
+				}
+			}
+			console.log('coin result determined before passing to room clients is ' + JSON.stringify(coinResult) + " while winning socket is " + JSON.stringify(pregameUpdatedCoinResult.coinDecisionSocketId));
+			//this merely allows animation to start by providing the coin toss function result, this way we can keep one method for responding to both
+			io.to(room).emit('coinResultReady', { 'coinResult': coinResult, 'coinTossPlayerChoseCorrect': coinTossPlayerChoseCorrect });
+
+
+			//we have everything we need to start the pregame, assign the player turn to the winning socket tracked by pregame confgi for now;
+
+
+
+			//todo determine how to emit to losing socket, since we're only listening to the one socket here, perhaps emit to room?
+			// if (pregameUpdatedCoinResult !== undefined) {
+			// 	pregameUpdatedCoinResult.players.forEach(element => {
+			// 		if (element.socketId === coinDecidingPlayer) {
+			// 			console.log("found losing player")
+			// 			console.log("found cards for a player")
+			// 		}
+			// 		else {
+			// 			console.log("DID NOT FIND CARDS for one of the players");
+			// 			cardsPresent = false;
+			// 		}
+			// 	});
+			// }
+
+			// else {
+			// 	console.log('SOMEHOWPREGAMEuPDATED RESULT IS NOT DEFINED ');
+			// 	cardsPresent = false;
+			// }
+
+		} else {
+			//consider handling this situation by disconnection
+			console.log("Auth users only permitted, SHOULD NOT reach this case...");
+		}
+	});
+
+
+	//emit first starting perspective, strict format, may need adaptation for showing other special content(like opponents hand on trainer etc)
+	socket.on('gameStart', async (data, room) => {
+		//message, room
+		//at this point they'v ebeen auth, joined a room, and sent their deck
+		//TODO get the corresponding gameconfig object of the player of the room
+
+		//pass deck from deck id + player socket
+		let authRes = auth(data);
+		if (authRes.isAuth === true) {
+			//headsOrTailsChosen is property used on payload by front-end expected here
+			console.log("user has requested game start of socket id " + JSON.stringify(socket.id));
+			const perspective = await getStartPerspectiveRootCall(room, socket.id);
+
+			socket.emit('showStartingPerspective', { "PlayerPerspective": perspective });//client needs only signal, signifying send jwt+deck array position
+
+
+		}
+		else {
+			console.log('unauth user has requested game start' + JSON.stringify(socket.id));
+		}
+	});
+	socket.on('gameViewUpdateRequest', async (data, room) => {
+		//message, room
+		//at this point they'v ebeen auth, joined a room, and sent their deck
+		//TODO get the corresponding gameconfig object of the player of the room
+
+		//pass deck from deck id + player socket
+		let authRes = auth(data);
+		if (authRes.isAuth === true) {
+			//headsOrTailsChosen is property used on payload by front-end expected here
+			console.log("user has requested game update(similar to start) of socket id " + JSON.stringify(socket.id));
+			const perspective = await getStartPerspectiveRootCall(room, socket.id);
+
+			socket.emit('showStartingPerspective', { "PlayerPerspective": perspective });//client needs only signal, signifying send jwt+deck array position
+
+
+		}
+		else {
+			console.log('unauth user has requested game update' + JSON.stringify(socket.id));
+		}
+	});
+	
+	
+	//Major begining of game update sequence req/resp/acknowledgement/resp to opposing player depending on determination 
+	socket.on('gameUpdate', async (data, room) => {
+		//message, room
+		//at this point they'v ebeen auth, joined a room, and sent their deck
+		//TODO get the corresponding gameconfig object of the player of the room
+		const requestStructure = new RequestStructure(data.requestFromPlayer) //allows us to obtain the constants
+		//pass deck from deck id + player socket
+		let authRes = auth(data);
+		if (authRes.isAuth === true) {
+			console.log("user has requested game UPDATE of socket id " + JSON.stringify(socket.id));
+			
+			//response to the request of a game update of any sort, energy attach, attack, everything from above root call
+			 
+			// this area checks legality of the move (phase 1 of update)
+			let respObject = await getChangeRequestDecisionRootCall(room, socket.id, requestStructure);
+			
+			//conditional to update gui for client to subsequently register and send acknowledgement of update back for other player to obtain
+			console.log("RESP OBJ VARIABLE is " + JSON.stringify(respObject));
+			             //apply change request and update the game config, vital for success of game flow
+            if (respObject.changeApproved){
+                //return updated game config object immediately to requesting user since approved!
+				// this area checks provides the gameConfig changes and perspective generations of the approved move (phase 2 of update)
+				 const updatedConfig = await updateGameConfigGeneralRoot(room, socket.id, requestStructure)
+				 respObject.perspective = updatedConfig;
+				 io.to(room).emit('promoteViewUpdate', {}); //triggers other player (identified by isTurn work? not if player attacked and switch turns)
+            }
+			socket.emit('showChangeRequestDecision', {"changeApproved": respObject.changeApproved, "PlayerPerspective": respObject.perspective });//client needs only signal, signifying send jwt+deck array position
+			//emit to opponent of requesting player to request them to update their view if changeApproved!
+	
+		}
+		else {
+			console.log('unauth user has requested game UPDATE' + JSON.stringify(socket.id));
+		}
+	});
+
+	//part 2 of above to send game config update to opposing player of requester
+
+	// socket.on('gameUpdateAck', async (data, room) => {
+	// 	//message, room
+	// 	//at this point they'v ebeen auth, joined a room, and sent their deck
+	// 	//TODO get the corresponding gameconfig object of the player of the room
+
+	// 	//pass deck from deck id + player socket
+	// 	let authRes = auth(data);
+	// 	if (authRes.isAuth === true) {
+	// 		//headsOrTailsChosen is property used on payload by front-end expected here
+	// 		console.log("user has requested game UPDATE of socket id " + JSON.stringify(socket.id));
+	// 		const perspective = await getChangeRequestDecisionRootCall(room, socket.id, data);
+	// 		//response to the request of a game update of any sort, energy attach, attack, everything from above root call
+			
+	// 		//conditional to update gui for client to subsequently register and send acknowledgement of update back for other player to obtain
+
+	// 		socket.emit('showChangeRequestDecision', { "PlayerPerspective": perspective });//client needs only signal, signifying send jwt+deck array position
+
+	// 	}
+	// 	else {
+	// 		console.log('unauth user has requested game start' + JSON.stringify(socket.id));
+	// 	}
+	// });
+
+
+
 });

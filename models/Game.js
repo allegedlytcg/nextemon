@@ -10,26 +10,37 @@ const GameSchema = new mongoose.Schema({
 		{
 			
 			socketId: { type: String, required: true },
+			energyAttachedThisTurn: false,
 			turn: false,
 			cards: [
 				{
+					//we could add 'inDeck' property, however we can deduce from the booleans below whether it is in the deck if it meets
+					//none of those categories, i.e. not isHand/isActive etc
+				
+					//user defined(us)
+					isHand:  { type: Boolean, default: false, },
+					isActive: { type: Boolean, default: false, },
+					isBench:  { type: Boolean, default: false, },
+					isInDeck: { type:Boolean, default: true},//must explicitly toggle off when deck modified
+					benchPos:  { type: Number, default: -1, },//should always be between 1-5 if 'isBench' is true
+					isPrizeCard:  { type: Boolean, default: false, },
+					isDiscarded:  { type: Boolean, default: false, },
+					hidden:  { type: Boolean, default: false, },
+					damageCounters:  { type: Number, default: 0, },//if damageCounter * 10 >= hp, the pokemon should be removed from play
+					//for all 'attachedAs' number indicates bench position/active pokemon, default is -1 interpreted as N/a
+					attachedAsEnergy: { type: Number, default: -1, },
+					attachedAsEvo:{type:Number, default:-1},
+					attachedAsTrainer:{type:Number, default:-1}, //for stupid defender and plus power that no one should use
+	
+					//api defined
+					types: [String],
+					retreatCost: [String],
 					id: String,
 					name: String,
-					isHand: false,
-					isbench: false,
-					isPrizeCard: false,
-					isDiscarded: false,
-					hidden: false,
-					damageCounters: [Number],
-					attachedEnergies: [],
-					nationalPokedexNumber: Number,
 					imageUrl: String,
-					imageUrlHiRes: String,
-					types: [String],
-					supertype: String,
 					subtype: String,
+					supertype: String,
 					hp: String,
-					retreatCost: [String],
 					convertedRetreatCost: Number,
 					number: String,
 					artist: String,
@@ -46,18 +57,23 @@ const GameSchema = new mongoose.Schema({
 							convertedEnergyCost: Number,
 						},
 					],
-					resistances: [
-						{
-							type: { type: String },
-							value: String,
-						},
-					],
 					weaknesses: [
 						{
 							type: { type: String },
 							value: String,
 						},
 					],
+					imageUrlHiRes: String,
+					nationalPokedexNumber: Number,
+					resistances: [
+						{
+							type: { type: String },
+							value: String,
+						},
+					],
+					
+		
+	
 				},
 			],
 		},
