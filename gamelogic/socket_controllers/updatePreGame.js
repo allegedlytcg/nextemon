@@ -584,7 +584,10 @@ const modifyGameConfig = async (player, reqStructureConfirmed, roomId) => {
 	// );
 		try{
 			const updatedGame = await Game.findOneAndUpdate({ roomId, "players.socketId": player },
-			{ $set: { "players.$.cards": tempCards, "players.$.energyAttachedThisTurn": true } },
+			{ $set: 
+				{ "players.$.cards": tempCards, 
+				"players.$.energyAttachedThisTurn": true }
+			 },
 			{ returnOriginal: false }
 		);
 			//, 

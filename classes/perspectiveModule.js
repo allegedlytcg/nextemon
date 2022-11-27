@@ -22,7 +22,7 @@ class PlayerPerspective {
         const requestingUserIsTurn = gameConfig.players.find(element => element.socketId === player1or2).turn;
         returnPerspective["isTurn"] = requestingUserIsTurn;
         // console.log('This players turn? ' + returnPerspective["isTurn"])
-        returnPerspective["energyAttachedThisTurn"] = returnPerspective["energyAttachedThisTurn"]
+        returnPerspective["energyAttachedThisTurn"] = gameConfig.players.find(element => element.socketId === player1or2).energyAttachedThisTurn;
         console.log('Energy attach for this players turn? ' + returnPerspective["energyAttachedThisTurn"])
         returnPerspective["inHand"] = requestingUsersCards.filter(element => element.isHand === true);
         //refactored to add all attached to active as well to be returned
