@@ -418,6 +418,7 @@ io.on('connection', (socket) => {
 			
 			//response to the request of a game update of any sort, energy attach, attack, everything from above root call
 			 
+			// this area checks legality of the move (phase 1 of update)
 			let respObject = await getChangeRequestDecisionRootCall(room, socket.id, requestStructure);
 			
 			//conditional to update gui for client to subsequently register and send acknowledgement of update back for other player to obtain
@@ -425,6 +426,7 @@ io.on('connection', (socket) => {
 			             //apply change request and update the game config, vital for success of game flow
             if (respObject.changeApproved){
                 //return updated game config object immediately to requesting user since approved!
+				// this area checks provides the gameConfig changes and perspective generations of the approved move (phase 2 of update)
 				 const updatedConfig = await updateGameConfigGeneralRoot(room, socket.id, requestStructure)
 				 respObject.perspective = updatedConfig;
 				 io.to(room).emit('promoteViewUpdate', {}); //triggers other player (identified by isTurn work? not if player attacked and switch turns)

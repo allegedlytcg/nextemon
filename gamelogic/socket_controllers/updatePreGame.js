@@ -6,6 +6,7 @@ const Game = require('../../models/Game')
 const { flipCoin } = require('../common');
 const { shuffleDeck } = require('../common');
 const RequestStructure = require("../../models/RequestStructure");
+const { getCurrentPerspectiveForGamePlayer } = require('../../classes/perspectiveModule');
 
 
 //each player updates pregame config with their chosen deck
@@ -163,7 +164,7 @@ async function updateGameConfigCoinResult(roomId, player, playerCoinDecision) {
 
 		const newGame = new Game({
 			roomId,
-			players: [{ socketId: updatedPregame.players[0].socketId, turn: isPlayer1Winner, energyAttachedThisTurn: false,  cards: updatedPregame.players[0].cards },
+			players: [{ socketId: updatedPregame.players[0].socketId, turn: isPlayer1Winner, energyAttachedThisTurn: false, cards: updatedPregame.players[0].cards },
 			{ socketId: updatedPregame.players[1].socketId, turn: !isPlayer1Winner, energyAttachedThisTurn: false, cards: updatedPregame.players[1].cards },
 
 			]
@@ -437,144 +438,133 @@ async function updateGameConfigCoinResult(roomId, player, playerCoinDecision) {
 		return error;
 	}
 }
+// provides update to game config, waits for it, and returns the new game config hopefully or we're in trouble
+// "You 'bout to witness hip-hop in its most purest
+// Most rawest form, flow almost flawless" -Marshall Mathers
 async function updateGameConfigGeneral(roomId, player, reqStructureConfirmed) {
 	try {
 		console.log("ROOMID sent with updategameconfig FOR UPDATE GAME CONFIG is "
-		 + roomId + " while player si " + player + "request structure as: \n" + JSON.stringify(reqStructureConfirmed));
+			+ roomId + " while player si " + player + "request structure as: \n" + JSON.stringify(reqStructureConfirmed));
 
-		const shit2 = await Game.findOne({ roomId });
 
-		console.log("UPDATE Found existing game record as " + shit2.roomId +
-			'maybe player here hopefully... ' + JSON.stringify(shit2.players[0].socketId) + 'is it player 1 turn? ');
-		let tempGame = JSON.parse(JSON.stringify(shit2));
+
+
 
 		//update deck's via shuffle and assignment of first 7 of shuffled to 'inhand' for both players
 
 		//todo determine update strategy based on confirmed request type passed in and src/destination details
 		//for example energy request involves 2 stacks, update request structure as needed to accomodate
 		// FOR ALL REQUEST TYPES AND CHANGES HERE!
-		let gameUpdates = modifyGameConfig(player, tempGame, reqStructureConfirmed);
+		let newPerspective = await modifyGameConfig(player, reqStructureConfirmed, roomId);
+		return newPerspective;
 
-
-		return shit2;
 
 	} catch (error) {
+		console.log('error in updateGameConfigGeneral is ' + JSON.stringify(error))
 		return error;
 	}
 }
 
 
-//PREVIOUS method confirms action allowance based on gameConfig, this applies the game config change itself
-const modifyGameConfig = async (player, curGameConfig, reqStructureConfirmed)=>{
+//PREVIOUS method confirms action allowance based on gameConfig, this applies the game config change itself and returns new perspective for requesting player
+const modifyGameConfig = async (player, reqStructureConfirmed, roomId) => {
 	//BASED ON REQ STRUCTURE MODIFY THE GAME AND APPLY UPDATE
+	const curGameConfig = await Game.findOne({ roomId });
+	const tempGame = JSON.parse(JSON.stringify(curGameConfig));
 	console.log("REQUEST STRUCTURE ON MOD GAME CONFIG IS " + JSON.stringify(reqStructureConfirmed))
 	console.log("REQUEST STRUCTURE constant logging is " + JSON.stringify(reqStructureConfirmed.ENERGY_ATTACH))
 	console.log("UPDATE player PASSED logging is " + JSON.stringify(player))
-	console.log("gameConfig players available are " + JSON.stringify(curGameConfig.players[0].socketId) + " and other player is " + JSON.stringify(curGameConfig.players[1].socketId))
-	const playerIndex = curGameConfig.players[0].socketId === player?0:1; //for update this players cards only energy attach
-
-
-	switch(reqStructureConfirmed.CATEGORY){
-		case(reqStructureConfirmed.ENERGY_ATTACH):
+	console.log("gameConfig players available are " + JSON.stringify(tempGame.players[0].socketId) + " and other player is " + JSON.stringify(tempGame.players[1].socketId))
+	const playerIndex = tempGame.players[0].socketId === player ? 0 : 1; //for update this players cards only energy attach
+	let errorFlag = false
+	let tempCards;
+	switch (reqStructureConfirmed.CATEGORY) {
+		case (reqStructureConfirmed.ENERGY_ATTACH):
 			console.log('energy attach game config change issued');
-			//remove source card from source stack and place in another array
-		
-			let tempCards =curGameConfig.players.filter((givenPlayer) => {
+
+			//get the index of the card we need to move with respect to all cards of player in GameConfig(energy card in this case)
+			//as a human we grab the cards that are in hand, and the src card index relative to that so...
+			//start index of isHand cards
+
+			tempCards = tempGame.players.filter((givenPlayer) => {
 				return givenPlayer.socketId === player
 			})[0].cards;
+			
 			console.log('temp cards of player here hopefully ' + JSON.stringify(tempCards));
-
-			//get the correct stack to remove from
-			let cardStackSrc = tempCards.filter((card)=>{return card.isHand === true});
-			console.log("card stack source is hopefully same order here as expected" + JSON.stringify(cardStackSrc));
-			let cardToSwap = cardStackSrc[reqStructureConfirmed.REQ_INFO.slctdSrcCardIndex];
-			console.log("card remembered hopefully is right one here for energy update" + JSON.stringify(cardToSwap));
-			//from bench or active for basic energy attach request, get destination stack
-			//switch for bench/active pos stack to add to
-			//get the correct stack to add to the end of array for update
-			let cardStackDest = [];
-			switch(reqStructureConfirmed.REQ_INFO.destStack){
-				case(reqStructureConfirmed.ACTIVE):
-					console.log("confirmed active 'ENERGY ATTACH'")
-					
-					cardStackDest = tempCards.filter((element) => {
-						return element.isActive === true || element.attachedAsEvo === 0 || element.attachedAsEnergy === 0
-					});		
+			console.log('reqStructure selected index is ' + reqStructureConfirmed.REQ_INFO.slctdSrcCardIndex);
+			let indexOfFirstOccurence = -1;
+			for (let i = 0; i < tempCards.length; i++) {
+				if (tempCards[i].isHand) {
+					indexOfFirstOccurence = i;
 					break;
-				case(reqStructureConfirmed.BENCH1):
-					console.error("confirmed bench 1 'ENERGY ATTACH'")
-					//hopefully get equivalent stack here as what we get in perspective or else tune it up to match exactly
-					cardStackDest = tempCards.filter((element) => {return element.isBench === true && (element.benchPos === 1 || element.attachedAsEvo === 1 || element.attachedAsEnergy === 1)});//should always have a valid bench position 1-5 if 'isBench' is true, see Game.js
-					if (cardStackDest === undefined) {
-						console.error('bench cards not defined energy attach update fail!')
-					}
-					if (cardStackDest !== undefined) {
-						console.log('bench cards found for destination ENERGY ATTACH are now ' + JSON.stringify(cardStackDest));
-					};
-					//at this point everything we need to make update just need to modify arrays
-					//remove from source stack
-					//how? get the isHand cards and locate the one we found via index and remove it
-					
-					//add to dest stack
-					const updatedGame = await Game.findOneAndUpdate({ roomId, "players.socketId": tempGame.players[playerIndex].socketId },
-						{ $set: { "players.$.cards": tempCards } },
-						{ returnOriginal: false }
-					);
-					console.log('udpated cards in game hopefully now ' + JSON.stringify(updatedGame).players[playerIndex].cards);
-
-					//return new gameConfig
-
-
-					break;
-				case(reqStructureConfirmed.BENCH2):
-					console.log("confirmed bench 2 'ENERGY ATTACH'")
-					break;
-				case(reqStructureConfirmed.BENCH3):
-					console.log("confirmed bench 3 'ENERGY ATTACH'")
-					break;
-				case(reqStructureConfirmed.BENCH4):
-					console.log("confirmed bench 4 'ENERGY ATTACH'")
-					break;
-				case(reqStructureConfirmed.BENCH5):
-					break;
-				default:
-					console.error("UNEXPECTED CONDITION FOR DESTINATION ON 'ENERGY ATTACH' MUST HANDLE THIS")
+				}
 			}
-	
-		console.log('destination stack hopefully in order here is ' + JSON.stringify(destStackArr));
-
-		//now to remove
-		// let newSrcArr =  cardStackSrc.slice(0, reqStructureConfirmed.slctdSrcCardIndex, cardStackSrc.length())
-	
-		// let newDestArr = cardStackDest
-		//TODO update the game according to new array values
-		//must obtain the new gameconfig properties to modify, including this energy attached
+			if (indexOfFirstOccurence >= 0) {
+				console.log('index of first occurence of ishand hopefuly is ' + JSON.stringify(indexOfFirstOccurence))
+				const overallIndexOfCardFromSourceStack = indexOfFirstOccurence + reqStructureConfirmed.REQ_INFO.slctdSrcCardIndex;
+				// let indexInCards = tempCards.indexOf(tempCards.filter((card) => {
+				console.log('overall index relative to gameConfig is ' + JSON.stringify(overallIndexOfCardFromSourceStack));
+				console.log('hopefully original card we need to edit now is here' + JSON.stringify(tempCards[overallIndexOfCardFromSourceStack]));
+				tempCards[overallIndexOfCardFromSourceStack].isHand = false
 
 
-		// const shuffledGame1 = await Game.findOneAndUpdate({ roomId, "players.socketId": tempGame.players[0].socketId },
-		// { $set: { "players.$.cards": changedPlayerCards } },
-		// { returnOriginal: false }
-		// );
 
-			break;
-		case(reqStructureConfirmed.TRAINER_ACTIVATE):
+				//tempCards[overallIndexOfCardFromSourceStack] modify for new stack now that its remove via tempCards
+				switch (reqStructureConfirmed.REQ_INFO.destStack) {
+					case (reqStructureConfirmed.ACTIVE):
+						console.log("confirmed active 'ENERGY ATTACH'")
+						tempCards[overallIndexOfCardFromSourceStack].attachedAsEnergy = 0;
+						break;
+					case (reqStructureConfirmed.BENCH1):
+						console.log("confirmed bench 1 'ENERGY ATTACH'")
+						tempCards[overallIndexOfCardFromSourceStack].attachedAsEnergy = 1;
+
+
+						break;
+					case (reqStructureConfirmed.BENCH2):
+						console.log("confirmed bench 2 'ENERGY ATTACH'")
+						break;
+					case (reqStructureConfirmed.BENCH3):
+						console.log("confirmed bench 3 'ENERGY ATTACH'")
+						break;
+					case (reqStructureConfirmed.BENCH4):
+						console.log("confirmed bench 4 'ENERGY ATTACH'")
+						break;
+					case (reqStructureConfirmed.BENCH5):
+						break;
+					default:
+						console.error("UNEXPECTED CONDITION FOR DESTINATION ON 'ENERGY ATTACH' MUST HANDLE THIS")
+						break;
+
+				}
+
+
+				break;
+			}
+			else {
+				errorFlag = true;
+				console.error('error that must be handled/debugged in finding index of first occurence used for perspective filters')
+				break;
+			}
+
+		case (reqStructureConfirmed.TRAINER_ACTIVATE):
 			console.log('hit TRAINER ACTIVATE request')
 
 			break;
-		case(reqStructureConfirmed.RETREAT_ORDER):
+		case (reqStructureConfirmed.RETREAT_ORDER):
 			console.log('hit RETREAT ORDER request')
 
 			break;
-		case(reqStructureConfirmed.EVOLVE_ORDER):
+		case (reqStructureConfirmed.EVOLVE_ORDER):
 			console.log('hit EVOLVE ORDER request')
 
 			break;
-		case(reqStructureConfirmed.ATTACK_ORDER):
-		console.log('hit ATTACK ORDER request')
+		case (reqStructureConfirmed.ATTACK_ORDER):
+			console.log('hit ATTACK ORDER request')
 
 			break;
-		case(reqStructureConfirmed.POKE_POWER):
-		console.log('hit ENERGY ATTACH request')
+		case (reqStructureConfirmed.POKE_POWER):
+			console.log('hit ENERGY ATTACH request')
 
 			break;
 		default:
@@ -583,8 +573,34 @@ const modifyGameConfig = async (player, curGameConfig, reqStructureConfirmed)=>{
 
 	}
 
+	//update game with energy status changes for request
+	if (errorFlag) {
+		console.error('error occured at some point when attempting to confirm updatedGame')
+	}
+	else {
+	// 	const shuffledGame1 = await Game.findOneAndUpdate({ roomId, "players.socketId": tempGame.players[0].socketId },
+	// 	{ $set: { "players.$.cards": shuffledPlayer1Deck } },
+	// 	{ returnOriginal: false }
+	// );
+		try{
+			const updatedGame = await Game.findOneAndUpdate({ roomId, "players.socketId": player },
+			{ $set: { "players.$.cards": tempCards, "players.$.energyAttachedThisTurn": true } },
+			{ returnOriginal: false }
+		);
+			//, 
+		console.log('this game even updated? ' + JSON.stringify(updatedGame))
+		}
+		catch(error){
+			console.log('error during update at db interface step' + error);
+		}
 
-	
+	}
+
+
+	//wait for shit to update
+	const shit2 = await Game.findOne({ roomId });
+	const newPerspective = getCurrentPerspectiveForGamePlayer(player, shit2);
+	return newPerspective;
 }
 
 const updatePreGame = (roomId, player, deckToFind) => {
@@ -596,7 +612,7 @@ const updatePreGameCoinResult = (roomId, player, playerCoinDecision) => {
 	return updateGameConfigCoinResult(roomId, player, playerCoinDecision);
 }
 
-const updateGameConfigGeneralRoot = (roomId, player, reqStructureConfirmed)  => {
+const updateGameConfigGeneralRoot = (roomId, player, reqStructureConfirmed) => {
 	return updateGameConfigGeneral(roomId, player, reqStructureConfirmed)
 }
 

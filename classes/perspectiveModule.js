@@ -10,8 +10,8 @@ class PlayerPerspective {
     
     //applies heavy filter to obtain correct display information on client side for any given user
     static getCurrentPerspectiveForGamePlayer(player1or2, gameConfig) {
-        console.log("in constructor, gameConfig roomId is "
-            + JSON.stringify(gameConfig.roomId) + " and player socketid passed is " + JSON.stringify(player1or2));
+        // console.log("in constructor, gameConfig roomId is "
+        //     + JSON.stringify(gameConfig.roomId) + " and player socketid passed is " + JSON.stringify(player1or2));
 
         //nd hand, bench, active
         let returnPerspective = new Perspective();
@@ -21,7 +21,7 @@ class PlayerPerspective {
         const requestingUsersCards = gameConfig.players.find(element => element.socketId === player1or2).cards;
         const requestingUserIsTurn = gameConfig.players.find(element => element.socketId === player1or2).turn;
         returnPerspective["isTurn"] = requestingUserIsTurn;
-        console.log('This players turn? ' + returnPerspective["isTurn"])
+        // console.log('This players turn? ' + returnPerspective["isTurn"])
         returnPerspective["energyAttachedThisTurn"] = returnPerspective["energyAttachedThisTurn"]
         console.log('Energy attach for this players turn? ' + returnPerspective["energyAttachedThisTurn"])
         returnPerspective["inHand"] = requestingUsersCards.filter(element => element.isHand === true);
@@ -41,11 +41,11 @@ class PlayerPerspective {
         if (benchCards !== undefined) {
             benchCards.forEach(
                 card => returnPerspective["bench"].push([card]));
-            console.log('bench cards found are now ' + JSON.stringify(benchCards));
+            // console.log('bench cards found are now ' + JSON.stringify(benchCards));
         };
 
         for (let i = 0; i < returnPerspective["bench"].length; i++) {
-            console.log('returnperspective[bench] is ' + JSON.stringify(returnPerspective["bench"][i]) + ' AND of type ' + typeof (returnPerspective["bench"]))
+            // console.log('returnperspective[bench] is ' + JSON.stringify(returnPerspective["bench"][i]) + ' AND of type ' + typeof (returnPerspective["bench"]))
             let foundAttachedEvo = requestingUsersCards.filter(card => i + 1 === card.attachedAsEvo);
             foundAttachedEvo.forEach(attachedEvo => returnPerspective["bench"][i].push(attachedEvo))
 
@@ -57,7 +57,7 @@ class PlayerPerspective {
 
         }
         // console.log('returnPerspective for bench is ' + JSON.stringify(returnPerspective["bench"]))
-        console.log('returnPerspective for prizes is ' + JSON.stringify(returnPerspective["prizeCount"]))
+        // console.log('returnPerspective for prizes is ' + JSON.stringify(returnPerspective["prizeCount"]))
 
 
         //add all bench to list first
@@ -67,7 +67,7 @@ class PlayerPerspective {
         returnPerspective["isDiscarded"] = requestingUsersCards.filter(element => element.isDiscarded === true);
 
 
-        console.log("found requesting player for perspective?" + requestingUsersCards[0].name);
+        // console.log("found requesting player for perspective?" + requestingUsersCards[0].name);
         const opponentsCards = gameConfig.players.find(element => element.socketId !== player1or2).cards;
         returnPerspective["oppInHandCount"] = opponentsCards.filter(element => element.isHand === true).length;
         returnPerspective["oppActive"] = opponentsCards.filter(element => element.isActive === true);
@@ -81,7 +81,7 @@ class PlayerPerspective {
         if (oppBenchCards !== undefined) {
             oppBenchCards.forEach(
                 card => returnPerspective["oppBench"].push([card]));
-            console.log('opp bench cards found are now ' + JSON.stringify(oppBenchCards));
+            // console.log('opp bench cards found are now ' + JSON.stringify(oppBenchCards));
         };
         for (let i = 0; i < returnPerspective["oppBench"].length; i++) {
             console.log('returnperspective[oppBench] is ' + JSON.stringify(returnPerspective["oppBench"][i]) + ' AND of type ' + typeof (returnPerspective["oppBench"]))
@@ -96,7 +96,7 @@ class PlayerPerspective {
 
         }
         returnPerspective["oppIsDiscarded"] = opponentsCards.filter(element => element.isDiscarded === true);
-        console.log('returnPerspective for prizes OPPONENT is ' + JSON.stringify(returnPerspective["oppPrizeCount"]))
+        // console.log('returnPerspective for prizes OPPONENT is ' + JSON.stringify(returnPerspective["oppPrizeCount"]))
 
         // console.log("found opposing player for perspective?" + opponentsCards[0].name);
 
@@ -199,9 +199,9 @@ class PlayerPerspective {
 
                //if any of the above are false, return respObj, otherwise change the gameConfiguration and save to db
      
-            respObj.perspective.energyAttachedThisTurn = true;
+           
             respObj.changeApproved = true;
-            // changeGameConfig()
+           
         
 
             return respObj
