@@ -475,7 +475,7 @@ const modifyGameConfig = async (player, reqStructureConfirmed, roomId) => {
 	console.log("REQUEST STRUCTURE constant logging is " + JSON.stringify(reqStructureConfirmed.ENERGY_ATTACH))
 	console.log("UPDATE player PASSED logging is " + JSON.stringify(player))
 	console.log("gameConfig players available are " + JSON.stringify(tempGame.players[0].socketId) + " and other player is " + JSON.stringify(tempGame.players[1].socketId))
-	const playerIndex = tempGame.players[0].socketId === player ? 0 : 1; //for update this players cards only energy attach
+	// const playerIndex = tempGame.players[0].socketId === player ? 0 : 1; //for update this players cards only energy attach
 	let errorFlag = false
 	let tempCards;
 	switch (reqStructureConfirmed.CATEGORY) {
@@ -493,6 +493,8 @@ const modifyGameConfig = async (player, reqStructureConfirmed, roomId) => {
 			console.log('temp cards of player here hopefully ' + JSON.stringify(tempCards));
 			console.log('reqStructure selected index is ' + reqStructureConfirmed.REQ_INFO.slctdSrcCardIndex);
 			let indexOfFirstOccurence = -1;
+			let totalCardsInHand = tempCards.filter((card)=>{return card.isHand}).length;
+			console.log('total cards in hand are ' + totalCardsInHand)
 			for (let i = 0; i < tempCards.length; i++) {
 				if (tempCards[i].isHand) {
 					indexOfFirstOccurence = i;
@@ -501,7 +503,8 @@ const modifyGameConfig = async (player, reqStructureConfirmed, roomId) => {
 			}
 			if (indexOfFirstOccurence >= 0) {
 				console.log('index of first occurence of ishand hopefuly is ' + JSON.stringify(indexOfFirstOccurence))
-				const overallIndexOfCardFromSourceStack = indexOfFirstOccurence + reqStructureConfirmed.REQ_INFO.slctdSrcCardIndex;
+				//since ui cards appear in reverse, we need the total length
+				const overallIndexOfCardFromSourceStack = indexOfFirstOccurence + totalCardsInHand - 1 - reqStructureConfirmed.REQ_INFO.slctdSrcCardIndex;
 				// let indexInCards = tempCards.indexOf(tempCards.filter((card) => {
 				console.log('overall index relative to gameConfig is ' + JSON.stringify(overallIndexOfCardFromSourceStack));
 				console.log('hopefully original card we need to edit now is here' + JSON.stringify(tempCards[overallIndexOfCardFromSourceStack]));
@@ -523,14 +526,19 @@ const modifyGameConfig = async (player, reqStructureConfirmed, roomId) => {
 						break;
 					case (reqStructureConfirmed.BENCH2):
 						console.log("confirmed bench 2 'ENERGY ATTACH'")
+						tempCards[overallIndexOfCardFromSourceStack].attachedAsEnergy = 2;
 						break;
 					case (reqStructureConfirmed.BENCH3):
 						console.log("confirmed bench 3 'ENERGY ATTACH'")
+						tempCards[overallIndexOfCardFromSourceStack].attachedAsEnergy = 3;
 						break;
 					case (reqStructureConfirmed.BENCH4):
 						console.log("confirmed bench 4 'ENERGY ATTACH'")
+						tempCards[overallIndexOfCardFromSourceStack].attachedAsEnergy = 4;
 						break;
 					case (reqStructureConfirmed.BENCH5):
+						console.log("confirmed bench 5 'ENERGY_ATTACH'")
+						tempCards[overallIndexOfCardFromSourceStack].attachedAsEnergy = 5;
 						break;
 					default:
 						console.error("UNEXPECTED CONDITION FOR DESTINATION ON 'ENERGY ATTACH' MUST HANDLE THIS")

@@ -84,7 +84,7 @@ class PlayerPerspective {
             // console.log('opp bench cards found are now ' + JSON.stringify(oppBenchCards));
         };
         for (let i = 0; i < returnPerspective["oppBench"].length; i++) {
-            console.log('returnperspective[oppBench] is ' + JSON.stringify(returnPerspective["oppBench"][i]) + ' AND of type ' + typeof (returnPerspective["oppBench"]))
+            // console.log('returnperspective[oppBench] is ' + JSON.stringify(returnPerspective["oppBench"][i]) + ' AND of type ' + typeof (returnPerspective["oppBench"]))
             let foundAttachedEvo = opponentsCards.filter(card => i + 1 === card.attachedAsEvo);
             foundAttachedEvo.forEach(attachedEvo => returnPerspective["oppBench"][i].push(attachedEvo))
 
