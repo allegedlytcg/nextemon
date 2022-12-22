@@ -22,7 +22,7 @@
 		"express": "^4.17.1",
 		"find-config": "^1.0.0",
 		"helmet": "^4.6.0",
-		"jsonwebtoken": "^8.5.1",
+		"jsonwebtoken": "^9.0.0",
 		"killport": "^1.0.2",
 		"lodash": "^4.17.21",
 		"mongodb": "^3.6.6",
